@@ -1,1 +1,14 @@
 @import 'tailwindcss';
+
+@theme {
+	/* 1. Font token values */
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica,
+		Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+	--font-serif:
+		'Zilla Slab', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times,
+		Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+}
+body {
+	@apply font-serif text-blue-900 bg-yellow-300;
+}
