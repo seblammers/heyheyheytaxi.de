@@ -5,6 +5,8 @@
 			Ich steige in ein Taxi, und das Taxi ist eine Internetseite und die Internetseite wird das
 			Zuhause für all eure Taxi-Geschichten sein.
 		</p>
-		<pre>Das hier sieht man nur auf der Development-Instanz.</pre>
+		<div class="rounded-md border-white border-2 p-4 mt-4 w-fit">
+			<pre>Das hier sieht man nur auf der Development-Instanz.</pre>
+		</div>
 	</div>
 </section>
