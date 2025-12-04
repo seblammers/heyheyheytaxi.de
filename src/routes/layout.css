@@ -1,14 +1,354 @@
 @import 'tailwindcss';
+@plugin 'tailwindcss-animate';
+@layer base {
+	/* these styles are used for bits-ui. we put it first so our own styles may override them where needed below. */
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-border-card, currentColor);
+	}
 
+	* {
+		@apply border-border;
+	}
+	html {
+		-webkit-text-size-adjust: 100%;
+		font-variation-settings: normal;
+		scrollbar-color: var(--bg-muted);
+	}
+	html {
+		font-size: 156%; /* 25px / 16px = 156% */
+	}
+	@media (max-width: 576px) {
+		html {
+			font-size: 100%; /* 16px base font size for smaller screens */
+		}
+	}
+}
+
+:root {
+	/* BITS UI */
+	/* Colors */
+	--background: hsl(0 0% 100%);
+	--background-alt: hsl(0 0% 100%);
+	--foreground: hsl(0 0% 9%);
+	--foreground-alt: hsl(0 0% 32%);
+	--muted: hsl(240 5% 96%);
+	--muted-foreground: hsla(0 0% 9% / 0.4);
+	--border: hsl(240 6% 10%);
+	--border-input: hsla(240 6% 10% / 0.17);
+	--border-input-hover: hsla(240 6% 10% / 0.4);
+	--border-card: hsla(240 6% 10% / 0.1);
+	--dark: hsl(240 6% 10%);
+	--dark-10: hsla(240 6% 10% / 0.1);
+	--dark-40: hsla(240 6% 10% / 0.4);
+	--dark-04: hsla(240 6% 10% / 0.04);
+	--accent: hsl(204 94% 94%);
+	--accent-foreground: hsl(204 80% 16%);
+	--destructive: hsl(347 77% 50%);
+	--tertiary: hsl(37.7 92.1% 50.2%);
+	--line: hsl(0 0% 100%);
+
+	/* black */
+	--contrast: hsl(0 0% 0%);
+
+	/* Shadows */
+	--shadow-mini: 0px 1px 0px 1px rgba(0, 0, 0, 0.04);
+	--shadow-mini-inset: 0px 1px 0px 0px rgba(0, 0, 0, 0.04) inset;
+	--shadow-popover: 0px 7px 12px 3px hsla(var(--dark-10));
+	--shadow-kbd: 0px 2px 0px 0px rgba(0, 0, 0, 0.07);
+	--shadow-btn: 0px 1px 0px 1px rgba(0, 0, 0, 0.03);
+	--shadow-card: 0px 2px 0px 1px rgba(0, 0, 0, 0.04);
+	--shadow-date-field-focus: 0px 0px 0px 3px rgba(24, 24, 27, 0.17);
+}
+
+/* inside the theme, we define our design tokens.
+  theese tokens are used to create tailwind utilities. keep in mind:
+   - defined at the top-level and 
+   - not nested under other selectors or media queries */
 @theme {
-	/* 1. Font token values */
+	--color-taxi-yellow: #ffdf20;
+	--color-taxi-blue: #1c398e;
+	--color-background: var(--background);
+	--color-background-alt: var(--background-alt);
+	--color-foreground: var(--foreground);
+	--color-foreground-alt: var(--foreground-alt);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-border: var(--border-card);
+	--color-border-input: var(--border-input);
+	--color-border-input-hover: var(--border-input-hover);
+	--color-border-card: var(--border-card);
+	--color-dark: var(--dark);
+	--color-dark-10: var(--dark-10);
+	--color-dark-40: var(--dark-40);
+	--color-dark-04: var(--dark-04);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-tertiary: var(--tertiary);
+	--color-line: var(--line);
+	--color-contrast: var(--contrast);
+
+	--shadow-mini: var(--shadow-mini);
+	--shadow-mini-inset: var(--shadow-mini-inset);
+	--shadow-popover: var(--shadow-popover);
+	--shadow-kbd: var(--shadow-kbd);
+	--shadow-btn: var(--shadow-btn);
+	--shadow-card: var(--shadow-card);
+	--shadow-date-field-focus: var(--shadow-date-field-focus);
+
+	--text-xxs: 10px;
+
+	--radius-card: 16px;
+	--radius-card-lg: 20px;
+	--radius-card-sm: 10px;
+	--radius-input: 9px;
+	--radius-button: 5px;
+	--radius-5px: 5px;
+	--radius-9px: 9px;
+	--radius-10px: 10px;
+	--radius-15px: 15px;
+
+	--spacing-input: 3rem;
+	--spacing-input-sm: 2.5rem;
+
+	--breakpoint-desktop: 1440px;
+
+	--animate-accordion-down: accordion-down 0.2s ease-out;
+	--animate-accordion-up: accordion-up 0.2s ease-out;
+	--animate-caret-blink: caret-blink 1s ease-out infinite;
+	--animate-scale-in: scale-in 0.2s ease;
+	--animate-scale-out: scale-out 0.15s ease;
+	--animate-fade-in: fade-in 0.2s ease;
+	--animate-fade-out: fade-out 0.15s ease;
+	--animate-enter-from-left: enter-from-left 0.2s ease;
+	--animate-enter-from-right: enter-from-right 0.2s ease;
+	--animate-exit-to-left: exit-to-left 0.2s ease;
+	--animate-exit-to-right: exit-to-right 0.2s ease;
+
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--bits-accordion-content-height);
+		}
+	}
+
+	@keyframes accordion-up {
+		from {
+			height: var(--bits-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+
+	@keyframes caret-blink {
+		0%,
+		70%,
+		100% {
+			opacity: 1;
+		}
+		20%,
+		50% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes enter-from-right {
+		from {
+			opacity: 0;
+			transform: translateX(200px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes enter-from-left {
+		from {
+			opacity: 0;
+			transform: translateX(-200px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes exit-to-right {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateX(200px);
+		}
+	}
+
+	@keyframes exit-to-left {
+		from {
+			opacity: 1;
+			transform: translateX(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateX(-200px);
+		}
+	}
+
+	@keyframes scale-in {
+		from {
+			opacity: 0;
+			transform: rotateX(-10deg) scale(0.9);
+		}
+		to {
+			opacity: 1;
+			transform: rotateX(0deg) scale(1);
+		}
+	}
+
+	@keyframes scale-out {
+		from {
+			opacity: 1;
+			transform: rotateX(0deg) scale(1);
+		}
+		to {
+			opacity: 0;
+			transform: rotateX(-10deg) scale(0.95);
+		}
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes fade-out {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+
 	--font-sans:
 		-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica,
 		Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 	--font-serif:
 		'Zilla Slab', Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times,
 		Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+	--font-sans: 'sans-serif';
+	--font-mono: 'Courier', 'sans-serif';
+	--font-alt: 'Courier', 'sans-serif';
+	--font-display: var(--font-serif);
+
+	--font-heading: var(--font-serif);
+	--font-body: var(--font-serif);
+
+	--text-4xl: 3.5rem; /* H1 */
+	--text-3xl: 3rem; /* H2 */
+	--text-2xl: 2.5rem; /* H3 */
+	--text-xl: 2rem; /* H4 */
+	--text-lg: 1.5rem; /* H5 */
+	--text-md: 1.25rem; /* H6 */
+	--text-base: 1rem; /* P */
+	--text-sm: 1rem; /* Tagline */
+	--text-xs: 0.75rem;
+	--text-2xs: 0.625rem;
+	--text-0: 0px;
+
+	--breakpoint-sm: 576px;
+	--breakpoint-md-min: 768px;
+	--breakpoint-md: 960px;
+	--breakpoint-lg: 1185px;
+	--breakpoint-xl: 1379px;
+	--breakpoint-2xl: 1536px;
+	--breakpoint-3xl: 2000px;
+
+	--spacing-3xs: 0.25rem;
+	--spacing-2xs: 0.5rem;
+	--spacing-xs: 0.75rem;
+	--spacing-sm: 1rem;
+	--spacing-md: 1.5rem;
+	--spacing-lg: 2rem;
+	--spacing-xl: 3rem;
+	--spacing-2xl: 4rem;
+	--spacing-3xl: 6rem;
+	--spacing-4xl: 9rem;
+	--spacing-5xl: 12rem;
+	--spacing-0: 0px;
 }
+
+:root {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-variant-ligatures: none;
+	}
+	/* 6. Text size token use-case */
+	h1 {
+		@apply text-4xl;
+	}
+	h2 {
+		@apply text-2xl;
+	}
+	h3 {
+		@apply text-lg;
+	}
+	h4 {
+		@apply text-md;
+	}
+	p {
+		@apply text-base;
+	}
+
+	@apply scroll-pt-[8rem] scroll-smooth;
+	--body-width: 1624px;
+	--header-height: 96px;
+}
+/* basic body styles */
 body {
-	@apply font-serif text-blue-900 bg-yellow-300;
+	height: 100vh;
+	margin-inline: auto;
+	max-width: var(--body-width);
+	@apply flex flex-col bg-taxi-yellow font-body text-base/[150%] text-taxi-blue antialiased;
+}
+
+/* main styles */
+main {
+	flex: 1 0 auto;
+	overflow: hidden;
+}
+
+/* fix for scroll position after navigation */
+/* see: https://github.com/sveltejs/kit/issues/2733 */
+html {
+	scroll-behavior: unset !important;
+}
+/* screen reader only */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
