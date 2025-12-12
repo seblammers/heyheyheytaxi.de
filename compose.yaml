@@ -15,5 +15,8 @@ services:
         NODE_ENV: production
     environment:
       NODE_ENV: production
+      # Supabase environment variables (set these in Coolify)
+      # PUBLIC_SUPABASE_URL: https://your-project.supabase.co
+      # PUBLIC_SUPABASE_ANON_KEY: your-anon-key
     ports:
       - 3000:3000
