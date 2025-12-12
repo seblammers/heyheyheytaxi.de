@@ -23,6 +23,7 @@
 		"@floating-ui/dom": "^1.7.4",
 		"@fontsource/zilla-slab": "^5.2.8",
 		"@lucide/svelte": "^0.555.0",
+		"@supabase/supabase-js": "^2.87.1",
 		"@sveltejs/adapter-node": "^5.4.0",
 		"@sveltejs/kit": "^2.48.5",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",

@@ -317,7 +317,7 @@
 		@apply text-base;
 	}
 
-	@apply scroll-pt-[8rem] scroll-smooth;
+	@apply scroll-pt-32 scroll-smooth;
 	--body-width: 1624px;
 	--header-height: 96px;
 }
@@ -351,4 +351,35 @@ html {
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
 	border-width: 0;
+}
+
+/* Section layout system */
+.nk-section {
+	@apply py-xl md:py-2xl;
+}
+
+.nk-section + .nk-section {
+	@apply pt-0; /* Collapse spacing between adjacent sections */
+}
+
+.nk-container {
+	@apply mx-auto max-w-[1200px] px-sm md:px-md;
+}
+
+.nk-card {
+	@apply rounded-card border border-border-card bg-background p-md shadow-card;
+}
+
+/* Post content styling - renders Tiptap HTML */
+.post-content {
+	@apply text-base leading-relaxed;
+}
+.post-content p {
+	@apply mb-sm;
+}
+.post-content strong {
+	@apply font-bold;
+}
+.post-content em {
+	@apply italic;
 }
