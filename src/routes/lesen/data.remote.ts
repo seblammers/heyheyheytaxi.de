@@ -85,6 +85,45 @@ export const getPost = query(z.string(), async (slug) => {
 	return transformPost(data);
 });
 
+// Validate edit token for a specific post
+export const validateEditToken = query(
+	z.object({
+		slug: z.string(),
+		token: z.string()
+	}),
+	async ({ slug, token }) => {
+		try {
+			// Get post to verify token
+			const { data: post, error: selectError } = await supabase
+				.from('posts')
+				.select('edit_token_hash')
+				.eq('slug', slug)
+				.single();
+
+			if (selectError || !post) {
+				console.error('[validateEditToken] Post not found:', selectError);
+				return { valid: false, reason: 'Post nicht gefunden' };
+			}
+
+			// If post has no token hash, it's an old post that can't be edited
+			if (!post.edit_token_hash) {
+				return { valid: false, reason: 'Dieser Post kann nicht bearbeitet werden' };
+			}
+
+			// Verify token
+			const isValid = await verifyToken(token, post.edit_token_hash);
+			if (!isValid) {
+				return { valid: false, reason: 'Ungültiger Bearbeitungstoken' };
+			}
+
+			return { valid: true };
+		} catch (err) {
+			console.error('[validateEditToken] Error:', err);
+			return { valid: false, reason: 'Fehler bei der Token-Validierung' };
+		}
+	}
+);
+
 // Submit a new post (form with validation)
 export const submitPost = form(
 	z.object({
@@ -185,13 +224,16 @@ export const updatePost = form(
 			}
 
 			if (!post.edit_token_hash) {
-				throw error(403, 'Dieser Post kann nicht bearbeitet werden');
+				throw error(
+					403,
+					'Dieser Post kann nicht bearbeitet werden, weil er keinen Bearbeitungstoken hat.'
+				);
 			}
 
 			// Verify token
 			const isValid = await verifyToken(token, post.edit_token_hash);
 			if (!isValid) {
-				throw error(403, 'Ungültiger Bearbeitungstoken');
+				throw error(403, 'Ungültiger Bearbeitungstoken.');
 			}
 
 			// Update post
