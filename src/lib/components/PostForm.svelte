@@ -2,9 +2,12 @@
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
+	import { saveToken } from '$lib/utils/tokenStorage';
 
 	let editorContent = $state('');
 	let contentTextarea: HTMLTextAreaElement;
+	let editToken = $state<string | null>(null);
+	let tokenCopied = $state(false);
 
 	function handleEditorUpdate(html: string) {
 		editorContent = html;
@@ -21,6 +24,29 @@
 			contentTextarea.value = editorContent;
 		}
 	});
+
+	// Handle successful submission
+	$effect(() => {
+		if (submitPost.result?.success && submitPost.result?.editToken) {
+			editToken = submitPost.result.editToken;
+		}
+	});
+
+	function handleSaveToken(slug: string, token: string) {
+		saveToken(slug, token);
+		alert(
+			'Token wurde im Browser gespeichert! Du kannst deine Geschichte jetzt jederzeit bearbeiten.'
+		);
+	}
+
+	function handleCopyToken(token: string) {
+		navigator.clipboard.writeText(token).then(() => {
+			tokenCopied = true;
+			setTimeout(() => {
+				tokenCopied = false;
+			}, 2000);
+		});
+	}
 </script>
 
 <form {...submitPost} class="flex flex-col gap-md">
@@ -84,9 +110,38 @@
 	</div>
 
 	{#if submitPost.result?.success}
-		<div class="p-sm bg-accent text-accent-foreground rounded-card text-center">
-			<p class="font-bold">Danke für deine Geschichte!</p>
-			<p class="text-sm">Sie wird bald veröffentlicht.</p>
+		<div class="p-md bg-accent text-accent-foreground rounded-card">
+			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
+			<p class="text-sm mb-md">Sie wird bald veröffentlicht.</p>
+
+			{#if editToken && submitPost.result?.slug}
+				<div class="mt-md p-sm bg-background rounded-card border border-border">
+					<p class="font-bold mb-xs text-sm">📝 Bearbeitungstoken:</p>
+					<div class="flex items-center gap-xs mb-sm">
+						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
+							{editToken}
+						</code>
+						<button
+							type="button"
+							onclick={() => handleCopyToken(editToken!)}
+							class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+						>
+							{tokenCopied ? '✓ Kopiert' : 'Kopieren'}
+						</button>
+					</div>
+					<p class="text-xs text-foreground-alt mb-sm">
+						⚠️ WICHTIG: Speichere diesen Token sicher! Mit diesem Token kannst du deine Geschichte
+						später bearbeiten oder löschen.
+					</p>
+					<button
+						type="button"
+						onclick={() => handleSaveToken(submitPost.result!.slug, editToken!)}
+						class="w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+					>
+						In Browser speichern
+					</button>
+				</div>
+			{/if}
 		</div>
 	{/if}
 

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import PostCard from '$lib/components/PostCard.svelte';
 	import { getApprovedPosts } from './data.remote';
+	import { page } from '$app/state';
+
+	const deleted = $derived(page.url.searchParams.get('deleted') === 'true');
 </script>
 
 <svelte:head>
@@ -14,6 +17,13 @@
 			<h1>Taxi-Geschichten</h1>
 			<p class="text-foreground-alt">Hier findest du alle Geschichten aus unserer Community.</p>
 		</header>
+
+		{#if deleted}
+			<div class="mb-md p-md bg-accent text-accent-foreground rounded-card text-center">
+				<p class="font-bold text-lg mb-xs">✓ Deine Geschichte wurde permanent gelöscht.</p>
+				<p class="text-sm">Die Löschung war erfolgreich.</p>
+			</div>
+		{/if}
 
 		<svelte:boundary>
 			{#snippet pending()}

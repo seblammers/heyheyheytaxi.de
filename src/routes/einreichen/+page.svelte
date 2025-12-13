@@ -6,7 +6,7 @@
 	<title>Geschichte einreichen | Hey, hey, hey, Taxi!</title>
 	<meta
 		name="description"
-		content="Teile deine Taxi-Geschichte mit der Community. Egal ob lustig, skurril oder bewegend – wir freuen uns auf deine Erlebnisse!"
+		content="Teile deine Taxi-Geschichte mit der Community. Egal ob lustig, skurril oder bewegend – wir freuen uns auf deine Geschichte!"
 	/>
 </svelte:head>
 
@@ -15,8 +15,8 @@
 		<header class="flex flex-col gap-sm mb-xl text-center">
 			<h1>Teile deine Geschichte</h1>
 			<p class="text-foreground-alt">
-				Hast du eine lustige, skurrile oder bewegende Taxi-Geschichte erlebt? Teile sie mit uns und
-				unserer Community!
+				Hast du dir eine lustige, skurrile oder bewegende Taxi-Geschichte ausgedacht? Teile sie mit
+				uns und unserer Community!
 			</p>
 		</header>
 

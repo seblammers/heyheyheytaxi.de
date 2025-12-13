@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { supabase } from '$lib/server/supabase';
 import { error } from '@sveltejs/kit';
 import type { Post } from '$lib/server/db/schema';
+import { generateEditToken, hashToken, verifyToken } from '$lib/server/utils/token';
 
 // Supabase returns snake_case, we need to transform to camelCase
 type SupabasePost = {
@@ -14,6 +15,8 @@ type SupabasePost = {
 	status: 'pending' | 'approved' | 'rejected';
 	like_count: number;
 	created_at: string;
+	edit_token_hash: string | null;
+	updated_at: string | null;
 };
 
 // Transform Supabase snake_case to camelCase for frontend
@@ -26,7 +29,9 @@ function transformPost(post: SupabasePost): Post {
 		authorName: post.author_name || null,
 		status: post.status,
 		likeCount: post.like_count || 0,
-		createdAt: new Date(post.created_at)
+		createdAt: new Date(post.created_at),
+		editTokenHash: post.edit_token_hash || null,
+		updatedAt: post.updated_at ? new Date(post.updated_at) : null
 	};
 }
 
@@ -95,6 +100,10 @@ export const submitPost = form(
 			const timestamp = Date.now().toString(36);
 			const slug = `${baseSlug}-${timestamp}`;
 
+			// Generate edit token and hash it
+			const editToken = generateEditToken();
+			const editTokenHash = await hashToken(editToken);
+
 			const { error: dbError } = await supabase
 				.from('posts')
 				.insert({
@@ -102,7 +111,8 @@ export const submitPost = form(
 					content,
 					author_name: authorName || null,
 					slug,
-					status: 'pending'
+					status: 'pending',
+					edit_token_hash: editTokenHash
 				})
 				.select();
 
@@ -111,7 +121,7 @@ export const submitPost = form(
 				throw error(500, `Failed to create post: ${dbError.message}`);
 			}
 
-			return { success: true, slug };
+			return { success: true, slug, editToken };
 		} catch (err) {
 			console.error('[submitPost] Error:', err);
 			if (err instanceof Error && err.message.includes('Failed to create post')) {
@@ -151,3 +161,192 @@ export const likePost = command(z.string().uuid(), async (id) => {
 		throw error(500, 'Failed to like post');
 	}
 });
+
+// Update a post (requires token verification)
+export const updatePost = form(
+	z.object({
+		slug: z.string(),
+		token: z.string(),
+		title: z.string().min(3, 'Titel muss mindestens 3 Zeichen haben').max(200),
+		content: z.string().min(10, 'Inhalt muss mindestens 10 Zeichen haben')
+	}),
+	async ({ slug, token, title, content }) => {
+		try {
+			// Get post to verify token
+			const { data: post, error: selectError } = await supabase
+				.from('posts')
+				.select('edit_token_hash')
+				.eq('slug', slug)
+				.single();
+
+			if (selectError || !post) {
+				console.error('[updatePost] Post not found:', selectError);
+				throw error(404, 'Post nicht gefunden');
+			}
+
+			if (!post.edit_token_hash) {
+				throw error(403, 'Dieser Post kann nicht bearbeitet werden');
+			}
+
+			// Verify token
+			const isValid = await verifyToken(token, post.edit_token_hash);
+			if (!isValid) {
+				throw error(403, 'Ungültiger Bearbeitungstoken');
+			}
+
+			// Update post
+			const { data: updatedPost, error: updateError } = await supabase
+				.from('posts')
+				.update({
+					title,
+					content,
+					status: 'pending', // Set back to pending for re-moderation
+					updated_at: new Date().toISOString()
+				})
+				.eq('slug', slug)
+				.select()
+				.single();
+
+			if (updateError) {
+				console.error('[updatePost] Update error:', updateError);
+				console.error('[updatePost] Update error details:', JSON.stringify(updateError, null, 2));
+				throw error(500, `Failed to update post: ${updateError.message}`);
+			}
+
+			if (!updatedPost) {
+				console.error('[updatePost] No post returned after update');
+				throw error(500, 'Failed to update post: No data returned');
+			}
+
+			return { success: true, slug };
+		} catch (err) {
+			console.error('[updatePost] Error:', err);
+			if (err instanceof Error && err.message.includes('Failed to update post')) {
+				throw err;
+			}
+			if (err && typeof err === 'object' && 'status' in err) {
+				throw err;
+			}
+			throw error(500, 'Failed to update post');
+		}
+	}
+);
+
+// Delete a post (requires token verification)
+export const deletePost = form(
+	z.object({
+		slug: z.string(),
+		token: z.string()
+	}),
+	async ({ slug, token }) => {
+		try {
+			console.log('[deletePost] Starting deletion:', {
+				slug,
+				token: token.substring(0, 10) + '...'
+			});
+
+			// Get post to verify token
+			const { data: post, error: selectError } = await supabase
+				.from('posts')
+				.select('edit_token_hash')
+				.eq('slug', slug)
+				.single();
+
+			if (selectError || !post) {
+				console.error('[deletePost] Post not found:', selectError);
+				throw error(404, 'Post nicht gefunden');
+			}
+
+			if (!post.edit_token_hash) {
+				console.error('[deletePost] No edit_token_hash found for post');
+				throw error(403, 'Dieser Post kann nicht gelöscht werden');
+			}
+
+			// Verify token
+			const isValid = await verifyToken(token, post.edit_token_hash);
+			if (!isValid) {
+				console.error('[deletePost] Token verification failed');
+				throw error(403, 'Ungültiger Bearbeitungstoken');
+			}
+
+			console.log('[deletePost] Token verified, deleting post...');
+
+			// Delete post
+			const { error: deleteError } = await supabase.from('posts').delete().eq('slug', slug);
+
+			if (deleteError) {
+				console.error('[deletePost] Delete error:', deleteError);
+				console.error('[deletePost] Delete error details:', JSON.stringify(deleteError, null, 2));
+				throw error(500, `Failed to delete post: ${deleteError.message}`);
+			}
+
+			console.log('[deletePost] Post deleted successfully');
+			return { success: true };
+		} catch (err) {
+			console.error('[deletePost] Error:', err);
+			if (err && typeof err === 'object' && 'status' in err) {
+				throw err;
+			}
+			throw error(500, 'Failed to delete post');
+		}
+	}
+);
+
+// Check story status by token
+export const checkStoryStatus = form(
+	z.object({
+		token: z.string().min(1, 'Token ist erforderlich')
+	}),
+	async ({ token }) => {
+		try {
+			console.log('[checkStoryStatus] Checking status for token...');
+
+			// Get all posts with edit_token_hash (recent posts first, limit to last 1000 for performance)
+			const { data: posts, error: selectError } = await supabase
+				.from('posts')
+				.select('id, slug, title, status, created_at, edit_token_hash')
+				.not('edit_token_hash', 'is', null)
+				.order('created_at', { ascending: false })
+				.limit(1000);
+
+			if (selectError) {
+				console.error('[checkStoryStatus] Error fetching posts:', selectError);
+				throw error(500, 'Fehler beim Abrufen der Geschichten');
+			}
+
+			if (!posts || posts.length === 0) {
+				return { success: false, error: 'Keine Geschichte mit diesem Token gefunden.' };
+			}
+
+			// Check each post's token hash
+			for (const post of posts) {
+				if (!post.edit_token_hash) continue;
+
+				const isValid = await verifyToken(token, post.edit_token_hash);
+				if (isValid) {
+					// Found matching story
+					const storyUrl = `/lesen/${post.slug}`;
+					return {
+						success: true,
+						story: {
+							slug: post.slug,
+							title: post.title,
+							status: post.status,
+							createdAt: post.created_at,
+							url: storyUrl
+						}
+					};
+				}
+			}
+
+			// No matching story found
+			return { success: false, error: 'Keine Geschichte mit diesem Token gefunden.' };
+		} catch (err) {
+			console.error('[checkStoryStatus] Error:', err);
+			if (err && typeof err === 'object' && 'status' in err) {
+				throw err;
+			}
+			throw error(500, 'Fehler beim Überprüfen des Status');
+		}
+	}
+);
