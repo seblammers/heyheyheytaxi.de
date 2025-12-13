@@ -114,6 +114,16 @@
 			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
 			<p class="text-sm mb-md">Sie wird bald veröffentlicht.</p>
 
+			<div class="mb-md p-sm bg-background rounded-card border border-border">
+				<p class="text-xs text-foreground-alt mb-xs">
+					💡 <strong>Tipp:</strong> Du kannst den Status deiner Geschichte jederzeit unter{' '}
+					<a href="/lesen/status" class="text-taxi-blue hover:underline font-medium">
+						Status prüfen
+					</a>{' '}
+					überprüfen.
+				</p>
+			</div>
+
 			{#if editToken && submitPost.result?.slug}
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
 					<p class="font-bold mb-xs text-sm">📝 Bearbeitungstoken:</p>

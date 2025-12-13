@@ -59,7 +59,36 @@
 				<a href="/lesen" class="text-taxi-blue hover:underline text-sm"> ← Alle Geschichten </a>
 			</nav>
 
-			<PostCard {post} showFullContent={true} />
+			{#if post.status === 'approved'}
+				<PostCard {post} showFullContent={true} />
+			{:else if post.status === 'pending'}
+				<div class="nk-card text-center">
+					<h1 class="mb-sm">Geschichte wird geprüft</h1>
+					<p class="text-foreground-alt mb-md">
+						Deine Geschichte befindet sich derzeit in der Prüfung. Sie wird nach der Freigabe hier
+						veröffentlicht.
+					</p>
+					<div class="flex flex-col gap-sm">
+						<p class="text-sm font-bold">Titel:</p>
+						<p class="text-sm">{post.title}</p>
+					</div>
+				</div>
+			{:else if post.status === 'rejected'}
+				<div class="nk-card text-center">
+					<h1 class="mb-sm">Geschichte wurde abgelehnt</h1>
+					<p class="text-foreground-alt mb-md">
+						Deine Geschichte wurde leider nicht veröffentlicht. Dies kann verschiedene Gründe haben,
+						bitte informiere dich über unsere Regeln: <a
+							href="/regeln"
+							class="text-taxi-blue hover:underline">hier</a
+						>.
+					</p>
+					<div class="flex flex-col gap-sm">
+						<p class="text-sm font-bold">Titel:</p>
+						<p class="text-sm">{post.title}</p>
+					</div>
+				</div>
+			{/if}
 
 			{#if hasToken && token}
 				<div class="mt-md flex flex-col gap-sm">

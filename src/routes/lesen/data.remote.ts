@@ -292,6 +292,29 @@ export const deletePost = form(
 	}
 );
 
+// In-memory rate limit store (simple approach - for production, use Redis or database)
+const statusCheckAttempts = new Map<string, { count: number; resetAt: number }>();
+const MAX_ATTEMPTS_PER_HOUR = 10;
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
+
+function checkSimpleRateLimit(identifier: string): { allowed: boolean; remaining: number } {
+	const now = Date.now();
+	const entry = statusCheckAttempts.get(identifier);
+
+	if (!entry || now > entry.resetAt) {
+		statusCheckAttempts.set(identifier, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+		return { allowed: true, remaining: MAX_ATTEMPTS_PER_HOUR - 1 };
+	}
+
+	if (entry.count >= MAX_ATTEMPTS_PER_HOUR) {
+		return { allowed: false, remaining: 0 };
+	}
+
+	entry.count++;
+	statusCheckAttempts.set(identifier, entry);
+	return { allowed: true, remaining: MAX_ATTEMPTS_PER_HOUR - entry.count };
+}
+
 // Check story status by token
 export const checkStoryStatus = form(
 	z.object({
@@ -299,7 +322,28 @@ export const checkStoryStatus = form(
 	}),
 	async ({ token }) => {
 		try {
-			console.log('[checkStoryStatus] Checking status for token...');
+			// Simple rate limiting: Use token hash as identifier (prevents same token from being checked too often)
+			// In production, you'd want IP-based rate limiting via hooks
+			const tokenHash = Buffer.from(token).toString('base64').slice(0, 20); // Simple identifier
+			const rateLimit = checkSimpleRateLimit(tokenHash);
+
+			if (!rateLimit.allowed) {
+				console.warn('[checkStoryStatus] Rate limit exceeded for token');
+				throw error(429, 'Zu viele Anfragen. Bitte versuche es in einer Stunde erneut.');
+			}
+
+			// Validate token format (40 hex characters)
+			if (!/^[a-f0-9]{40}$/i.test(token)) {
+				console.warn('[checkStoryStatus] Invalid token format');
+				// Still count as an attempt for rate limiting
+				return {
+					success: false,
+					error: 'Ungültiges Token-Format. Bitte überprüfe deinen Token.',
+					rateLimitRemaining: rateLimit.remaining
+				};
+			}
+
+			console.log('[checkStoryStatus] Checking status for token');
 
 			// Get all posts with edit_token_hash (recent posts first, limit to last 1000 for performance)
 			const { data: posts, error: selectError } = await supabase
@@ -315,16 +359,24 @@ export const checkStoryStatus = form(
 			}
 
 			if (!posts || posts.length === 0) {
-				return { success: false, error: 'Keine Geschichte mit diesem Token gefunden.' };
+				return {
+					success: false,
+					error: 'Keine Geschichte mit diesem Token gefunden.',
+					rateLimitRemaining: rateLimit.remaining
+				};
 			}
 
 			// Check each post's token hash
+			// Add a small delay to slow down brute force attempts
+			let checkedCount = 0;
 			for (const post of posts) {
 				if (!post.edit_token_hash) continue;
 
+				checkedCount++;
 				const isValid = await verifyToken(token, post.edit_token_hash);
 				if (isValid) {
 					// Found matching story
+					console.log('[checkStoryStatus] Token verified successfully for post:', post.slug);
 					const storyUrl = `/lesen/${post.slug}`;
 					return {
 						success: true,
@@ -334,13 +386,28 @@ export const checkStoryStatus = form(
 							status: post.status,
 							createdAt: post.created_at,
 							url: storyUrl
-						}
+						},
+						rateLimitRemaining: rateLimit.remaining
 					};
+				}
+
+				// Add small delay after every 10 checks to slow down brute force
+				if (checkedCount % 10 === 0) {
+					await new Promise((resolve) => setTimeout(resolve, 50));
 				}
 			}
 
 			// No matching story found
-			return { success: false, error: 'Keine Geschichte mit diesem Token gefunden.' };
+			console.log(
+				'[checkStoryStatus] No matching token found after checking',
+				checkedCount,
+				'posts'
+			);
+			return {
+				success: false,
+				error: 'Keine Geschichte mit diesem Token gefunden.',
+				rateLimitRemaining: rateLimit.remaining
+			};
 		} catch (err) {
 			console.error('[checkStoryStatus] Error:', err);
 			if (err && typeof err === 'object' && 'status' in err) {
