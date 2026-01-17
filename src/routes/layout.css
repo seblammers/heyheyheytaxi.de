@@ -299,6 +299,7 @@
 	h5,
 	h6 {
 		font-variant-ligatures: none;
+		font-weight: 700;
 	}
 	/* 6. Text size token use-case */
 	h1 {
