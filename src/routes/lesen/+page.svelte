@@ -12,8 +12,8 @@
 </svelte:head>
 
 <section class="nk-section">
-	<div class="nk-container">
-		<header class="flex flex-col gap-sm mb-xl">
+	<div class="nk-container max-w-prose">
+		<header class="flex flex-col gap-sm mb-xl text-center">
 			<h1>Taxi-Geschichten</h1>
 			<p class="text-foreground-alt">Hier findest du alle Geschichten aus unserer Community.</p>
 		</header>
