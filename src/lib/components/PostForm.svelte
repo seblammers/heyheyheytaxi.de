@@ -91,6 +91,24 @@
 		{/each}
 	</div>
 
+	<div class="flex flex-col gap-2xs">
+		<label for="authorEmail" class="font-bold">Deine E-Mail (optional)</label>
+		<input
+			{...submitPost.fields.authorEmail.as('email')}
+			id="authorEmail"
+			type="email"
+			placeholder="deine@email.de"
+			class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
+		/>
+		<p class="text-xs text-foreground-alt">
+			Deine E-Mail hilft uns, falls du später nachweisen möchtest, dass du der Autor bist (ohne
+			Token), oder wenn du Feedback zu einer nicht veröffentlichten Geschichte wünschst.
+		</p>
+		{#each submitPost.fields.authorEmail.issues() as issue}
+			<p class="text-destructive text-sm">{issue.message}</p>
+		{/each}
+	</div>
+
 	<div class="flex flex-col gap-xs pt-sm">
 		<Button.Root
 			type="submit"
@@ -127,7 +145,7 @@
 			{#if editToken && submitPost.result?.slug}
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
 					<p class="font-bold mb-xs text-sm">📝 Bearbeitungstoken:</p>
-					<div class="flex items-center gap-xs mb-sm">
+					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
 						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
 							{editToken}
 						</code>

@@ -8,6 +8,7 @@ export const posts = pgTable('posts', {
 	title: text('title').notNull(),
 	content: text('content').notNull(), // HTML from Edra/Tiptap
 	authorName: text('author_name'),
+	authorEmail: text('author_email'),
 	status: postStatusEnum('status').default('pending').notNull(),
 	likeCount: integer('like_count').default(0).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),

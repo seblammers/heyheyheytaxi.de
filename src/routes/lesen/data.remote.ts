@@ -12,6 +12,7 @@ type SupabasePost = {
 	title: string;
 	content: string;
 	author_name: string | null;
+	author_email: string | null;
 	status: 'pending' | 'approved' | 'rejected';
 	like_count: number;
 	created_at: string;
@@ -27,6 +28,7 @@ function transformPost(post: SupabasePost): Post {
 		title: post.title,
 		content: post.content,
 		authorName: post.author_name || null,
+		authorEmail: post.author_email || null,
 		status: post.status,
 		likeCount: post.like_count || 0,
 		createdAt: new Date(post.created_at),
@@ -129,9 +131,10 @@ export const submitPost = form(
 	z.object({
 		title: z.string().min(3, 'Titel muss mindestens 3 Zeichen haben').max(200),
 		content: z.string().min(10, 'Inhalt muss mindestens 10 Zeichen haben'),
-		authorName: z.string().max(100).optional()
+		authorName: z.string().max(100).optional(),
+		authorEmail: z.union([z.string().length(0), z.email()]).optional()
 	}),
-	async ({ title, content, authorName }) => {
+	async ({ title, content, authorName, authorEmail }) => {
 		try {
 			const baseSlug = generateSlug(title);
 
@@ -149,6 +152,7 @@ export const submitPost = form(
 					title,
 					content,
 					author_name: authorName || null,
+					author_email: authorEmail || null,
 					slug,
 					status: 'pending',
 					edit_token_hash: editTokenHash

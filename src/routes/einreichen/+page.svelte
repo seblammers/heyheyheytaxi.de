@@ -16,7 +16,7 @@
 			<h1>Teile deine Geschichte</h1>
 			<p class="text-foreground-alt">
 				Hast du dir eine lustige, skurrile oder bewegende Taxi-Geschichte ausgedacht? Teile sie mit
-				uns und unserer Community!
+				der Welt!
 			</p>
 		</header>
 
