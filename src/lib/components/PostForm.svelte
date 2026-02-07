@@ -173,6 +173,22 @@
 		</div>
 
 		<div class="flex flex-col gap-xs pt-sm">
+			<label class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card">
+				<input type="checkbox" required class="mt-[2px] cursor-pointer" />
+				<span class="text-sm text-foreground-alt">
+					Ich bestätige, dass ich das Urheberrecht an dieser Geschichte besitze und sie unter der
+					<a
+						href="/regeln#lizenz"
+						target="_blank"
+						class="text-taxi-blue hover:underline font-medium"
+					>
+						CC BY-SA 4.0 Lizenz
+					</a>
+					veröffentlichen möchte. Ich räume der Plattform das Recht ein, die Geschichte auch auf Social
+					Media zu teilen.
+				</span>
+			</label>
+
 			<Button.Root
 				type="submit"
 				disabled={!!submitPost.pending}
