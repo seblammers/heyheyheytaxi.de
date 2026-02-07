@@ -5,9 +5,10 @@
 	import { saveToken } from '$lib/utils/tokenStorage';
 
 	let editorContent = $state('');
-	let contentTextarea: HTMLTextAreaElement;
+	let contentTextarea = $state<HTMLTextAreaElement>();
 	let editToken = $state<string | null>(null);
 	let tokenCopied = $state(false);
+	let showAnotherForm = $state(false);
 
 	function handleEditorUpdate(html: string) {
 		editorContent = html;
@@ -47,87 +48,15 @@
 			}, 2000);
 		});
 	}
+
+	function handleSubmitAnother() {
+		// Reset form state by reloading the page
+		window.location.reload();
+	}
 </script>
 
 <form {...submitPost} class="flex flex-col gap-md">
-	<div class="flex flex-col gap-2xs">
-		<label for="title" class="font-bold">Titel *</label>
-		<input
-			{...submitPost.fields.title.as('text')}
-			id="title"
-			placeholder="Gib deiner Geschichte einen Titel..."
-			class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
-		/>
-		{#each submitPost.fields.title.issues() as issue}
-			<p class="text-destructive text-sm">{issue.message}</p>
-		{/each}
-	</div>
-
-	<div class="flex flex-col gap-2xs">
-		<label for="content" class="font-bold">Deine Geschichte *</label>
-		<SimpleEditor content="" onUpdate={handleEditorUpdate} class="rounded-input overflow-hidden" />
-		<!-- Hidden textarea for form submission -->
-		<textarea
-			{...submitPost.fields.content.as('text')}
-			bind:this={contentTextarea}
-			id="content"
-			class="sr-only"
-		></textarea>
-		{#each submitPost.fields.content.issues() as issue}
-			<p class="text-destructive text-sm">{issue.message}</p>
-		{/each}
-	</div>
-
-	<div class="flex flex-col gap-2xs">
-		<label for="authorName" class="font-bold">Dein Name (optional)</label>
-		<input
-			{...submitPost.fields.authorName.as('text')}
-			id="authorName"
-			placeholder="Anonym"
-			class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
-		/>
-		{#each submitPost.fields.authorName.issues() as issue}
-			<p class="text-destructive text-sm">{issue.message}</p>
-		{/each}
-	</div>
-
-	<div class="flex flex-col gap-2xs">
-		<label for="authorEmail" class="font-bold">Deine E-Mail (optional)</label>
-		<input
-			{...submitPost.fields.authorEmail.as('email')}
-			id="authorEmail"
-			type="email"
-			placeholder="deine@email.de"
-			class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
-		/>
-		<p class="text-xs text-foreground-alt">
-			Deine E-Mail hilft uns, falls du später nachweisen möchtest, dass du der Autor bist (ohne
-			Token), oder wenn du Feedback zu einer nicht veröffentlichten Geschichte wünschst.
-		</p>
-		{#each submitPost.fields.authorEmail.issues() as issue}
-			<p class="text-destructive text-sm">{issue.message}</p>
-		{/each}
-	</div>
-
-	<div class="flex flex-col gap-xs pt-sm">
-		<Button.Root
-			type="submit"
-			disabled={!!submitPost.pending}
-			class="w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-		>
-			{#if submitPost.pending}
-				Wird eingereicht...
-			{:else}
-				Geschichte einreichen
-			{/if}
-		</Button.Root>
-
-		<p class="text-sm text-foreground-alt text-center">
-			Deine Geschichte wird nach einer kurzen Prüfung veröffentlicht.
-		</p>
-	</div>
-
-	{#if submitPost.result?.success}
+	{#if submitPost.result?.success && !showAnotherForm}
 		<div class="p-md bg-accent text-accent-foreground rounded-card">
 			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
 			<p class="text-sm mb-md">Sie wird bald veröffentlicht.</p>
@@ -170,20 +99,109 @@
 					</button>
 				</div>
 			{/if}
-		</div>
-	{/if}
 
-	{#if submitPost?.fields}
-		{@const allIssues = submitPost.fields.allIssues()}
-		{#if allIssues && allIssues.length > 0}
-			<div class="p-sm bg-destructive/10 text-destructive rounded-card">
-				<p class="font-bold mb-xs">Bitte korrigiere folgende Fehler:</p>
-				<ul class="list-disc list-inside text-sm">
-					{#each allIssues as issue}
-						<li>{issue.message}</li>
-					{/each}
-				</ul>
-			</div>
+			<button
+				type="button"
+				onclick={handleSubmitAnother}
+				class="w-full mt-md px-md py-sm bg-background text-foreground border border-border rounded-button font-bold hover:bg-background-alt transition-colors"
+			>
+				Noch eine Geschichte einreichen
+			</button>
+		</div>
+	{:else}
+		<div class="flex flex-col gap-2xs">
+			<label for="title" class="font-bold">Titel *</label>
+			<input
+				{...submitPost.fields.title.as('text')}
+				id="title"
+				placeholder="Gib deiner Geschichte einen Titel..."
+				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
+			/>
+			{#each submitPost.fields.title.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
+		</div>
+
+		<div class="flex flex-col gap-2xs">
+			<label for="content" class="font-bold">Deine Geschichte *</label>
+			<SimpleEditor
+				content={editorContent}
+				onUpdate={handleEditorUpdate}
+				class="rounded-input overflow-hidden"
+			/>
+			<!-- Hidden textarea for form submission -->
+			<textarea
+				{...submitPost.fields.content.as('text')}
+				bind:this={contentTextarea}
+				id="content"
+				class="sr-only"
+			></textarea>
+			{#each submitPost.fields.content.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
+		</div>
+
+		<div class="flex flex-col gap-2xs">
+			<label for="authorName" class="font-bold">Dein Name (optional)</label>
+			<input
+				{...submitPost.fields.authorName.as('text')}
+				id="authorName"
+				placeholder="Anonym"
+				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
+			/>
+			{#each submitPost.fields.authorName.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
+		</div>
+
+		<div class="flex flex-col gap-2xs">
+			<label for="authorEmail" class="font-bold">Deine E-Mail (optional)</label>
+			<input
+				{...submitPost.fields.authorEmail.as('email')}
+				id="authorEmail"
+				type="email"
+				placeholder="deine@email.de"
+				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
+			/>
+			<p class="text-xs text-foreground-alt">
+				Deine E-Mail hilft uns, falls du später nachweisen möchtest, dass du der Autor bist (ohne
+				Token), oder wenn du Feedback zu einer nicht veröffentlichten Geschichte wünschst.
+			</p>
+			{#each submitPost.fields.authorEmail.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
+		</div>
+
+		<div class="flex flex-col gap-xs pt-sm">
+			<Button.Root
+				type="submit"
+				disabled={!!submitPost.pending}
+				class="w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+			>
+				{#if submitPost.pending}
+					Wird eingereicht...
+				{:else}
+					Geschichte einreichen
+				{/if}
+			</Button.Root>
+
+			<p class="text-sm text-foreground-alt text-center">
+				Deine Geschichte wird nach einer kurzen Prüfung veröffentlicht.
+			</p>
+		</div>
+
+		{#if submitPost?.fields}
+			{@const allIssues = submitPost.fields.allIssues()}
+			{#if allIssues && allIssues.length > 0}
+				<div class="p-sm bg-destructive/10 text-destructive rounded-card">
+					<p class="font-bold mb-xs">Bitte korrigiere folgende Fehler:</p>
+					<ul class="list-disc list-inside text-sm">
+						{#each allIssues as issue}
+							<li>{issue.message}</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 		{/if}
 	{/if}
 </form>
