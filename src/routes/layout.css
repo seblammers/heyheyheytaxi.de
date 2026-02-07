@@ -371,6 +371,11 @@ html {
 	@apply rounded-card border border-border-card bg-background p-md shadow-card;
 }
 
+/* Button styles */
+button {
+	@apply cursor-pointer;
+}
+
 /* Post content styling - renders Tiptap HTML */
 .post-content {
 	@apply text-base leading-relaxed;
