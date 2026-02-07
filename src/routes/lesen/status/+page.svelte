@@ -63,44 +63,46 @@
 						<div>
 							<p class="font-bold mb-xs">Status:</p>
 							{#if story.status === 'approved'}
-								<p class="text-sm text-green-700 dark:text-green-400">
-									✓ Genehmigt und veröffentlicht
-								</p>
+								<p class="text-sm">✓ Genehmigt und veröffentlicht</p>
 							{:else if story.status === 'pending'}
-								<p class="text-sm text-yellow-700 dark:text-yellow-400">⏳ Wird geprüft</p>
+								<p class="text-sm">⏳ Wird geprüft</p>
 							{:else if story.status === 'rejected'}
 								<p class="text-sm text-red-700 dark:text-red-400">✗ Abgelehnt</p>
 							{/if}
 						</div>
-						<div>
-							<p class="font-bold mb-xs">Link zu deiner Geschichte:</p>
-							<div class="flex items-center gap-xs">
-								<input
-									type="text"
-									readonly
-									value="{baseUrl}{story.url}"
-									class="flex-1 px-sm py-xs bg-background border border-border-input rounded-input text-sm font-mono"
-								/>
-								<Button.Root
-									type="button"
-									onclick={() => {
-										navigator.clipboard.writeText(`${baseUrl}${story.url}`);
-										alert('Link kopiert!');
-									}}
-									class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
-								>
-									Kopieren
-								</Button.Root>
+
+						{#if story.status === 'approved'}
+							<div>
+								<p class="font-bold mb-xs">Link zu deiner Geschichte:</p>
+								<div class="flex items-center gap-xs">
+									<input
+										type="text"
+										readonly
+										value="{baseUrl}{story.url}"
+										class="flex-1 px-sm py-xs bg-background border border-border-input rounded-input text-sm font-mono"
+									/>
+									<Button.Root
+										type="button"
+										onclick={() => {
+											navigator.clipboard.writeText(`${baseUrl}${story.url}`);
+											alert('Link kopiert!');
+										}}
+										class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+									>
+										Kopieren
+									</Button.Root>
+								</div>
 							</div>
-						</div>
-						<div class="mt-sm">
-							<a
-								href={story.url}
-								class="inline-block w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity text-center"
-							>
-								Zur Geschichte
-							</a>
-						</div>
+
+							<div class="mt-sm">
+								<a
+									href={story.url}
+									class="inline-block w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity text-center"
+								>
+									Zur Geschichte
+								</a>
+							</div>
+						{/if}
 					</div>
 				</div>
 			{/if}
