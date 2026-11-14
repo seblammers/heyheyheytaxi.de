@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
 ################################################################################
 # Use node image for base image for all stages.
-FROM node:22.0.0-alpine AS base
+# Needs Node >= 22.12: require() of ES modules (used by sanitize-html) and Vite 7.
+FROM node:22-alpine AS base
 
 # Make build arguments available in build stage
 ARG NODE_ENV
@@ -14,7 +15,7 @@ WORKDIR /usr/src/app
 
 ################################################################################
 # Create a stage for installing production dependecies.
-FROM base as deps
+FROM base AS deps
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
@@ -27,7 +28,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 ################################################################################
 # Create a stage for building the application.
-FROM deps as build
+FROM deps AS build
 
 # Download additional development dependencies before building, as some projects require
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
@@ -44,10 +45,10 @@ RUN npm run build
 ################################################################################
 # Create a new stage to run the application with minimal runtime dependencies
 # where the necessary files are copied from the build stage.
-FROM base as final
+FROM base AS final
 
 # Use production node environment by default.
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Run the application as a non-root user.
 USER node
@@ -65,4 +66,4 @@ COPY --from=build /usr/src/app/build ./build
 EXPOSE 3000
 
 # Run the application.
-CMD node build
+CMD ["node", "build"]

@@ -79,5 +79,8 @@
 		"@types/node": "^22",
 		"drizzle-kit": "^0.31.7",
 		"drizzle-orm": "^0.44.7"
+	},
+	"engines": {
+		"node": ">=22.12"
 	}
 }
