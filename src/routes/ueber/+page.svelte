@@ -25,14 +25,13 @@
 	<div class="nk-container max-w-prose">
 		<header class="flex flex-col gap-3xs mb-xl text-center">
 			<h1>Über das Projekt</h1>
-			<p class="text-foreground-alt">Wie aus einer Gutenachtgeschichte eine Internetseite wurde.</p>
 		</header>
 
 		<div class="nk-card flex flex-col gap-md">
 			<div class="flex flex-col gap-sm text-lg">
 				<p>
 					Meine Tochter und ich haben die beiden „Hey, hey, hey, Taxi!“-Bücher zusammen gelesen –
-					und wir lieben sie beide. Immer wieder. Und dann noch einmal.
+					und wir lieben sie beide.
 				</p>
 				<p>
 					Das Schönste an den Büchern: Sie laden dazu ein, sich eigene Taxi-Geschichten auszudenken.
