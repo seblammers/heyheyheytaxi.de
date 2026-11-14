@@ -53,11 +53,23 @@
 		</p>
 	{/if}
 
-	{#if !showFullContent}
-		<footer class="flex items-center justify-end pt-xs border-t border-border-card">
-			<a href="/lesen/{post.slug}" class="text-sm text-taxi-blue hover:underline font-medium">
+	<footer
+		class="flex items-center justify-between gap-sm pt-xs border-t border-border-card text-sm"
+	>
+		<a
+			href="https://creativecommons.org/licenses/by-sa/4.0/deed.de"
+			target="_blank"
+			rel="license noopener noreferrer"
+			class="text-xs text-foreground-alt hover:underline"
+			title="Creative Commons Namensnennung – Weitergabe unter gleichen Bedingungen 4.0"
+		>
+			Lizenz: CC BY-SA 4.0
+		</a>
+
+		{#if !showFullContent}
+			<a href="/lesen/{post.slug}" class="text-taxi-blue hover:underline font-medium">
 				Weiterlesen →
 			</a>
-		</footer>
-	{/if}
+		{/if}
+	</footer>
 </article>

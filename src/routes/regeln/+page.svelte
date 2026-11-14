@@ -122,7 +122,10 @@
 						<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
 							<li>Du behältst das Urheberrecht an deiner Geschichte</li>
 							<li>Deine Geschichte kann frei geteilt und verbreitet werden</li>
-							<li>Du wirst immer als Autor genannt</li>
+							<li>
+								Du wirst immer mit dem Namen genannt, den du beim Einreichen angibst – gern auch ein
+								Pseudonym
+							</li>
 							<li>Andere dürfen deine Geschichte auch kommerziell nutzen</li>
 							<li>
 								<strong>Wichtig:</strong> Bearbeitungen müssen ebenfalls unter CC BY-SA 4.0 veröffentlicht

@@ -12,6 +12,11 @@
 	let deleteDialogOpen = $state(false);
 </script>
 
+<svelte:head>
+	<!-- Machine-readable license for the story on this page -->
+	<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" />
+</svelte:head>
+
 <svelte:boundary>
 	{#snippet pending()}
 		<section class="nk-section">

@@ -179,13 +179,18 @@
 		</div>
 
 		<div class="flex flex-col gap-2xs">
-			<label for="authorName" class="font-bold">Dein Name (optional)</label>
+			<label for="authorName" class="font-bold">Dein Name *</label>
 			<input
 				{...submitPost.fields.authorName.as('text')}
 				id="authorName"
-				placeholder="Anonym"
+				placeholder="z. B. Mia, Papa Ben oder Taxifahrerin Tilda"
+				aria-describedby="authorName-hint"
 				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
 			/>
+			<p id="authorName-hint" class="text-xs text-foreground-alt">
+				Unter diesem Namen wird deine Geschichte veröffentlicht. Ein Pseudonym oder Spitzname ist
+				völlig in Ordnung.
+			</p>
 			{#each submitPost.fields.authorName.issues() as issue}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
@@ -211,7 +216,11 @@
 
 		<div class="flex flex-col gap-xs pt-sm">
 			<label class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card">
-				<input type="checkbox" required class="mt-[2px] cursor-pointer" />
+				<input
+					{...submitPost.fields.licenseAccepted.as('checkbox')}
+					required
+					class="mt-[2px] cursor-pointer"
+				/>
 				<span class="text-sm text-foreground-alt">
 					Ich bestätige, dass ich das Urheberrecht an dieser Geschichte besitze und sie unter der
 					<a
@@ -221,10 +230,13 @@
 					>
 						CC BY-SA 4.0 Lizenz
 					</a>
-					veröffentlichen möchte. Ich räume der Plattform das Recht ein, die Geschichte auch auf Social
-					Media zu teilen.
+					veröffentlichen möchte – mit dem oben angegebenen Namen als Urhebernennung. Ich räume der Plattform
+					das Recht ein, die Geschichte auch auf Social Media zu teilen.
 				</span>
 			</label>
+			{#each submitPost.fields.licenseAccepted.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
 
 			<Button.Root
 				type="submit"

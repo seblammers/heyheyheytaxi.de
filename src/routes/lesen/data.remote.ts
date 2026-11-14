@@ -155,10 +155,20 @@ export const submitPost = form(
 	z.object({
 		title: storyTitle,
 		content: storyContent,
-		authorName: z.string().max(100).optional(),
-		authorEmail: z.union([z.string().length(0), z.email()]).optional()
+		// Required: CC BY-SA demands attribution. Pseudonyms are fine.
+		authorName: z
+			.string()
+			.trim()
+			.min(1, 'Bitte gib einen Namen an – ein Pseudonym ist völlig in Ordnung.')
+			.max(100, 'Der Name darf höchstens 100 Zeichen haben.'),
+		authorEmail: z.union([z.string().length(0), z.email()]).optional(),
+		// Checked server-side too, so consent can't be skipped with a crafted request
+		licenseAccepted: z.literal(true, {
+			error: 'Bitte bestätige die Lizenz, um deine Geschichte einzureichen.'
+		})
 	}),
 	async ({ title, content, authorName, authorEmail }) => {
+		// licenseAccepted is enforced by the schema; a story can only exist with consent
 		try {
 			const baseSlug = generateSlug(title);
 
@@ -175,7 +185,7 @@ export const submitPost = form(
 				.insert({
 					title,
 					content,
-					author_name: authorName || null,
+					author_name: authorName,
 					author_email: authorEmail || null,
 					slug,
 					status: 'pending',
