@@ -41,13 +41,6 @@
 		updatePost.fields.content.set(currentPost.content);
 		editorContent = currentPost.content;
 	});
-
-	// Debug: Log form result changes
-	$effect(() => {
-		if (updatePost.result) {
-			console.log('[PostEditForm] Form result:', updatePost.result);
-		}
-	});
 </script>
 
 <form {...updatePost} class="flex flex-col gap-md">

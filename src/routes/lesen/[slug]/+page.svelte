@@ -2,7 +2,7 @@
 	import PostCard from '$lib/components/PostCard.svelte';
 	import { page } from '$app/state';
 	import { getPost } from '../data.remote';
-	import { getToken, tokens } from '$lib/utils/tokenStorage';
+	import { getToken } from '$lib/utils/tokenStorage';
 	import DeleteStoryDialog from '$lib/components/DeleteStoryDialog.svelte';
 	import { Button } from 'bits-ui';
 
@@ -10,18 +10,6 @@
 	const token = $derived.by(() => (slug ? getToken(slug) : null));
 	const hasToken = $derived(!!token);
 	let deleteDialogOpen = $state(false);
-
-	// Debug: Log token availability
-	$effect(() => {
-		if (slug) {
-			const foundToken = getToken(slug);
-			console.log('[PostPage] Token check:', {
-				slug,
-				hasToken: !!foundToken,
-				tokenLength: foundToken?.length
-			});
-		}
-	});
 </script>
 
 <svelte:boundary>
@@ -94,19 +82,13 @@
 				<div class="mt-md flex flex-col gap-sm">
 					<div class="flex gap-sm">
 						<a
-							href="/lesen/{slug}/bearbeiten?token={token}"
+							href="/lesen/{slug}/bearbeiten"
 							class="flex-1 px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity text-center"
 						>
 							Geschichte bearbeiten
 						</a>
 						<Button.Root
-							onclick={() => {
-								console.log('[PostPage] Opening delete dialog with:', {
-									slug,
-									token: token.substring(0, 10) + '...'
-								});
-								deleteDialogOpen = true;
-							}}
+							onclick={() => (deleteDialogOpen = true)}
 							class="flex-1 px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
 						>
 							Geschichte löschen

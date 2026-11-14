@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PublicPost } from '$lib/server/db/schema';
-	import LikeButton from './LikeButton.svelte';
 
 	let {
 		post,
@@ -54,13 +53,11 @@
 		</p>
 	{/if}
 
-	<footer class="flex items-center justify-between pt-xs border-t border-border-card">
-		<LikeButton postId={post.id} initialCount={post.likeCount} />
-
-		{#if !showFullContent}
+	{#if !showFullContent}
+		<footer class="flex items-center justify-end pt-xs border-t border-border-card">
 			<a href="/lesen/{post.slug}" class="text-sm text-taxi-blue hover:underline font-medium">
 				Weiterlesen →
 			</a>
-		{/if}
-	</footer>
+		</footer>
+	{/if}
 </article>

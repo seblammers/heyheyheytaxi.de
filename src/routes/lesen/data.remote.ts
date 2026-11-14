@@ -1,4 +1,4 @@
-import { query, form, command } from '$app/server';
+import { query, form } from '$app/server';
 import { z } from 'zod';
 import { supabase } from '$lib/server/supabase';
 import { error, isHttpError } from '@sveltejs/kit';
@@ -197,36 +197,6 @@ export const submitPost = form(
 		}
 	}
 );
-
-// Like a post
-export const likePost = command(z.string().uuid(), async (id) => {
-	// Get current like count
-	const { data: post, error: selectError } = await supabase
-		.from('posts')
-		.select('like_count')
-		.eq('id', id)
-		.single();
-
-	if (selectError) {
-		console.error('[likePost] Select error:', selectError);
-		throw error(500, 'Failed to fetch post');
-	}
-
-	if (!post) {
-		throw error(404, 'Post not found');
-	}
-
-	// Increment like count
-	const { error: updateError } = await supabase
-		.from('posts')
-		.update({ like_count: (post.like_count || 0) + 1 })
-		.eq('id', id);
-
-	if (updateError) {
-		console.error('[likePost] Update error:', updateError);
-		throw error(500, 'Failed to like post');
-	}
-});
 
 // Update a post (requires token verification)
 export const updatePost = form(

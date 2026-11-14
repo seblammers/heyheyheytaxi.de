@@ -8,14 +8,8 @@
 	import type { PublicPost } from '$lib/server/db/schema';
 
 	const slug = $derived(page.params.slug);
-	const tokenParam = $derived(page.url.searchParams.get('token'));
-
-	// Get token from localStorage or URL param
-	const token = $derived.by(() => {
-		if (tokenParam) return tokenParam;
-		if (slug) return getToken(slug);
-		return null;
-	});
+	// Token comes from localStorage only – never from the URL (history, logs)
+	const token = $derived(slug ? getToken(slug) : null);
 
 	let tokenInput = $state('');
 	let tokenError = $state<string | null>(null);
@@ -42,8 +36,7 @@
 					tokenValidationResult = result;
 
 					// If token is invalid, remove it from localStorage
-					if (!result.valid && currentSlug && !tokenParam) {
-						// Remove invalid token from localStorage if it wasn't from URL param
+					if (!result.valid && currentSlug) {
 						removeToken(currentSlug);
 					}
 				} catch (error) {
@@ -208,12 +201,8 @@
 							'Der eingegebene Token ist nicht gültig für diese Geschichte.'}
 					</p>
 					<p class="text-sm text-foreground-alt mb-md">
-						{#if !tokenParam}
-							Der gespeicherte Token wurde entfernt. Bitte gib den korrekten Token für diese
-							Geschichte ein.
-						{:else}
-							Bitte gib den korrekten Token für diese Geschichte ein.
-						{/if}
+						Der gespeicherte Token wurde entfernt. Bitte gib den korrekten Token für diese
+						Geschichte ein.
 					</p>
 					<a
 						href="/lesen/{slug}/bearbeiten"

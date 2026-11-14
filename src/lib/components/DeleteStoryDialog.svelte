@@ -25,23 +25,12 @@
 	// Handle successful deletion
 	$effect(() => {
 		if (deletePost.result?.success) {
-			console.log('[DeleteStoryDialog] Delete successful, redirecting...');
 			// Remove token from localStorage
 			removeToken(slug);
 			// Close dialog
 			open = false;
 			// Redirect to story list with success message
 			goto('/lesen?deleted=true');
-		}
-	});
-
-	// Check for form field errors
-	$effect(() => {
-		if (deletePost.fields) {
-			const allIssues = deletePost.fields.allIssues();
-			if (allIssues && allIssues.length > 0) {
-				console.error('[DeleteStoryDialog] Form validation errors:', allIssues);
-			}
 		}
 	});
 </script>
