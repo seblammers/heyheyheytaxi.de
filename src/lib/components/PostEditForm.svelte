@@ -2,13 +2,13 @@
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
 	import { updatePost } from '../../routes/lesen/data.remote';
-	import type { Post } from '$lib/server/db/schema';
+	import type { PublicPost } from '$lib/server/db/schema';
 
 	let {
 		post,
 		token
 	}: {
-		post: Post;
+		post: PublicPost;
 		token: string;
 	} = $props();
 

@@ -5,6 +5,7 @@
 	import { getToken, saveToken, removeToken } from '$lib/utils/tokenStorage';
 	import { goto } from '$app/navigation';
 	import { Button } from 'bits-ui';
+	import type { PublicPost } from '$lib/server/db/schema';
 
 	const slug = $derived(page.params.slug);
 	const tokenParam = $derived(page.url.searchParams.get('token'));
@@ -19,7 +20,11 @@
 	let tokenInput = $state('');
 	let tokenError = $state<string | null>(null);
 	let isSubmittingToken = $state(false);
-	let tokenValidationResult = $state<{ valid: boolean; reason?: string } | null>(null);
+	let tokenValidationResult = $state<{
+		valid: boolean;
+		reason?: string;
+		post?: PublicPost;
+	} | null>(null);
 	let isValidatingToken = $state(false);
 
 	// Validate token when page loads with a token
@@ -123,7 +128,9 @@
 		</section>
 	{/snippet}
 
-	{@const post = await getPost(slug || '')}
+	<!-- Loaded for the 404 handling only; the editable content comes from validateEditToken -->
+	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+	{@const _post = await getPost(slug || '')}
 
 	{#if !token || isValidatingToken || (token && tokenValidationResult === null)}
 		<section class="nk-section">
@@ -217,7 +224,7 @@
 				</div>
 			</div>
 		</section>
-	{:else if tokenValidationResult && tokenValidationResult.valid}
+	{:else if tokenValidationResult?.valid && tokenValidationResult.post}
 		<section class="nk-section">
 			<div class="nk-container max-w-prose">
 				<nav class="mb-md">
@@ -232,7 +239,7 @@
 				</header>
 
 				<div class="nk-card">
-					<PostEditForm {post} {token} />
+					<PostEditForm post={tokenValidationResult.post} {token} />
 				</div>
 			</div>
 		</section>

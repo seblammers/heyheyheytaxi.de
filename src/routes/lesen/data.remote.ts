@@ -2,8 +2,14 @@ import { query, form, command } from '$app/server';
 import { z } from 'zod';
 import { supabase } from '$lib/server/supabase';
 import { error } from '@sveltejs/kit';
-import type { Post } from '$lib/server/db/schema';
+import type { PublicPost } from '$lib/server/db/schema';
 import { generateEditToken, hashToken, verifyToken } from '$lib/server/utils/token';
+import { sanitizeStoryHtml, textLength } from '$lib/server/utils/sanitize';
+
+// Only columns that are safe to expose. Query results are serialized to the
+// browser, so author_email and edit_token_hash must never be selected here.
+const PUBLIC_COLUMNS =
+	'id, slug, title, content, author_name, status, like_count, created_at, updated_at';
 
 // Supabase returns snake_case, we need to transform to camelCase
 type SupabasePost = {
@@ -12,29 +18,36 @@ type SupabasePost = {
 	title: string;
 	content: string;
 	author_name: string | null;
-	author_email: string | null;
 	status: 'pending' | 'approved' | 'rejected';
 	like_count: number;
 	created_at: string;
-	edit_token_hash: string | null;
 	updated_at: string | null;
 };
 
 // Transform Supabase snake_case to camelCase for frontend
-function transformPost(post: SupabasePost): Post {
+function transformPost(post: SupabasePost): PublicPost {
 	return {
 		id: post.id,
 		slug: post.slug,
 		title: post.title,
-		content: post.content,
+		// Sanitize on read as well: protects rows stored before sanitizing existed
+		// or written directly to the database
+		content: sanitizeStoryHtml(post.content),
 		authorName: post.author_name || null,
-		authorEmail: post.author_email || null,
 		status: post.status,
 		likeCount: post.like_count || 0,
 		createdAt: new Date(post.created_at),
-		editTokenHash: post.edit_token_hash || null,
 		updatedAt: post.updated_at ? new Date(post.updated_at) : null
 	};
+}
+
+// Sanitize submitted HTML and re-check length, since sanitizing may strip content
+function cleanContent(content: string): string {
+	const clean = sanitizeStoryHtml(content);
+	if (textLength(clean) < 10) {
+		throw error(400, 'Inhalt muss mindestens 10 Zeichen haben');
+	}
+	return clean;
 }
 
 // Generate slug from title
@@ -55,7 +68,7 @@ function generateSlug(title: string): string {
 export const getApprovedPosts = query(async () => {
 	const { data, error: dbError } = await supabase
 		.from('posts')
-		.select('*')
+		.select(PUBLIC_COLUMNS)
 		.eq('status', 'approved')
 		.order('created_at', { ascending: false });
 
@@ -68,10 +81,12 @@ export const getApprovedPosts = query(async () => {
 });
 
 // Get a single post by slug
+// Content is only returned for approved posts – pending/rejected stories
+// must not be readable by anyone who knows or guesses the slug.
 export const getPost = query(z.string(), async (slug) => {
 	const { data, error: dbError } = await supabase
 		.from('posts')
-		.select('*')
+		.select(PUBLIC_COLUMNS)
 		.eq('slug', slug)
 		.single();
 
@@ -84,10 +99,13 @@ export const getPost = query(z.string(), async (slug) => {
 	}
 
 	if (!data) throw error(404, 'Post nicht gefunden');
-	return transformPost(data);
+	const post = transformPost(data);
+	return post.status === 'approved' ? post : { ...post, content: '' };
 });
 
 // Validate edit token for a specific post
+// On success, also returns the full post (incl. content of non-approved posts)
+// so the author can edit it – getPost withholds that content from everyone else.
 export const validateEditToken = query(
 	z.object({
 		slug: z.string(),
@@ -98,7 +116,7 @@ export const validateEditToken = query(
 			// Get post to verify token
 			const { data: post, error: selectError } = await supabase
 				.from('posts')
-				.select('edit_token_hash')
+				.select(`${PUBLIC_COLUMNS}, edit_token_hash`)
 				.eq('slug', slug)
 				.single();
 
@@ -118,7 +136,9 @@ export const validateEditToken = query(
 				return { valid: false, reason: 'Ungültiger Bearbeitungstoken' };
 			}
 
-			return { valid: true };
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const { edit_token_hash, ...publicPost } = post;
+			return { valid: true, post: transformPost(publicPost) };
 		} catch (err) {
 			console.error('[validateEditToken] Error:', err);
 			return { valid: false, reason: 'Fehler bei der Token-Validierung' };
@@ -150,7 +170,7 @@ export const submitPost = form(
 				.from('posts')
 				.insert({
 					title,
-					content,
+					content: cleanContent(content),
 					author_name: authorName || null,
 					author_email: authorEmail || null,
 					slug,
@@ -168,6 +188,9 @@ export const submitPost = form(
 		} catch (err) {
 			console.error('[submitPost] Error:', err);
 			if (err instanceof Error && err.message.includes('Failed to create post')) {
+				throw err;
+			}
+			if (err && typeof err === 'object' && 'status' in err) {
 				throw err;
 			}
 			throw error(500, 'Failed to submit post');
@@ -245,7 +268,7 @@ export const updatePost = form(
 				.from('posts')
 				.update({
 					title,
-					content,
+					content: cleanContent(content),
 					status: 'pending', // Set back to pending for re-moderation
 					updated_at: new Date().toISOString()
 				})

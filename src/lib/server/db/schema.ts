@@ -19,3 +19,6 @@ export const posts = pgTable('posts', {
 // Type exports for use in components
 export type Post = typeof posts.$inferSelect;
 export type NewPost = typeof posts.$inferInsert;
+
+// Shape that is safe to send to the browser – never includes email or token hash
+export type PublicPost = Omit<Post, 'authorEmail' | 'editTokenHash'>;

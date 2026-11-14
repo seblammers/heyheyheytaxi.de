@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Post } from '$lib/server/db/schema';
+	import type { PublicPost } from '$lib/server/db/schema';
 	import LikeButton from './LikeButton.svelte';
 
 	let {
 		post,
 		showFullContent = false
 	}: {
-		post: Post;
+		post: PublicPost;
 		showFullContent?: boolean;
 	} = $props();
 
