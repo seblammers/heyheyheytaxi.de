@@ -7,6 +7,12 @@
 			Ich steige in ein Taxi, und das Taxi ist eine Internetseite und die Internetseite wird das
 			Zuhause für all eure Taxi-Geschichten sein.
 		</p>
+		<p class="text-foreground-alt">
+			Du weißt nicht, worum es geht?
+			<a href="/ueber" class="text-taxi-blue hover:underline font-medium"
+				>Hier erklären wir dir, was los ist.</a
+			>
+		</p>
 		<div class="flex flex-col sm:flex-row gap-sm mt-md">
 			<a
 				href="/lesen"
