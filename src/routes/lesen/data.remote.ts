@@ -1,10 +1,11 @@
-import { query, form } from '$app/server';
+import { query, form, getRequestEvent } from '$app/server';
 import { z } from 'zod';
 import { supabase } from '$lib/server/supabase';
 import { error, isHttpError } from '@sveltejs/kit';
 import type { PublicPost } from '$lib/server/db/schema';
 import { generateEditToken, hashToken, verifyToken } from '$lib/server/utils/token';
 import { sanitizeStoryHtml, textLength } from '$lib/server/utils/sanitize';
+import { checkRateLimit, getClientIP } from '$lib/server/utils/rateLimit';
 
 // Only columns that are safe to expose. Query results are serialized to the
 // browser, so author_email and edit_token_hash must never be selected here.
@@ -165,10 +166,23 @@ export const submitPost = form(
 		// Checked server-side too, so consent can't be skipped with a crafted request
 		licenseAccepted: z.literal(true, {
 			error: 'Bitte bestätige die Lizenz, um deine Geschichte einzureichen.'
-		})
+		}),
+		// Honeypot: hidden from humans, bots tend to fill every field
+		website: z.string().optional()
 	}),
-	async ({ title, content, authorName, authorEmail }) => {
+	async ({ title, content, authorName, authorEmail, website }) => {
 		// licenseAccepted is enforced by the schema; a story can only exist with consent
+		if (website) throw error(400, 'Ungültige Anfrage.');
+
+		// Spam protection: IP is only held in memory (see Datenschutz), never stored
+		const { request } = getRequestEvent();
+		if (!checkRateLimit(`submit:${getClientIP(request)}`).allowed) {
+			throw error(
+				429,
+				'Du hast gerade sehr viele Geschichten eingereicht. Bitte versuche es später noch einmal.'
+			);
+		}
+
 		try {
 			const baseSlug = generateSlug(title);
 

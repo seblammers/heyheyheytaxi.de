@@ -95,16 +95,17 @@ export function checkRateLimit(identifier: string): {
  * Get client IP address from request
  */
 export function getClientIP(request: Request): string {
-	// Try various headers (in order of preference)
+	// Prefer X-Real-IP: the reverse proxy (Traefik/Coolify) sets it to the actual
+	// peer address, while the first X-Forwarded-For entry can be spoofed by clients
+	const realIP = request.headers.get('x-real-ip');
+	if (realIP) {
+		return realIP.trim();
+	}
+
 	const forwarded = request.headers.get('x-forwarded-for');
 	if (forwarded) {
 		// X-Forwarded-For can contain multiple IPs, take the first one
 		return forwarded.split(',')[0].trim();
-	}
-
-	const realIP = request.headers.get('x-real-ip');
-	if (realIP) {
-		return realIP.trim();
 	}
 
 	// Fallback (shouldn't happen in production with proper proxy)

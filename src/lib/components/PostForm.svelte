@@ -214,6 +214,17 @@
 			{/each}
 		</div>
 
+		<!-- Honeypot against spam bots: visually hidden, skipped by keyboard and screen readers -->
+		<div class="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+			<label for="website">Website</label>
+			<input
+				{...submitPost.fields.website.as('text')}
+				id="website"
+				tabindex="-1"
+				autocomplete="off"
+			/>
+		</div>
+
 		<div class="flex flex-col gap-xs pt-sm">
 			<label class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card">
 				<input

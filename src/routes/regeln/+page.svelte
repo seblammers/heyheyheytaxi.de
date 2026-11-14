@@ -17,13 +17,6 @@
 
 		<div class="nk-card">
 			<div class="flex flex-col gap-md">
-				<div class="p-md bg-accent text-accent-foreground rounded-card text-center">
-					<p class="font-bold text-lg mb-xs">📋 Entwurf</p>
-					<p class="text-sm">
-						Diese Regeln befinden sich noch im Entwurfsstadium und können sich ändern.
-					</p>
-				</div>
-
 				<div class="flex flex-col gap-3xs">
 					<h2>Kurzversion</h2>
 					<p class="text-lg font-semibold text-foreground-alt">
