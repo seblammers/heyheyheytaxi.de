@@ -1,7 +1,7 @@
 import { query, form, command } from '$app/server';
 import { z } from 'zod';
 import { supabase } from '$lib/server/supabase';
-import { error } from '@sveltejs/kit';
+import { error, isHttpError } from '@sveltejs/kit';
 import type { PublicPost } from '$lib/server/db/schema';
 import { generateEditToken, hashToken, verifyToken } from '$lib/server/utils/token';
 import { sanitizeStoryHtml, textLength } from '$lib/server/utils/sanitize';
@@ -41,14 +41,18 @@ function transformPost(post: SupabasePost): PublicPost {
 	};
 }
 
-// Sanitize submitted HTML and re-check length, since sanitizing may strip content
-function cleanContent(content: string): string {
-	const clean = sanitizeStoryHtml(content);
-	if (textLength(clean) < 10) {
-		throw error(400, 'Inhalt muss mindestens 10 Zeichen haben');
-	}
-	return clean;
-}
+// Sanitize submitted HTML, then validate the visible text length. Done in the
+// schema so violations show up as field issues in the form instead of an error page.
+const storyContent = z
+	.string()
+	.transform(sanitizeStoryHtml)
+	.refine((html) => textLength(html) >= 10, 'Inhalt muss mindestens 10 Zeichen haben');
+
+const storyTitle = z
+	.string()
+	.trim()
+	.min(3, 'Titel muss mindestens 3 Zeichen haben')
+	.max(200, 'Titel darf höchstens 200 Zeichen haben');
 
 // Generate slug from title
 function generateSlug(title: string): string {
@@ -74,7 +78,7 @@ export const getApprovedPosts = query(async () => {
 
 	if (dbError) {
 		console.error('[getApprovedPosts] Error:', dbError);
-		throw error(500, 'Failed to fetch posts');
+		throw error(500, 'Die Geschichten konnten nicht geladen werden.');
 	}
 
 	return (data || []).map(transformPost);
@@ -93,12 +97,12 @@ export const getPost = query(z.string(), async (slug) => {
 	if (dbError) {
 		console.error('[getPost] Error:', dbError);
 		if (dbError.code === 'PGRST116') {
-			throw error(404, 'Post nicht gefunden');
+			throw error(404, 'Geschichte nicht gefunden');
 		}
-		throw error(500, 'Failed to fetch post');
+		throw error(500, 'Die Geschichte konnte nicht geladen werden.');
 	}
 
-	if (!data) throw error(404, 'Post nicht gefunden');
+	if (!data) throw error(404, 'Geschichte nicht gefunden');
 	const post = transformPost(data);
 	return post.status === 'approved' ? post : { ...post, content: '' };
 });
@@ -122,12 +126,12 @@ export const validateEditToken = query(
 
 			if (selectError || !post) {
 				console.error('[validateEditToken] Post not found:', selectError);
-				return { valid: false, reason: 'Post nicht gefunden' };
+				return { valid: false, reason: 'Geschichte nicht gefunden' };
 			}
 
 			// If post has no token hash, it's an old post that can't be edited
 			if (!post.edit_token_hash) {
-				return { valid: false, reason: 'Dieser Post kann nicht bearbeitet werden' };
+				return { valid: false, reason: 'Diese Geschichte kann nicht bearbeitet werden' };
 			}
 
 			// Verify token
@@ -149,8 +153,8 @@ export const validateEditToken = query(
 // Submit a new post (form with validation)
 export const submitPost = form(
 	z.object({
-		title: z.string().min(3, 'Titel muss mindestens 3 Zeichen haben').max(200),
-		content: z.string().min(10, 'Inhalt muss mindestens 10 Zeichen haben'),
+		title: storyTitle,
+		content: storyContent,
 		authorName: z.string().max(100).optional(),
 		authorEmail: z.union([z.string().length(0), z.email()]).optional()
 	}),
@@ -170,7 +174,7 @@ export const submitPost = form(
 				.from('posts')
 				.insert({
 					title,
-					content: cleanContent(content),
+					content,
 					author_name: authorName || null,
 					author_email: authorEmail || null,
 					slug,
@@ -181,19 +185,15 @@ export const submitPost = form(
 
 			if (dbError) {
 				console.error('[submitPost] Database error:', dbError);
-				throw error(500, `Failed to create post: ${dbError.message}`);
+				throw error(500, 'Die Geschichte konnte nicht gespeichert werden.');
 			}
 
 			return { success: true, slug, editToken };
 		} catch (err) {
+			// Intentional HTTP errors are passed through to the error page as-is
+			if (isHttpError(err)) throw err;
 			console.error('[submitPost] Error:', err);
-			if (err instanceof Error && err.message.includes('Failed to create post')) {
-				throw err;
-			}
-			if (err && typeof err === 'object' && 'status' in err) {
-				throw err;
-			}
-			throw error(500, 'Failed to submit post');
+			throw error(500, 'Die Geschichte konnte nicht eingereicht werden.');
 		}
 	}
 );
@@ -233,8 +233,8 @@ export const updatePost = form(
 	z.object({
 		slug: z.string(),
 		token: z.string(),
-		title: z.string().min(3, 'Titel muss mindestens 3 Zeichen haben').max(200),
-		content: z.string().min(10, 'Inhalt muss mindestens 10 Zeichen haben')
+		title: storyTitle,
+		content: storyContent
 	}),
 	async ({ slug, token, title, content }) => {
 		try {
@@ -247,13 +247,13 @@ export const updatePost = form(
 
 			if (selectError || !post) {
 				console.error('[updatePost] Post not found:', selectError);
-				throw error(404, 'Post nicht gefunden');
+				throw error(404, 'Geschichte nicht gefunden');
 			}
 
 			if (!post.edit_token_hash) {
 				throw error(
 					403,
-					'Dieser Post kann nicht bearbeitet werden, weil er keinen Bearbeitungstoken hat.'
+					'Diese Geschichte kann nicht bearbeitet werden, weil sie keinen Bearbeitungstoken hat.'
 				);
 			}
 
@@ -268,7 +268,7 @@ export const updatePost = form(
 				.from('posts')
 				.update({
 					title,
-					content: cleanContent(content),
+					content,
 					status: 'pending', // Set back to pending for re-moderation
 					updated_at: new Date().toISOString()
 				})
@@ -278,25 +278,19 @@ export const updatePost = form(
 
 			if (updateError) {
 				console.error('[updatePost] Update error:', updateError);
-				console.error('[updatePost] Update error details:', JSON.stringify(updateError, null, 2));
-				throw error(500, `Failed to update post: ${updateError.message}`);
+				throw error(500, 'Die Änderungen konnten nicht gespeichert werden.');
 			}
 
 			if (!updatedPost) {
 				console.error('[updatePost] No post returned after update');
-				throw error(500, 'Failed to update post: No data returned');
+				throw error(500, 'Die Änderungen konnten nicht gespeichert werden.');
 			}
 
 			return { success: true, slug };
 		} catch (err) {
+			if (isHttpError(err)) throw err;
 			console.error('[updatePost] Error:', err);
-			if (err instanceof Error && err.message.includes('Failed to update post')) {
-				throw err;
-			}
-			if (err && typeof err === 'object' && 'status' in err) {
-				throw err;
-			}
-			throw error(500, 'Failed to update post');
+			throw error(500, 'Die Änderungen konnten nicht gespeichert werden.');
 		}
 	}
 );
@@ -309,11 +303,6 @@ export const deletePost = form(
 	}),
 	async ({ slug, token }) => {
 		try {
-			console.log('[deletePost] Starting deletion:', {
-				slug,
-				token: token.substring(0, 10) + '...'
-			});
-
 			// Get post to verify token
 			const { data: post, error: selectError } = await supabase
 				.from('posts')
@@ -323,40 +312,32 @@ export const deletePost = form(
 
 			if (selectError || !post) {
 				console.error('[deletePost] Post not found:', selectError);
-				throw error(404, 'Post nicht gefunden');
+				throw error(404, 'Geschichte nicht gefunden');
 			}
 
 			if (!post.edit_token_hash) {
-				console.error('[deletePost] No edit_token_hash found for post');
-				throw error(403, 'Dieser Post kann nicht gelöscht werden');
+				throw error(403, 'Diese Geschichte kann nicht gelöscht werden.');
 			}
 
 			// Verify token
 			const isValid = await verifyToken(token, post.edit_token_hash);
 			if (!isValid) {
-				console.error('[deletePost] Token verification failed');
-				throw error(403, 'Ungültiger Bearbeitungstoken');
+				throw error(403, 'Ungültiger Bearbeitungstoken.');
 			}
-
-			console.log('[deletePost] Token verified, deleting post...');
 
 			// Delete post
 			const { error: deleteError } = await supabase.from('posts').delete().eq('slug', slug);
 
 			if (deleteError) {
 				console.error('[deletePost] Delete error:', deleteError);
-				console.error('[deletePost] Delete error details:', JSON.stringify(deleteError, null, 2));
-				throw error(500, `Failed to delete post: ${deleteError.message}`);
+				throw error(500, 'Die Geschichte konnte nicht gelöscht werden.');
 			}
 
-			console.log('[deletePost] Post deleted successfully');
 			return { success: true };
 		} catch (err) {
+			if (isHttpError(err)) throw err;
 			console.error('[deletePost] Error:', err);
-			if (err && typeof err === 'object' && 'status' in err) {
-				throw err;
-			}
-			throw error(500, 'Failed to delete post');
+			throw error(500, 'Die Geschichte konnte nicht gelöscht werden.');
 		}
 	}
 );
@@ -478,10 +459,8 @@ export const checkStoryStatus = form(
 				rateLimitRemaining: rateLimit.remaining
 			};
 		} catch (err) {
+			if (isHttpError(err)) throw err;
 			console.error('[checkStoryStatus] Error:', err);
-			if (err && typeof err === 'object' && 'status' in err) {
-				throw err;
-			}
 			throw error(500, 'Fehler beim Überprüfen des Status');
 		}
 	}
