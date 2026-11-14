@@ -158,8 +158,11 @@
 
 					<div class="p-sm bg-background-alt rounded-card text-sm text-foreground-alt">
 						<p>
-							<strong>Mit dem Einreichen stimmst du dieser Lizenzierung zu.</strong> Falls du Fragen dazu
-							hast, kontaktiere uns bitte vor dem Einreichen.
+							<strong>Mit dem Einreichen stimmst du dieser Lizenzierung zu.</strong> Falls du Fragen
+							dazu hast,
+							<a href="/kontakt" class="text-taxi-blue hover:underline font-medium"
+								>kontaktiere uns</a
+							> bitte vor dem Einreichen.
 						</p>
 					</div>
 				</div>
