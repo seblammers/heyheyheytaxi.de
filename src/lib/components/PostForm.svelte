@@ -3,11 +3,16 @@
 	import SimpleEditor from './SimpleEditor.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
 	import { saveToken } from '$lib/utils/tokenStorage';
+	import { page } from '$app/state';
 
 	let editorContent = $state('');
 	let contentTextarea = $state<HTMLTextAreaElement>();
 	let editToken = $state<string | null>(null);
 	let tokenCopied = $state(false);
+	let linkCopied = $state(false);
+
+	// The story page shows the review status, so this link replaces a separate status page
+	const storyPath = $derived(submitPost.result?.slug ? `/lesen/${submitPost.result.slug}` : null);
 	let showAnotherForm = $state(false);
 
 	function handleEditorUpdate(html: string) {
@@ -49,6 +54,15 @@
 		});
 	}
 
+	function handleCopyLink(url: string) {
+		navigator.clipboard.writeText(url).then(() => {
+			linkCopied = true;
+			setTimeout(() => {
+				linkCopied = false;
+			}, 2000);
+		});
+	}
+
 	function handleSubmitAnother() {
 		// Reset form state by reloading the page
 		window.location.reload();
@@ -61,15 +75,38 @@
 			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
 			<p class="text-sm mb-md">Sie wird bald veröffentlicht.</p>
 
-			<div class="mb-md p-sm bg-background rounded-card border border-border">
-				<p class="text-xs text-foreground-alt mb-xs">
-					💡 <strong>Tipp:</strong> Du kannst den Status deiner Geschichte jederzeit unter{' '}
-					<a href="/lesen/status" class="text-taxi-blue hover:underline font-medium">
-						Status prüfen
-					</a>{' '}
-					überprüfen.
-				</p>
-			</div>
+			{#if storyPath}
+				{@const storyUrl = `${page.url.origin}${storyPath}`}
+				<div class="p-sm bg-background rounded-card border border-border">
+					<p class="font-bold mb-xs text-sm">🔗 Link zu deiner Geschichte:</p>
+					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
+						<input
+							type="text"
+							readonly
+							value={storyUrl}
+							aria-label="Link zu deiner Geschichte"
+							class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono"
+						/>
+						<button
+							type="button"
+							onclick={() => handleCopyLink(storyUrl)}
+							class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+						>
+							{linkCopied ? '✓ Kopiert' : 'Kopieren'}
+						</button>
+					</div>
+					<p class="text-xs text-foreground-alt mb-sm">
+						Unter diesem Link siehst du jederzeit, ob deine Geschichte schon freigegeben wurde.
+						Speichere ihn dir am besten zusammen mit dem Bearbeitungstoken.
+					</p>
+					<a
+						href={storyPath}
+						class="block w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium text-center hover:opacity-90 transition-opacity"
+					>
+						Zur Geschichte
+					</a>
+				</div>
+			{/if}
 
 			{#if editToken && submitPost.result?.slug}
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
