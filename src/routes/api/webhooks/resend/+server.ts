@@ -54,7 +54,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				`An: ${to}`,
 				`Betreff: ${subject}`,
 				'',
-				'Antworten im Resend-Dashboard: https://resend.com/emails'
+				'Antworten im Resend-Dashboard: https://resend.com/inboxes/hallo@heyheyheytaxi.de'
 			].join('\n')
 		});
 	} catch (error) {
