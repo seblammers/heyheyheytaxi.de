@@ -80,13 +80,9 @@
 				<div class="p-sm bg-background rounded-card border border-border">
 					<p class="font-bold mb-xs text-sm">🔗 Link zu deiner Geschichte:</p>
 					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
-						<input
-							type="text"
-							readonly
-							value={storyUrl}
-							aria-label="Link zu deiner Geschichte"
-							class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono"
-						/>
+						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
+							{storyUrl}
+						</code>
 						<button
 							type="button"
 							onclick={() => handleCopyLink(storyUrl)}
