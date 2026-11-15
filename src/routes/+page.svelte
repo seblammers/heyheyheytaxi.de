@@ -4,8 +4,8 @@
 	<div class="flex flex-col gap-md w-full">
 		<h1 class="text-4xl font-bold">Hey, hey, hey, Taxi!</h1>
 		<p class="text-xl">
-			Ich steige in ein Taxi, und das Taxi ist eine Internetseite und die Internetseite wird das
-			Zuhause für all eure Taxi-Geschichten sein.
+			Ich steige in ein Taxi, und das Taxi ist eine Internetseite und die Internetseite ist das
+			Zuhause für alle Taxi-Geschichten.
 		</p>
 		<p class="text-foreground-alt">
 			Du weißt nicht, worum es geht?

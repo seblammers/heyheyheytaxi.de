@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
+	import MorphCheckbox from './MorphCheckbox.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
 	import { saveToken } from '$lib/utils/tokenStorage';
 	import { page } from '$app/state';
@@ -222,13 +223,11 @@
 		</div>
 
 		<div class="flex flex-col gap-xs pt-sm">
-			<label class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card">
-				<input
-					{...submitPost.fields.licenseAccepted.as('checkbox')}
-					required
-					class="mt-[2px] cursor-pointer"
-				/>
-				<span class="text-sm text-foreground-alt">
+			<label
+				class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card text-sm text-foreground-alt"
+			>
+				<MorphCheckbox {...submitPost.fields.licenseAccepted.as('checkbox')} required />
+				<span>
 					Ich bestätige, dass ich das Urheberrecht an dieser Geschichte besitze und sie unter der
 					<a
 						href="/regeln#lizenz"

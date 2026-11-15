@@ -5,9 +5,12 @@
 </script>
 
 <footer class="bg-taxi-blue text-taxi-yellow w-full">
-	<div class="nk-container flex flex-col gap-md py-sm! md:py-md! w-full">
+	<!-- Shared grid so both navs start at the same column edge on mobile -->
+	<div
+		class="nk-container grid grid-cols-[auto_auto] justify-between gap-md py-sm! md:py-md! w-full"
+	>
 		<nav
-			class="flex gap-md justify-between items-start w-full"
+			class="col-span-2 grid grid-cols-subgrid items-start"
 			aria-label="Hauptnavigation (Fußzeile)"
 		>
 			<a href="/" class="flex items-center">
@@ -15,7 +18,9 @@
 				<span class="sr-only">Startseite</span>
 			</a>
 
-			<div class="flex flex-col sm:flex-row items-start flex-wrap gap-sm md:gap-md">
+			<div
+				class="flex flex-col sm:flex-row sm:justify-end items-start flex-wrap gap-sm md:gap-md"
+			>
 				{#each menuItems as item (item.href)}
 					<a
 						data-active={item.href === page.url.pathname}
@@ -29,18 +34,20 @@
 		</nav>
 
 		<nav
-			class="flex flex-wrap justify-end gap-sm md:gap-md pt-sm border-t border-taxi-yellow/30 text-sm"
+			class="col-span-2 grid grid-cols-subgrid pt-sm border-t border-taxi-yellow/30 text-sm"
 			aria-label="Rechtliches"
 		>
-			{#each footerItems as item (item.href)}
-				<a
-					data-active={item.href === page.url.pathname}
-					href={item.href}
-					class="text-taxi-yellow/90 hover:text-taxi-yellow transition-colors data-[active=true]:font-semibold"
-				>
-					{item.label}
-				</a>
-			{/each}
+			<div class="col-start-2 flex flex-col sm:flex-row flex-wrap sm:justify-end gap-sm md:gap-md">
+				{#each footerItems as item (item.href)}
+					<a
+						data-active={item.href === page.url.pathname}
+						href={item.href}
+						class="text-taxi-yellow/90 hover:text-taxi-yellow transition-colors data-[active=true]:font-semibold"
+					>
+						{item.label}
+					</a>
+				{/each}
+			</div>
 		</nav>
 	</div>
 </footer>
