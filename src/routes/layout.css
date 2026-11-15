@@ -405,6 +405,16 @@ html {
 	@apply rounded-card border border-border-card bg-background p-md shadow-card;
 }
 
+/* Mobile: cards go edge-to-edge (like iOS grouped lists) to avoid a double gutter of
+   yellow container padding + white card padding. The card padding matches the container
+   padding, so card text aligns with the page header above it.
+   Scoped to .nk-container so portaled cards (e.g. dialogs) keep their floating look. */
+@media (max-width: 576px) {
+	.nk-container .nk-card {
+		@apply -mx-sm rounded-none border-x-0 px-sm py-md;
+	}
+}
+
 /* Button styles */
 button {
 	@apply cursor-pointer;
