@@ -24,6 +24,10 @@ export const menuItems = [
 // Secondary links, shown in the footer only
 export const footerItems = [
 	{
+		label: "So funktioniert's",
+		href: '/so-gehts'
+	},
+	{
 		label: 'Über das Projekt',
 		href: '/ueber'
 	},

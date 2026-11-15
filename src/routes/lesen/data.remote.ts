@@ -138,7 +138,7 @@ export const validateEditToken = query(
 			// Verify token
 			const isValid = await verifyToken(token, post.edit_token_hash);
 			if (!isValid) {
-				return { valid: false, reason: 'Ungültiger Bearbeitungstoken' };
+				return { valid: false, reason: 'Dieser Geheimcode passt nicht zu dieser Geschichte' };
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -146,7 +146,7 @@ export const validateEditToken = query(
 			return { valid: true, post: transformPost(publicPost) };
 		} catch (err) {
 			console.error('[validateEditToken] Error:', err);
-			return { valid: false, reason: 'Fehler bei der Token-Validierung' };
+			return { valid: false, reason: 'Der Geheimcode konnte nicht geprüft werden' };
 		}
 	}
 );
@@ -247,14 +247,14 @@ export const updatePost = form(
 			if (!post.edit_token_hash) {
 				throw error(
 					403,
-					'Diese Geschichte kann nicht bearbeitet werden, weil sie keinen Bearbeitungstoken hat.'
+					'Diese Geschichte kann nicht bearbeitet werden, weil sie keinen Geheimcode hat.'
 				);
 			}
 
 			// Verify token
 			const isValid = await verifyToken(token, post.edit_token_hash);
 			if (!isValid) {
-				throw error(403, 'Ungültiger Bearbeitungstoken.');
+				throw error(403, 'Dieser Geheimcode passt nicht zu dieser Geschichte.');
 			}
 
 			// Update post
@@ -316,7 +316,7 @@ export const deletePost = form(
 			// Verify token
 			const isValid = await verifyToken(token, post.edit_token_hash);
 			if (!isValid) {
-				throw error(403, 'Ungültiger Bearbeitungstoken.');
+				throw error(403, 'Dieser Geheimcode passt nicht zu dieser Geschichte.');
 			}
 
 			// Delete post

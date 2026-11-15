@@ -43,7 +43,7 @@
 	function handleSaveToken(slug: string, token: string) {
 		saveToken(slug, token);
 		alert(
-			'Token wurde im Browser gespeichert! Du kannst deine Geschichte jetzt jederzeit bearbeiten.'
+			'Dein Geheimcode ist jetzt in diesem Browser gespeichert! Du kannst deine Geschichte jederzeit bearbeiten.'
 		);
 	}
 
@@ -95,7 +95,7 @@
 					</div>
 					<p class="text-xs text-foreground-alt mb-sm">
 						Unter diesem Link siehst du jederzeit, ob deine Geschichte schon freigegeben wurde.
-						Speichere ihn dir am besten zusammen mit dem Bearbeitungstoken.
+						Speichere ihn dir am besten zusammen mit deinem Geheimcode.
 					</p>
 					<a
 						href={storyPath}
@@ -108,7 +108,16 @@
 
 			{#if editToken && submitPost.result?.slug}
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
-					<p class="font-bold mb-xs text-sm">📝 Bearbeitungstoken:</p>
+					<p class="flex justify-between gap-xs mb-xs text-sm">
+						<span class="font-bold">🔑 Dein Geheimcode:</span>
+						<a
+							href="/so-gehts#geheimcode"
+							target="_blank"
+							class="text-taxi-blue hover:underline font-medium"
+						>
+							Was ist das?
+						</a>
+					</p>
 					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
 						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
 							{editToken}
@@ -122,8 +131,8 @@
 						</button>
 					</div>
 					<p class="text-xs text-foreground-alt mb-sm">
-						⚠️ WICHTIG: Speichere diesen Token sicher! Mit diesem Token kannst du deine Geschichte
-						später bearbeiten oder löschen.
+						⚠️ WICHTIG: Bewahre diesen Code gut auf! Du siehst ihn nur jetzt. Mit ihm kannst du
+						deine Geschichte später ändern oder löschen.
 					</p>
 					<button
 						type="button"
@@ -201,11 +210,20 @@
 				id="authorEmail"
 				type="email"
 				placeholder="deine@email.de"
+				aria-describedby="authorEmail-hint"
 				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
 			/>
-			<p class="text-xs text-foreground-alt">
-				Deine E-Mail hilft uns, falls du später nachweisen möchtest, dass du der Autor bist (ohne
-				Token), oder wenn du Feedback zu einer nicht veröffentlichten Geschichte wünschst.
+			<p id="authorEmail-hint" class="text-xs text-foreground-alt">
+				Freiwillig. Nach dem Einreichen bekommst du einen Geheimcode, mit dem du deine Geschichte
+				später ändern kannst. Mit deiner E-Mail können wir dir helfen, falls du den Code verlierst.
+				Wir schicken dir nie Werbung.
+				<a
+					href="/so-gehts#email"
+					target="_blank"
+					class="text-taxi-blue hover:underline font-medium"
+				>
+					Wie das genau funktioniert →
+				</a>
 			</p>
 			{#each submitPost.fields.authorEmail.issues() as issue}
 				<p class="text-destructive text-sm">{issue.message}</p>

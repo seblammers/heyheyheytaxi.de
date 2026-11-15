@@ -46,27 +46,33 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">3. Wenn du eine Geschichte einreichst</h2>
 				<p class="text-foreground-alt">Wir speichern in unserer Datenbank:</p>
-				<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
+				<ul
+					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
+				>
 					<li>Titel und Text deiner Geschichte</li>
 					<li>
 						deinen Namen (Pflichtfeld, gern ein Pseudonym) – er wird zusammen mit der Geschichte
 						veröffentlicht, weil die Lizenz eine Namensnennung verlangt
 					</li>
 					<li>
-						deine E-Mail-Adresse, falls du sie freiwillig angibst – sie wird nicht veröffentlicht
-						und nur genutzt, um dir Rückmeldung zu deiner Geschichte zu geben oder deine
-						Urheberschaft zu bestätigen
+						deine E-Mail-Adresse, falls du sie freiwillig angibst – sie wird nicht veröffentlicht,
+						nicht weitergegeben und nie für Werbung oder Newsletter genutzt. Wir verwenden sie nur,
+						um dir Rückmeldung zu deiner eingereichten Geschichte zu geben oder um zu bestätigen,
+						dass du die Geschichte geschrieben hast, wenn du deinen Geheimcode verloren hast (<a
+							href="/so-gehts#versprechen"
+							class="text-taxi-blue hover:underline font-medium">Unser Versprechen</a
+						>)
 					</li>
 					<li>Datum der Einreichung und ggf. der letzten Bearbeitung</li>
 					<li>
-						deinen Bearbeitungstoken, allerdings nur als verschlüsselten Hash – den Token selbst
-						kennen nur du und dein Browser
+						deinen Geheimcode (Bearbeitungstoken), allerdings nur als verschlüsselten Hash – den
+						Code selbst kennen nur du und dein Browser
 					</li>
 				</ul>
 				<p class="text-foreground-alt">
 					Rechtsgrundlage ist deine Einwilligung beim Einreichen (Art. 6 Abs. 1 lit. a DSGVO). Die
-					Daten bleiben gespeichert, bis du deine Geschichte mit deinem Token löschst oder uns um
-					Löschung bittest.
+					Daten bleiben gespeichert, bis du deine Geschichte mit deinem Geheimcode löschst oder uns
+					um Löschung bittest.
 				</p>
 				<p class="text-foreground-alt">
 					Zum Schutz vor Spam wird deine IP-Adresse beim Einreichen kurzzeitig im Arbeitsspeicher
@@ -79,10 +85,10 @@
 				<h2 class="text-xl font-bold">4. Speicherung in deinem Browser</h2>
 				<p class="text-foreground-alt">
 					Wenn du nach dem Einreichen auf „In Browser speichern“ klickst, legen wir deinen
-					Bearbeitungstoken im lokalen Speicher (localStorage) deines Browsers ab. So kannst du
-					deine Geschichte später bearbeiten oder löschen, ohne den Token erneut einzugeben. Der
-					Token verlässt deinen Browser nur, wenn du eine Geschichte bearbeitest oder löschst. Du
-					kannst ihn jederzeit über die Einstellungen deines Browsers entfernen.
+					Geheimcode im lokalen Speicher (localStorage) deines Browsers ab. So kannst du deine
+					Geschichte später bearbeiten oder löschen, ohne den Code erneut einzugeben. Der Code
+					verlässt deinen Browser nur, wenn du eine Geschichte bearbeitest oder löschst. Du kannst
+					ihn jederzeit über die Einstellungen deines Browsers entfernen.
 				</p>
 				<p class="text-foreground-alt">
 					Diese Speicherung erfolgt nur auf deinen ausdrücklichen Wunsch und ist für diese Funktion
@@ -112,7 +118,9 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">7. Deine Rechte</h2>
 				<p class="text-foreground-alt">Du hast jederzeit das Recht auf:</p>
-				<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
+				<ul
+					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
+				>
 					<li>Auskunft über deine gespeicherten Daten (Art. 15 DSGVO)</li>
 					<li>Berichtigung (Art. 16 DSGVO) und Löschung (Art. 17 DSGVO)</li>
 					<li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>

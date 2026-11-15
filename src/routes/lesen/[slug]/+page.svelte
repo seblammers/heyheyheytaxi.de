@@ -100,19 +100,21 @@
 						</Button.Root>
 					</div>
 					<p class="text-xs text-foreground-alt text-center">
-						Du kannst diese Geschichte bearbeiten oder löschen, da du den Bearbeitungstoken hast.
+						Du kannst diese Geschichte bearbeiten oder löschen, weil dein Geheimcode in diesem
+						Browser gespeichert ist.
 					</p>
 				</div>
 			{:else}
 				<div class="mt-md p-sm bg-background-alt rounded-card text-center">
 					<p class="text-sm text-foreground-alt mb-sm">
-						Um diese Geschichte zu bearbeiten oder zu löschen, benötigst du den Bearbeitungstoken.
+						Um diese Geschichte zu bearbeiten oder zu löschen, brauchst du ihren
+						<a href="/so-gehts#geheimcode" class="text-taxi-blue hover:underline">Geheimcode</a>.
 					</p>
 					<a
 						href="/lesen/{slug}/bearbeiten"
 						class="text-taxi-blue hover:underline font-medium text-sm"
 					>
-						Token eingeben →
+						Geheimcode eingeben →
 					</a>
 				</div>
 			{/if}

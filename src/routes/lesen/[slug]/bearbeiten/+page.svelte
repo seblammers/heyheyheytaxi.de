@@ -41,7 +41,10 @@
 					}
 				} catch (error) {
 					console.error('[EditPage] Token validation error:', error);
-					tokenValidationResult = { valid: false, reason: 'Fehler bei der Token-Validierung' };
+					tokenValidationResult = {
+						valid: false,
+						reason: 'Der Geheimcode konnte nicht geprüft werden'
+					};
 				} finally {
 					isValidatingToken = false;
 				}
@@ -59,7 +62,7 @@
 		const enteredToken = tokenInput.trim();
 
 		if (!enteredToken) {
-			tokenError = 'Bitte gib einen Token ein.';
+			tokenError = 'Bitte gib deinen Geheimcode ein.';
 			isSubmittingToken = false;
 			return;
 		}
@@ -75,7 +78,7 @@
 			const validation = await validateEditToken({ slug, token: enteredToken });
 
 			if (!validation.valid) {
-				tokenError = validation.reason || 'Ungültiger Bearbeitungstoken';
+				tokenError = validation.reason || 'Dieser Geheimcode passt nicht';
 				isSubmittingToken = false;
 				return;
 			}
@@ -87,7 +90,7 @@
 			await goto(`/lesen/${slug}/bearbeiten`, { invalidateAll: true });
 		} catch (error) {
 			console.error('[EditPage] Token validation error:', error);
-			tokenError = 'Fehler bei der Token-Validierung';
+			tokenError = 'Der Geheimcode konnte nicht geprüft werden';
 			isSubmittingToken = false;
 		}
 	}
@@ -137,25 +140,28 @@
 				<div class="nk-card">
 					{#if isValidatingToken}
 						<div class="text-center py-xl">
-							<p class="text-foreground-alt">Token wird überprüft...</p>
+							<p class="text-foreground-alt">Geheimcode wird geprüft...</p>
 						</div>
 					{:else}
 						<header class="flex flex-col gap-sm mb-xl">
-							<h1 class="mb-sm">Bearbeitungstoken erforderlich</h1>
+							<h1 class="mb-sm">Geheimcode eingeben</h1>
 							<p class="text-foreground-alt">
-								Um diese Geschichte zu bearbeiten, benötigst du den Bearbeitungstoken, den du beim
-								Einreichen erhalten hast.
+								Um diese Geschichte zu bearbeiten, brauchst du den Geheimcode, den du beim
+								Einreichen bekommen hast.
+								<a href="/so-gehts#geheimcode" class="text-taxi-blue hover:underline"
+									>Was ist das?</a
+								>
 							</p>
 						</header>
 
 						<form onsubmit={handleTokenSubmit} class="flex flex-col gap-md">
 							<div class="flex flex-col gap-2xs">
-								<label for="token" class="font-bold">Bearbeitungstoken *</label>
+								<label for="token" class="font-bold">Geheimcode *</label>
 								<input
 									type="text"
 									id="token"
 									bind:value={tokenInput}
-									placeholder="Gib deinen Bearbeitungstoken ein..."
+									placeholder="Gib deinen Geheimcode ein..."
 									disabled={isSubmittingToken}
 									class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 								/>
@@ -163,7 +169,10 @@
 									<p class="text-destructive text-sm">{tokenError}</p>
 								{/if}
 								<p class="text-xs text-foreground-alt">
-									Der Token wurde dir beim Einreichen der Geschichte angezeigt.
+									Der Geheimcode wurde dir direkt nach dem Einreichen angezeigt. Verloren?
+									<a href="/so-gehts#email" class="text-taxi-blue hover:underline"
+										>So helfen wir dir</a
+									>.
 								</p>
 							</div>
 
@@ -176,7 +185,7 @@
 									{#if isSubmittingToken}
 										Wird überprüft...
 									{:else}
-										Token eingeben und fortfahren
+										Weiter
 									{/if}
 								</Button.Root>
 							</div>
@@ -195,20 +204,19 @@
 				</nav>
 
 				<div class="nk-card text-center">
-					<h1 class="mb-sm">Ungültiger Bearbeitungstoken</h1>
+					<h1 class="mb-sm">Geheimcode passt nicht</h1>
 					<p class="text-foreground-alt mb-md">
-						{tokenValidationResult.reason ||
-							'Der eingegebene Token ist nicht gültig für diese Geschichte.'}
+						{tokenValidationResult.reason || 'Dieser Geheimcode passt nicht zu dieser Geschichte.'}
 					</p>
 					<p class="text-sm text-foreground-alt mb-md">
-						Der gespeicherte Token wurde entfernt. Bitte gib den korrekten Token für diese
+						Der gespeicherte Code wurde entfernt. Bitte gib den richtigen Geheimcode für diese
 						Geschichte ein.
 					</p>
 					<a
 						href="/lesen/{slug}/bearbeiten"
 						class="inline-block px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 					>
-						Token erneut eingeben
+						Geheimcode erneut eingeben
 					</a>
 				</div>
 			</div>
