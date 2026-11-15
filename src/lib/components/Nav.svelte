@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CarTaxiFront, Menu, X } from '@lucide/svelte';
-	import { menuItems } from '$lib/config';
+	import { navGroups } from '$lib/config';
 	import { Popover, Button } from 'bits-ui';
 	import { page } from '$app/state';
 
@@ -10,6 +10,7 @@
 <nav class="flex items-center justify-between nk-container py-sm! w-full relative z-50">
 	<a href="/" class="flex items-center">
 		<CarTaxiFront class="w-8 h-8" />
+		<span class="sr-only">Startseite</span>
 	</a>
 
 	<Popover.Root bind:open>
@@ -53,16 +54,26 @@
 				preventScroll
 				trapFocus={false}
 			>
-				<div class="flex flex-col gap-2 mt-2 py-xs">
-					{#each menuItems as item (item.href)}
-						<a
-							href={item.href}
-							data-active={item.href === page.url.pathname}
-							onclick={() => (open = false)}
-							class="text-foreground/95 px-3 py-1.5 text-[22px] font-normal data-[active=true]:font-semibold hover:bg-muted transition-colors"
-						>
-							{item.label}
-						</a>
+				<div class="flex flex-col py-xs divide-y divide-border-card">
+					{#each navGroups as group, i (group.label)}
+						<div role="group" aria-labelledby="nav-group-{i}" class="flex flex-col gap-0.5 py-xs">
+							<span
+								id="nav-group-{i}"
+								class="px-3 text-xs font-semibold uppercase tracking-wider text-taxi-blue mb-1"
+							>
+								{group.label}
+							</span>
+							{#each group.items as item (item.href)}
+								<a
+									href={item.href}
+									data-active={item.href === page.url.pathname}
+									onclick={() => (open = false)}
+									class="text-foreground/95 px-3 py-1.5 text-[22px] font-normal data-[active=true]:font-semibold hover:bg-muted transition-colors"
+								>
+									{item.label}
+								</a>
+							{/each}
+						</div>
 					{/each}
 				</div>
 			</Popover.Content>

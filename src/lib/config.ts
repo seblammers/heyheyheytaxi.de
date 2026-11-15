@@ -1,36 +1,29 @@
-export const menuItems = [
+type NavItem = { label: string; href: string };
+type NavGroup = { label: string; items: NavItem[] };
+
+// Content pages grouped by visitor intent; shown in both main menu and footer.
+// Home is reachable via the logo, so it is intentionally not listed.
+export const navGroups: NavGroup[] = [
 	{
-		label: 'Startseite',
-		href: '/'
+		label: 'Mitmachen',
+		items: [
+			{ label: 'Geschichten lesen', href: '/lesen' },
+			{ label: 'Geschichte einreichen', href: '/einreichen' }
+		]
 	},
 	{
-		label: 'Geschichten lesen',
-		href: '/lesen'
-	},
-	{
-		label: 'Geschichte einreichen',
-		href: '/einreichen'
-	},
-	{
-		label: 'Regeln',
-		href: '/regeln'
-	},
-	{
-		label: 'Kontakt',
-		href: '/kontakt'
+		label: 'Gut zu wissen',
+		items: [
+			{ label: 'Über das Projekt', href: '/ueber' },
+			{ label: "So funktioniert's", href: '/so-gehts' },
+			{ label: 'Regeln', href: '/regeln' },
+			{ label: 'Kontakt', href: '/kontakt' }
+		]
 	}
 ];
 
-// Secondary links, shown in the footer only
-export const footerItems = [
-	{
-		label: "So funktioniert's",
-		href: '/so-gehts'
-	},
-	{
-		label: 'Über das Projekt',
-		href: '/ueber'
-	},
+// Legally required pages, shown in the footer only
+export const legalItems: NavItem[] = [
 	{
 		label: 'Impressum',
 		href: '/impressum'
