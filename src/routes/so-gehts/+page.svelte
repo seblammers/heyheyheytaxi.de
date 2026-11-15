@@ -11,14 +11,14 @@
 		<header class="flex flex-col gap-sm mb-xl text-center">
 			<h1>So funktioniert's</h1>
 			<p class="text-foreground-alt">
-				Hier musst du kein Konto anlegen und dir kein Passwort ausdenken. Stattdessen bekommst du
-				nach dem Einreichen einen Geheimcode.
+				Wie funktioniert diese Internetseite? Hier musst du kein Konto anlegen und dir kein Passwort
+				ausdenken. Stattdessen bekommst du nach dem Einreichen einen Geheimcode.
 			</p>
 		</header>
 
 		<div class="nk-card flex flex-col gap-md">
 			<div id="geheimcode" class="flex flex-col gap-3xs scroll-mt-lg">
-				<h2 class="text-xl font-bold">🔑 Was ist der Geheimcode?</h2>
+				<h2 class="text-xl font-bold">Was ist der Geheimcode?</h2>
 				<p class="text-foreground-alt">
 					Der Geheimcode ist wie ein Schlüssel zu deiner Geschichte. Nur wer ihn hat, kann die
 					Geschichte später ändern oder löschen. Jede Geschichte hat ihren eigenen Code. Du siehst
@@ -45,10 +45,10 @@
 					</li>
 					<li>
 						<strong>Aufschreiben:</strong> Kopier ihn in eine Notiz, mach ein Foto oder schreib ihn auf
-						einen Zettel.
+						einen Zettel. Oder falls du schon erwachsen bist: ab damit in deinen Passwort-Manager!
 					</li>
 				</ul>
-				<p class="text-foreground-alt">Unser Tipp: Mach am besten beides.</p>
+				<p class="text-foreground-alt"><br />Unser Tipp: Mach am besten beides.</p>
 			</div>
 
 			<div id="email" class="flex flex-col gap-sm pt-md border-t border-border-card scroll-mt-lg">
@@ -69,7 +69,7 @@
 					</p>
 				</div>
 				<p class="text-foreground-alt">
-					Bist du noch ein Kind? Dann frag am besten deine Eltern, ob ihr ihre E-Mail-Adresse
+					Bist du noch ein Kind? Dann frag am besten deine Eltern, ob ihr eine E-Mail-Adresse
 					angeben wollt.
 				</p>
 			</div>

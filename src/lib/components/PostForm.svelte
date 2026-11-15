@@ -214,9 +214,15 @@
 				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
 			/>
 			<p id="authorEmail-hint" class="text-xs text-foreground-alt">
-				Freiwillig. Nach dem Einreichen bekommst du einen Geheimcode, mit dem du deine Geschichte
-				später ändern kannst. Mit deiner E-Mail können wir dir helfen, falls du den Code verlierst.
-				Wir schicken dir nie Werbung.
+				Freiwillig. Nach dem Einreichen zeigt dir diese Internetseite einen <a
+					href="/so-gehts#geheimcode"
+					target="_blank"
+					class="text-taxi-blue hover:underline font-medium"
+				>
+					Geheimcode
+				</a>
+				an, mit dem du deine Geschichte später ändern kannst. Mit deiner E-Mail können wir dir helfen,
+				falls du den Code verlierst. Wir schicken dir nie Werbung.
 				<a
 					href="/so-gehts#email"
 					target="_blank"
