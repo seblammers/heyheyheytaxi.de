@@ -2,6 +2,7 @@
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
 	import MorphCheckbox from './MorphCheckbox.svelte';
+	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
 	import { saveToken } from '$lib/utils/tokenStorage';
 	import { page } from '$app/state';
@@ -244,6 +245,8 @@
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 
+			<FormIssuesHint count={submitPost.fields.allIssues()?.length ?? 0} />
+
 			<Button.Root
 				type="submit"
 				disabled={!!submitPost.pending}
@@ -260,19 +263,5 @@
 				Deine Geschichte wird nach einer kurzen Prüfung veröffentlicht.
 			</p>
 		</div>
-
-		{#if submitPost?.fields}
-			{@const allIssues = submitPost.fields.allIssues()}
-			{#if allIssues && allIssues.length > 0}
-				<div class="p-sm bg-destructive/10 text-destructive rounded-card">
-					<p class="font-bold mb-xs">Bitte korrigiere folgende Fehler:</p>
-					<ul class="list-disc list-inside text-sm">
-						{#each allIssues as issue}
-							<li>{issue.message}</li>
-						{/each}
-					</ul>
-				</div>
-			{/if}
-		{/if}
 	{/if}
 </form>

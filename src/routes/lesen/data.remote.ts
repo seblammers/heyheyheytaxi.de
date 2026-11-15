@@ -47,13 +47,13 @@ function transformPost(post: SupabasePost): PublicPost {
 const storyContent = z
 	.string()
 	.transform(sanitizeStoryHtml)
-	.refine((html) => textLength(html) >= 10, 'Inhalt muss mindestens 10 Zeichen haben');
+	.refine((html) => textLength(html) >= 50, 'Deine Geschichte muss mindestens 50 Zeichen haben.');
 
 const storyTitle = z
 	.string()
 	.trim()
-	.min(3, 'Titel muss mindestens 3 Zeichen haben')
-	.max(200, 'Titel darf höchstens 200 Zeichen haben');
+	.min(3, 'Dein Titel muss mindestens 3 Zeichen haben.')
+	.max(200, 'Dein Titel darf höchstens 200 Zeichen haben');
 
 // Generate slug from title
 function generateSlug(title: string): string {

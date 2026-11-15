@@ -81,7 +81,7 @@
 				{#if allIssues && allIssues.length > 0}
 					<div class="mt-sm p-sm bg-destructive/10 text-destructive rounded-card text-sm">
 						<p class="font-bold mb-xs">Fehler:</p>
-						<ul class="list-disc list-inside">
+						<ul class="list-disc list-outside pl-[1.25em]">
 							{#each allIssues as issue}
 								<li>{issue.message}</li>
 							{/each}

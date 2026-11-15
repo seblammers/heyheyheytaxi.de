@@ -18,9 +18,7 @@
 				<span class="sr-only">Startseite</span>
 			</a>
 
-			<div
-				class="flex flex-col sm:flex-row sm:justify-end items-start flex-wrap gap-sm md:gap-md"
-			>
+			<div class="flex flex-col sm:flex-row sm:justify-end items-start flex-wrap gap-sm md:gap-md">
 				{#each menuItems as item (item.href)}
 					<a
 						data-active={item.href === page.url.pathname}

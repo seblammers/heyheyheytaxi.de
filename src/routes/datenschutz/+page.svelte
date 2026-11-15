@@ -46,7 +46,7 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">3. Wenn du eine Geschichte einreichst</h2>
 				<p class="text-foreground-alt">Wir speichern in unserer Datenbank:</p>
-				<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+				<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 					<li>Titel und Text deiner Geschichte</li>
 					<li>
 						deinen Namen (Pflichtfeld, gern ein Pseudonym) – er wird zusammen mit der Geschichte
@@ -112,7 +112,7 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">7. Deine Rechte</h2>
 				<p class="text-foreground-alt">Du hast jederzeit das Recht auf:</p>
-				<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+				<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 					<li>Auskunft über deine gespeicherten Daten (Art. 15 DSGVO)</li>
 					<li>Berichtigung (Art. 16 DSGVO) und Löschung (Art. 17 DSGVO)</li>
 					<li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>

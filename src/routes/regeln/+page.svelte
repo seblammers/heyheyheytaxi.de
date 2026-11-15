@@ -37,7 +37,7 @@
 					<p class="text-foreground-alt">
 						Geschichten dürfen nicht abwertend sein gegenüber Menschen wegen:
 					</p>
-					<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+					<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 						<li>ihrer Herkunft oder Hautfarbe</li>
 						<li>ihrer Religion oder Weltanschauung</li>
 						<li>ihrer Sprache oder Kultur</li>
@@ -112,7 +112,7 @@
 
 					<div class="flex flex-col gap-3xs">
 						<h3 class="text-xl font-bold">Das bedeutet für dich als Autor:</h3>
-						<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+						<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 							<li>Du behältst das Urheberrecht an deiner Geschichte</li>
 							<li>Deine Geschichte kann frei geteilt und verbreitet werden</li>
 							<li>
@@ -129,7 +129,7 @@
 
 					<div class="flex flex-col gap-3xs">
 						<h3 class="text-xl font-bold">Das bedeutet für die Plattform:</h3>
-						<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+						<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 							<li>Wir dürfen deine Geschichte auf Social Media teilen</li>
 
 							<li>Wir werden dich immer als Autor nennen</li>
@@ -138,7 +138,7 @@
 
 					<div class="flex flex-col gap-3xs">
 						<h3 class="text-xl font-bold">Das bedeutet für andere Nutzer:</h3>
-						<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+						<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 							<li>Sie dürfen Geschichten kopieren und weitergeben</li>
 							<li>Sie dürfen sie auch für kommerzielle Zwecke nutzen</li>
 							<li>Sie müssen den Autor nennen und auf diese Plattform verlinken</li>

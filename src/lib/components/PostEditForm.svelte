@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
+	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { updatePost } from '../../routes/lesen/data.remote';
 	import type { PublicPost } from '$lib/server/db/schema';
 
@@ -81,6 +82,8 @@
 	</div>
 
 	<div class="flex flex-col gap-xs pt-sm">
+		<FormIssuesHint count={updatePost.fields.allIssues()?.length ?? 0} />
+
 		<Button.Root
 			type="submit"
 			disabled={!!updatePost.pending}
@@ -116,19 +119,5 @@
 			<p class="font-bold">Fehler beim Speichern</p>
 			<p class="text-sm">Die Änderungen konnten nicht gespeichert werden.</p>
 		</div>
-	{/if}
-
-	{#if updatePost?.fields}
-		{@const allIssues = updatePost.fields.allIssues()}
-		{#if allIssues && allIssues.length > 0}
-			<div class="p-sm bg-destructive/10 text-destructive rounded-card">
-				<p class="font-bold mb-xs">Bitte korrigiere folgende Fehler:</p>
-				<ul class="list-disc list-inside text-sm">
-					{#each allIssues as issue}
-						<li>{issue.message}</li>
-					{/each}
-				</ul>
-			</div>
-		{/if}
 	{/if}
 </form>

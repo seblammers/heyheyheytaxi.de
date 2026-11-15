@@ -22,7 +22,7 @@
 
 			<div class="flex flex-col gap-3xs pt-md border-t border-border-card">
 				<h2 class="text-xl font-bold">Wobei wir dir helfen können</h2>
-				<ul class="flex flex-col gap-3xs list-disc list-inside text-foreground-alt ml-sm">
+				<ul class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm">
 					<li>
 						<strong>Fragen zu den Regeln:</strong> Du bist unsicher, ob deine Geschichte passt? Frag
 						einfach – oder schau vorher in die
