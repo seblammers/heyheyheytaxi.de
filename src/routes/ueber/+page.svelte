@@ -52,7 +52,7 @@
 				</p>
 				<ul class="flex flex-col gap-sm">
 					{#each books as book (book.href)}
-						<li class="p-sm bg-background-alt rounded-card">
+						<li class="nk-inset">
 							<a
 								href={book.href}
 								target="_blank"

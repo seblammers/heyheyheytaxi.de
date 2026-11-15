@@ -105,7 +105,7 @@
 					</p>
 				</div>
 			{:else}
-				<div class="mt-md p-sm bg-background-alt rounded-card text-center">
+				<div class="mt-md nk-inset text-center">
 					<p class="text-sm text-foreground-alt mb-sm">
 						Um diese Geschichte zu bearbeiten oder zu löschen, brauchst du ihren
 						<a href="/so-gehts#geheimcode" class="text-taxi-blue hover:underline">Geheimcode</a>.

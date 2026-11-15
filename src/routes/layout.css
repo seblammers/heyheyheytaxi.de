@@ -405,6 +405,13 @@ html {
 	@apply rounded-card border border-border-card bg-background p-md shadow-card;
 }
 
+/* Inset box inside a white card. The outline makes the extra indentation read as intentional. */
+.nk-inset {
+	@apply rounded-card border-solid border-taxi-blue bg-background p-sm;
+	/* matches the MorphCheckbox stroke: lucide stroke 2 of a 24-unit viewBox at 1.25em icon size */
+	border-width: calc(1.25rem * 2 / 24);
+}
+
 /* Mobile: cards go edge-to-edge (like iOS grouped lists) to avoid a double gutter of
    yellow container padding + white card padding. The card padding matches the container
    padding, so card text aligns with the page header above it.

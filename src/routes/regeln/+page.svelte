@@ -157,7 +157,7 @@
 						</ul>
 					</div>
 
-					<div class="p-sm bg-background-alt rounded-card text-sm text-foreground-alt">
+					<div class="nk-inset text-sm text-foreground-alt">
 						<p>
 							<strong>Mit dem Einreichen stimmst du dieser Lizenzierung zu.</strong> Falls du Fragen
 							dazu hast,

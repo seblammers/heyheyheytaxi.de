@@ -248,9 +248,7 @@
 		</div>
 
 		<div class="flex flex-col gap-xs pt-sm">
-			<label
-				class="flex gap-xs items-start cursor-pointer p-sm bg-background-alt rounded-card text-sm text-foreground-alt"
-			>
+			<label class="flex gap-xs items-start cursor-pointer nk-inset text-sm text-foreground-alt">
 				<MorphCheckbox {...submitPost.fields.licenseAccepted.as('checkbox')} required />
 				<span>
 					Ich bestätige, dass ich das Urheberrecht an dieser Geschichte besitze und sie unter der

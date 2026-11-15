@@ -55,14 +55,14 @@
 				<h2 class="text-xl font-bold">
 					Nur Code oder Code + <span class="whitespace-nowrap">E-Mail?</span> Du entscheidest.
 				</h2>
-				<div class="p-sm bg-background-alt rounded-card flex flex-col gap-3xs">
+				<div class="nk-inset flex flex-col gap-3xs">
 					<h3 class="font-bold">Nur der Geheimcode</h3>
 					<p class="text-foreground-alt">
 						Du verrätst uns nichts über dich. Aber wenn du den Code verlierst, können wir nicht
 						erkennen, dass die Geschichte von dir ist. Dann kannst du sie nicht mehr ändern.
 					</p>
 				</div>
-				<div class="p-sm bg-background-alt rounded-card flex flex-col gap-3xs">
+				<div class="nk-inset flex flex-col gap-3xs">
 					<h3 class="font-bold">Geheimcode + E-Mail</h3>
 					<p class="text-foreground-alt">
 						Wenn du den Code verlierst, schreib uns von derselben E-Mail-Adresse. So sehen wir, dass
@@ -100,7 +100,7 @@
 				</ul>
 			</div>
 
-			<div class="p-sm bg-background-alt rounded-card text-sm text-foreground-alt">
+			<div class="nk-inset text-sm text-foreground-alt">
 				<p>
 					Code verloren oder noch Fragen?
 					<a href="/kontakt" class="text-taxi-blue hover:underline font-medium">Schreib uns</a>.
