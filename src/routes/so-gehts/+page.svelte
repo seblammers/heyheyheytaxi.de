@@ -52,7 +52,9 @@
 			</div>
 
 			<div id="email" class="flex flex-col gap-sm pt-md border-t border-border-card scroll-mt-lg">
-				<h2 class="text-xl font-bold">Nur Code oder Code + E-Mail? Du entscheidest.</h2>
+				<h2 class="text-xl font-bold">
+					Nur Code oder Code + <span class="whitespace-nowrap">E-Mail?</span> Du entscheidest.
+				</h2>
 				<div class="p-sm bg-background-alt rounded-card flex flex-col gap-3xs">
 					<h3 class="font-bold">Nur der Geheimcode</h3>
 					<p class="text-foreground-alt">

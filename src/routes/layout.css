@@ -300,6 +300,8 @@
 	h6 {
 		font-variant-ligatures: none;
 		font-weight: 700;
+		/* last resort: break words that would otherwise overflow the viewport */
+		overflow-wrap: break-word;
 	}
 	/* 6. Text size token use-case */
 	h1 {
@@ -321,6 +323,33 @@
 	@apply scroll-pt-32 scroll-smooth;
 	--body-width: 1624px;
 	--header-height: 96px;
+}
+
+/* Mobile type scale: the root font size drops to 16px here, but the heading tokens keep
+   their desktop ratios (h1 would be 56px). Overriding the theme variables scales every
+   heading and text-* utility at once, while desktop stays untouched. */
+@media (max-width: 576px) {
+	:root {
+		--text-4xl: clamp(2rem, 0.75rem + 5vw, 2.75rem);
+		--text-3xl: clamp(1.75rem, 0.75rem + 4vw, 2.5rem);
+		--text-2xl: clamp(1.625rem, 1rem + 3vw, 2.25rem);
+		--text-xl: 1.5rem;
+		--text-lg: 1.25rem;
+		--text-md: 1.125rem;
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			/* German compounds (e.g. "Datenschutzerklärung") need hyphenation on narrow screens;
+			   relies on <html lang="de"> */
+			hyphens: auto;
+			hyphenate-limit-chars: 10 4 4;
+			text-wrap: balance;
+		}
+	}
 }
 /* basic body styles */
 body {
