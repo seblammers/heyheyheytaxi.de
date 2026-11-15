@@ -330,6 +330,11 @@ body {
 	@apply flex flex-col bg-taxi-yellow font-body text-base/[150%] text-taxi-blue antialiased;
 }
 
+/* text selection styles */
+::selection {
+	@apply bg-taxi-blue text-white;
+}
+
 /* main styles */
 main {
 	flex: 1 0 auto;
