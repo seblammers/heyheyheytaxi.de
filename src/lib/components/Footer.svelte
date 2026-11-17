@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CarTaxiFront } from '@lucide/svelte';
+	import TaxiLogo from './TaxiLogo.svelte';
 	import { navGroups, legalItems } from '$lib/config';
 	import { page } from '$app/state';
 </script>
@@ -14,7 +14,7 @@
 			aria-label="Hauptnavigation (Fußzeile)"
 		>
 			<a href="/" class="flex items-center">
-				<CarTaxiFront class="w-8 h-8" />
+				<TaxiLogo />
 				<span class="sr-only">Startseite</span>
 			</a>
 

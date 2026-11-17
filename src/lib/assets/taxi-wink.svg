@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <title>taxi-wink.svg</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <line x1="10" y1="4" x2="14" y2="4" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M21 8 L19 10 L17.5 6.3 C17.21 5.525 16.473 5.008 15.646 5 L8.4 5 C7.566 4.981 6.807 5.482 6.497 6.257 L5 10 L3 8" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="7" y1="14" x2="7.01" y2="14" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="15.844" y1="14.236" x2="16.962" y2="13.764" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5 10 L19 10 C20.105 10 21 10.895 21 12 L21 16 C21 17.105 20.105 18 19 18 L5 18 C3.895 18 3 17.105 3 16 L3 12 C3 10.895 3.895 10 5 10 Z" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="5" y1="18" x2="5" y2="20" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="19" y1="18" x2="19" y2="20" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

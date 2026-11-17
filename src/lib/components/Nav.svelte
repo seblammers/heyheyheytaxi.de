@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CarTaxiFront } from '@lucide/svelte';
+	import TaxiLogo from './TaxiLogo.svelte';
 	import { Menu, X } from 'lucide';
 	import { MorphIcon } from 'morphicons/svelte';
 	import { navGroups } from '$lib/config';
@@ -11,7 +11,7 @@
 
 <nav class="flex items-center justify-between nk-container py-sm! w-full relative z-50">
 	<a href="/" class="flex items-center">
-		<CarTaxiFront class="w-8 h-8" />
+		<TaxiLogo />
 		<span class="sr-only">Startseite</span>
 	</a>
 
