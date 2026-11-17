@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { CarTaxiFront, Menu, X } from '@lucide/svelte';
+	import { CarTaxiFront } from '@lucide/svelte';
+	import { Menu, X } from 'lucide';
+	import { MorphIcon } from 'morphicons/svelte';
 	import { navGroups } from '$lib/config';
 	import { Popover, Button } from 'bits-ui';
 	import { page } from '$app/state';
@@ -18,13 +20,9 @@
 			{#snippet child({ props })}
 				<Button.Root
 					{...props}
-					class="p-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 cursor-pointer [&_svg]:size-6"
+					class="p-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 cursor-pointer"
 				>
-					{#if open}
-						<X />
-					{:else}
-						<Menu />
-					{/if}
+					<MorphIcon icon={open ? X : Menu} spring="snappy" size={24} />
 					<span class="sr-only">Menü öffnen/schließen</span>
 				</Button.Root>
 			{/snippet}
