@@ -74,8 +74,7 @@
 			{...updatePost.fields.content.as('text')}
 			bind:this={contentTextarea}
 			id="content"
-			class="sr-only"
-		></textarea>
+			class="sr-only"></textarea>
 		{#each updatePost.fields.content.issues() as issue}
 			<p class="text-destructive text-sm">{issue.message}</p>
 		{/each}

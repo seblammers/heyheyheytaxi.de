@@ -17,7 +17,7 @@
 {#if address}
 	<a href="mailto:{address}" class={className}>{address}</a>
 {:else}
-	<span class={className}
-		>{contactEmail.user} (at) {contactEmail.domain.replace('.', ' (punkt) ')}</span
-	>
+	<span class={className}>
+		{contactEmail.user} (at) {contactEmail.domain.replace('.', ' (punkt) ')}
+	</span>
 {/if}
