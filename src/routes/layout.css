@@ -93,6 +93,7 @@
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
 	--color-destructive: var(--destructive);
+	--color-destructive-foreground: white;
 	--color-tertiary: var(--tertiary);
 	--color-line: var(--line);
 	--color-contrast: var(--contrast);
