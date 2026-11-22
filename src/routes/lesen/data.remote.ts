@@ -57,10 +57,12 @@ const storyTitle = z
 
 // Unchecked checkboxes send no value, so SvelteKit requires booleans in form
 // schemas to be optional. The refine still makes checking the box mandatory.
+// Use default(false), not optional(): zod skips refinements on missing optional
+// keys, which would let a crafted request without the field skip consent.
 const requiredCheckbox = (message: string) =>
 	z
 		.boolean()
-		.optional()
+		.default(false)
 		.refine((checked) => checked === true, message);
 
 // Generate slug from title
