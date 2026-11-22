@@ -71,10 +71,7 @@
 					<h1 class="mb-sm">Geschichte wurde abgelehnt</h1>
 					<p class="text-foreground-alt mb-md">
 						Deine Geschichte wurde leider nicht veröffentlicht. Dies kann verschiedene Gründe haben,
-						bitte informiere dich über unsere Regeln: <a
-							href="/regeln"
-							class="text-taxi-blue hover:underline">hier</a
-						>.
+						bitte informiere dich über unsere Regeln: <a href="/regeln">hier</a>.
 					</p>
 					<div class="flex flex-col gap-sm">
 						<p class="text-sm font-bold">Titel:</p>
@@ -108,7 +105,7 @@
 				<div class="mt-md nk-inset text-center">
 					<p class="text-sm text-foreground-alt mb-sm">
 						Um diese Geschichte zu bearbeiten oder zu löschen, brauchst du ihren
-						<a href="/so-gehts#geheimcode" class="text-taxi-blue hover:underline">Geheimcode</a>.
+						<a href="/so-gehts#geheimcode">Geheimcode</a>.
 					</p>
 					<a
 						href="/lesen/{slug}/bearbeiten"

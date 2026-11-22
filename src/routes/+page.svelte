@@ -9,9 +9,7 @@
 		</p>
 		<p class="text-foreground-alt">
 			Du weißt nicht, worum es geht?
-			<a href="/ueber" class="text-taxi-blue hover:underline font-medium"
-				>Hier erklären wir dir, was los ist.</a
-			>
+			<a href="/ueber">Hier erklären wir dir, was los ist.</a>
 		</p>
 		<div class="flex flex-col sm:flex-row gap-sm mt-md">
 			<a

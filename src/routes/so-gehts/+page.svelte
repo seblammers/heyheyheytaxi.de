@@ -36,9 +36,7 @@
 				class="flex flex-col gap-3xs pt-md border-t border-border-card scroll-mt-lg"
 			>
 				<h2 class="text-xl font-bold">Wie bewahre ich ihn gut auf?</h2>
-				<ul
-					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
-				>
+				<ul class="flex flex-col gap-3xs nk-ul text-foreground-alt ml-sm">
 					<li>
 						<strong>Im Browser speichern:</strong> Ein Klick, und dein Browser merkt sich den Code. Das
 						klappt aber nur auf diesem Gerät. Wenn du deinen Browserverlauf löschst, ist der Code weg.
@@ -81,9 +79,7 @@
 				class="flex flex-col gap-3xs pt-md border-t border-border-card scroll-mt-lg"
 			>
 				<h2 class="text-xl font-bold">Unser Versprechen zu deiner E-Mail</h2>
-				<ul
-					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
-				>
+				<ul class="flex flex-col gap-3xs nk-ul text-foreground-alt ml-sm">
 					<li>Wir schicken dir <strong>niemals</strong> Werbung oder Newsletter.</li>
 					<li>Wir schreiben dir nur, wenn es um eine Geschichte geht, die du eingereicht hast.</li>
 					<li>
@@ -93,9 +89,7 @@
 					<li>Deine E-Mail wird nie veröffentlicht und nie an andere weitergegeben.</li>
 					<li>
 						Du kannst sie jederzeit löschen lassen. Mehr dazu steht in der
-						<a href="/datenschutz" class="text-taxi-blue hover:underline font-medium"
-							>Datenschutzerklärung</a
-						>.
+						<a href="/datenschutz">Datenschutzerklärung</a>.
 					</li>
 				</ul>
 			</div>
@@ -103,7 +97,7 @@
 			<div class="nk-inset text-sm text-foreground-alt">
 				<p>
 					Code verloren oder noch Fragen?
-					<a href="/kontakt" class="text-taxi-blue hover:underline font-medium">Schreib uns</a>.
+					<a href="/kontakt">Schreib uns</a>.
 				</p>
 			</div>
 		</div>

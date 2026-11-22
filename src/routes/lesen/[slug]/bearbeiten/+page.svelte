@@ -148,9 +148,7 @@
 							<p class="text-foreground-alt">
 								Um diese Geschichte zu bearbeiten, brauchst du den Geheimcode, den du beim
 								Einreichen bekommen hast.
-								<a href="/so-gehts#geheimcode" class="text-taxi-blue hover:underline"
-									>Was ist das?</a
-								>
+								<a href="/so-gehts#geheimcode">Was ist das?</a>
 							</p>
 						</header>
 
@@ -170,9 +168,7 @@
 								{/if}
 								<p class="text-xs text-foreground-alt">
 									Der Geheimcode wurde dir direkt nach dem Einreichen angezeigt. Verloren?
-									<a href="/so-gehts#email" class="text-taxi-blue hover:underline"
-										>So helfen wir dir</a
-									>.
+									<a href="/so-gehts#email">So helfen wir dir</a>.
 								</p>
 							</div>
 

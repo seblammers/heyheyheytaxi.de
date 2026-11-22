@@ -18,6 +18,11 @@
 		font-variation-settings: normal;
 		scrollbar-color: var(--bg-muted);
 	}
+	/* inline links in running text: always underlined, because colour alone doesn't set them apart
+	   (body text is blue too). lives in the base layer so utilities can still override it */
+	:is(p, li) a {
+		@apply font-medium text-taxi-blue underline underline-offset-2 hover:decoration-2;
+	}
 	html {
 		font-size: 156%; /* 25px / 16px = 156% */
 	}
@@ -420,6 +425,11 @@ html {
 	.nk-container .nk-card {
 		@apply -mx-sm rounded-none border-x-0 px-sm py-md;
 	}
+}
+
+/* Bulleted list. Opt-in class so unstyled <ul>s (e.g. layout lists) stay untouched. */
+.nk-ul {
+	@apply max-w-[55ch] list-outside list-disc pl-[0.25em];
 }
 
 /* Button styles */

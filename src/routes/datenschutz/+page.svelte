@@ -24,7 +24,7 @@
 					Sebastian Lammers, c/o nussknagger GmbH, Warthestr. 1, 12051 Berlin<br />
 					E-Mail: <ObfuscatedEmail /><br />
 					Weitere Angaben findest du im
-					<a href="/impressum" class="text-taxi-blue hover:underline font-medium">Impressum</a>.
+					<a href="/impressum">Impressum</a>.
 				</p>
 			</div>
 
@@ -46,9 +46,7 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">3. Wenn du eine Geschichte einreichst</h2>
 				<p class="text-foreground-alt">Wir speichern in unserer Datenbank:</p>
-				<ul
-					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
-				>
+				<ul class="flex flex-col gap-3xs nk-ul text-foreground-alt ml-sm">
 					<li>Titel und Text deiner Geschichte</li>
 					<li>
 						deinen Namen (Pflichtfeld, gern ein Pseudonym) – er wird zusammen mit der Geschichte
@@ -59,8 +57,7 @@
 						nicht weitergegeben und nie für Werbung oder Newsletter genutzt. Wir verwenden sie nur,
 						um dir Rückmeldung zu deiner eingereichten Geschichte zu geben oder um zu bestätigen,
 						dass du die Geschichte geschrieben hast, wenn du deinen Geheimcode verloren hast (<a
-							href="/so-gehts#versprechen"
-							class="text-taxi-blue hover:underline font-medium">Unser Versprechen</a
+							href="/so-gehts#versprechen">Unser Versprechen</a
 						>)
 					</li>
 					<li>Datum der Einreichung und ggf. der letzten Bearbeitung</li>
@@ -118,9 +115,7 @@
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">7. Deine Rechte</h2>
 				<p class="text-foreground-alt">Du hast jederzeit das Recht auf:</p>
-				<ul
-					class="flex flex-col gap-3xs list-disc list-outside pl-[1.25em] text-foreground-alt ml-sm"
-				>
+				<ul class="flex flex-col gap-3xs nk-ul text-foreground-alt ml-sm">
 					<li>Auskunft über deine gespeicherten Daten (Art. 15 DSGVO)</li>
 					<li>Berichtigung (Art. 16 DSGVO) und Löschung (Art. 17 DSGVO)</li>
 					<li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>

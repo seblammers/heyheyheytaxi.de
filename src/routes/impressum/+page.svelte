@@ -40,7 +40,7 @@
 					Hey, hey, hey, Taxi! ist ein privates, nicht-kommerzielles Projekt. Die Geschichten auf
 					dieser Seite stammen von den jeweils genannten Autorinnen und Autoren und werden vor der
 					Veröffentlichung geprüft. Mehr dazu erfährst du auf der Seite
-					<a href="/ueber" class="text-taxi-blue hover:underline font-medium">Über das Projekt</a>.
+					<a href="/ueber">Über das Projekt</a>.
 				</p>
 			</div>
 		</div>

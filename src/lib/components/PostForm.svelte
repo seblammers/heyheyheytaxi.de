@@ -110,13 +110,7 @@
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
 					<p class="flex justify-between gap-xs mb-xs text-sm">
 						<span class="font-bold">🔑 Dein Geheimcode:</span>
-						<a
-							href="/so-gehts#geheimcode"
-							target="_blank"
-							class="text-taxi-blue hover:underline font-medium"
-						>
-							Was ist das?
-						</a>
+						<a href="/so-gehts#geheimcode" target="_blank"> Was ist das? </a>
 					</p>
 					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
 						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
@@ -217,19 +211,12 @@
 				Freiwillig. Nach dem Einreichen zeigt dir diese Internetseite einen <a
 					href="/so-gehts#geheimcode"
 					target="_blank"
-					class="text-taxi-blue hover:underline font-medium"
 				>
 					Geheimcode
 				</a>
 				an, mit dem du deine Geschichte später ändern kannst. Mit deiner E-Mail können wir dir helfen,
 				falls du den Code verlierst. Wir schicken dir nie Werbung.
-				<a
-					href="/so-gehts#email"
-					target="_blank"
-					class="text-taxi-blue hover:underline font-medium"
-				>
-					Wie das genau funktioniert →
-				</a>
+				<a href="/so-gehts#email" target="_blank"> Wie das genau funktioniert → </a>
 			</p>
 			{#each submitPost.fields.authorEmail.issues() as issue}
 				<p class="text-destructive text-sm">{issue.message}</p>
