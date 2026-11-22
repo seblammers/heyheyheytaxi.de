@@ -2,14 +2,8 @@
 	import PostCard from '$lib/components/PostCard.svelte';
 	import { page } from '$app/state';
 	import { getPost } from '../data.remote';
-	import { getToken } from '$lib/utils/tokenStorage';
-	import DeleteStoryDialog from '$lib/components/DeleteStoryDialog.svelte';
-	import { Button } from 'bits-ui';
 
 	const slug = $derived(page.params.slug);
-	const token = $derived.by(() => (slug ? getToken(slug) : null));
-	const hasToken = $derived(!!token);
-	let deleteDialogOpen = $state(false);
 </script>
 
 <svelte:head>
@@ -80,42 +74,6 @@
 				</div>
 			{/if}
 
-			{#if hasToken && token}
-				<div class="mt-md flex flex-col gap-sm">
-					<div class="flex gap-sm">
-						<a
-							href="/lesen/{slug}/bearbeiten"
-							class="flex-1 px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity text-center"
-						>
-							Geschichte bearbeiten
-						</a>
-						<Button.Root
-							onclick={() => (deleteDialogOpen = true)}
-							class="flex-1 px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
-						>
-							Geschichte löschen
-						</Button.Root>
-					</div>
-					<p class="text-xs text-foreground-alt text-center">
-						Du kannst diese Geschichte bearbeiten oder löschen, weil dein Geheimcode in diesem
-						Browser gespeichert ist.
-					</p>
-				</div>
-			{:else}
-				<div class="mt-md nk-inset text-center">
-					<p class="text-sm text-foreground-alt mb-sm">
-						Um diese Geschichte zu bearbeiten oder zu löschen, brauchst du ihren
-						<a href="/so-gehts#geheimcode">Geheimcode</a>.
-					</p>
-					<a
-						href="/lesen/{slug}/bearbeiten"
-						class="text-taxi-blue hover:underline font-medium text-sm"
-					>
-						Geheimcode eingeben →
-					</a>
-				</div>
-			{/if}
-
 			<div class="mt-xl text-center">
 				<a
 					href="/einreichen"
@@ -126,8 +84,4 @@
 			</div>
 		</div>
 	</section>
-
-	{#if hasToken && token && slug}
-		<DeleteStoryDialog {slug} {token} bind:open={deleteDialogOpen} />
-	{/if}
 </svelte:boundary>

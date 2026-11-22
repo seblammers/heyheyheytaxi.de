@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PostEditForm from '$lib/components/PostEditForm.svelte';
+	import DeleteStoryDialog from '$lib/components/DeleteStoryDialog.svelte';
 	import { page } from '$app/state';
 	import { getPost, validateEditToken } from '../../data.remote';
 	import { getToken, saveToken, removeToken } from '$lib/utils/tokenStorage';
@@ -20,6 +21,7 @@
 		post?: PublicPost;
 	} | null>(null);
 	let isValidatingToken = $state(false);
+	let deleteDialogOpen = $state(false);
 
 	// Validate token when page loads with a token
 	$effect(() => {
@@ -234,7 +236,20 @@
 				<div class="nk-card">
 					<PostEditForm post={tokenValidationResult.post} {token} />
 				</div>
+
+				<div class="mt-md flex flex-col gap-xs">
+					<Button.Root
+						onclick={() => (deleteDialogOpen = true)}
+						class="w-full px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
+					>
+						Geschichte löschen
+					</Button.Root>
+				</div>
 			</div>
 		</section>
+
+		{#if token && slug}
+			<DeleteStoryDialog {slug} {token} bind:open={deleteDialogOpen} />
+		{/if}
 	{/if}
 </svelte:boundary>

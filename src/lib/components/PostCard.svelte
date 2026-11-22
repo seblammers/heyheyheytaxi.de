@@ -66,7 +66,11 @@
 			Lizenz: CC BY-SA 4.0
 		</a>
 
-		{#if !showFullContent}
+		{#if showFullContent}
+			<a href="/lesen/{post.slug}/bearbeiten" class="text-taxi-blue hover:underline font-medium">
+				Bearbeiten →
+			</a>
+		{:else}
 			<a href="/lesen/{post.slug}" class="text-taxi-blue hover:underline font-medium">
 				Weiterlesen →
 			</a>
