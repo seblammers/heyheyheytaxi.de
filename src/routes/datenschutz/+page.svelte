@@ -12,16 +12,19 @@
 		<header class="flex flex-col gap-3xs mb-xl text-center">
 			<h1>Datenschutzerklärung</h1>
 			<p class="text-foreground-alt">
-				Kurz gesagt: Wir sammeln nur, was für die Geschichten nötig ist. Kein Tracking, keine
-				Cookies, keine Werbung.
+				Kurz gesagt: Wir sammeln nur, was für die Geschichten nötig ist.
 			</p>
+			<p class="text-foreground-alt">Kein Tracking, keine Cookies, keine Werbung.</p>
 		</header>
 
 		<div class="nk-card flex flex-col gap-md">
 			<div class="flex flex-col gap-3xs">
 				<h2 class="text-xl font-bold">1. Verantwortlicher</h2>
 				<p class="text-foreground-alt">
-					Sebastian Lammers, c/o nussknagger GmbH, Warthestr. 1, 12051 Berlin<br />
+					Sebastian Lammers<br />
+					c/o nussknagger GmbH<br />
+					Warthestr. 1<br />
+					12051 Berlin <br />
 					E-Mail: <ObfuscatedEmail /><br />
 					Weitere Angaben findest du im
 					<a href="/impressum">Impressum</a>.
@@ -32,10 +35,12 @@
 				<h2 class="text-xl font-bold">2. Hosting und Server-Logs</h2>
 				<p class="text-foreground-alt">
 					Website und Datenbank laufen auf einem eigenen Server bei der Hetzner Online GmbH in
-					Deutschland. Beim Aufruf der Seite verarbeitet der Server technisch notwendige Daten (z.
-					B. IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser-Typ), um die Seite
-					auszuliefern und vor Missbrauch zu schützen. Diese Zugriffsprotokolle werden nur
-					kurzfristig aufbewahrt und nicht ausgewertet.
+					Deutschland. Der Server wird uns von der <a href="https://nussknagger.com" target="_blank"
+						>nussknagger GmbH</a
+					> zur Verfügung gestellt. Beim Aufruf der Seite verarbeitet der Server technisch notwendige
+					Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser-Typ), um die Seite
+					auszuliefern und vor Missbrauch zu schützen. Diese Zugriffsprotokolle werden nur kurzfristig
+					aufbewahrt und nicht ausgewertet.
 				</p>
 				<p class="text-foreground-alt">
 					Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und funktionierenden
