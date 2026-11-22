@@ -5,10 +5,10 @@
 	import '@fontsource/zilla-slab/700.css';
 
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.png';
-	import ogImage from '$lib/assets/og-image.png';
-	import Nav from '$lib/components/Nav.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import favicon from '#lib/assets/favicon.png';
+	import ogImage from '#lib/assets/og-image.png';
+	import Nav from '#lib/components/Nav.svelte';
+	import Footer from '#lib/components/Footer.svelte';
 
 	let { children } = $props();
 </script>

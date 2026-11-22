@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { MorphIcon } from 'morphicons/svelte';
 	import { svgToIcon } from 'morphicons/adapters';
-	import taxiDefaultSvg from '$lib/assets/taxi-default.svg?raw';
-	import taxiWinkSvg from '$lib/assets/taxi-wink.svg?raw';
+	import taxiDefaultSvg from '#lib/assets/taxi-default.svg?raw';
+	import taxiWinkSvg from '#lib/assets/taxi-wink.svg?raw';
 
 	// Parsed once per module; svgToIcon is DOM-free, so this also runs during SSR
 	const taxiDefault = svgToIcon(taxiDefaultSvg);

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ObfuscatedEmail from '$lib/components/ObfuscatedEmail.svelte';
+	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
 
 <svelte:head>
@@ -35,9 +35,12 @@
 				<h2 class="text-xl font-bold">2. Hosting und Server-Logs</h2>
 				<p class="text-foreground-alt">
 					Website und Datenbank laufen auf einem eigenen Server bei der Hetzner Online GmbH in
-					Deutschland. Der Server wird uns von der <a href="https://nussknagger.com" target="_blank"
-						>nussknagger GmbH</a
-					> zur Verfügung gestellt. Beim Aufruf der Seite verarbeitet der Server technisch notwendige
+					Deutschland. Der Server wird uns von der <a
+						href="https://nussknagger.com"
+						target="_blank"
+					>
+						nussknagger GmbH
+					</a> zur Verfügung gestellt. Beim Aufruf der Seite verarbeitet der Server technisch notwendige
 					Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Browser-Typ), um die Seite
 					auszuliefern und vor Missbrauch zu schützen. Diese Zugriffsprotokolle werden nur kurzfristig
 					aufbewahrt und nicht ausgewertet.
@@ -62,8 +65,10 @@
 						nicht weitergegeben und nie für Werbung oder Newsletter genutzt. Wir verwenden sie nur,
 						um dir Rückmeldung zu deiner eingereichten Geschichte zu geben oder um zu bestätigen,
 						dass du die Geschichte geschrieben hast, wenn du deinen Geheimcode verloren hast (<a
-							href="/so-gehts#versprechen">Unser Versprechen</a
-						>)
+							href="/so-gehts#versprechen"
+						>
+							Unser Versprechen
+						</a>)
 					</li>
 					<li>Datum der Einreichung und ggf. der letzten Bearbeitung</li>
 					<li>

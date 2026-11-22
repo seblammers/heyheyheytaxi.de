@@ -4,7 +4,7 @@
 	import MorphCheckbox from './MorphCheckbox.svelte';
 	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
-	import { saveToken } from '$lib/utils/tokenStorage';
+	import { saveToken } from '#lib/utils/tokenStorage.ts';
 	import { page } from '$app/state';
 
 	let editorContent = $state('');
@@ -78,8 +78,10 @@
 			<p class="text-sm mb-md">
 				Sie wird bald veröffentlicht. Wir prüfen, ob deine Geschichte <a
 					href="/regeln"
-					target="_blank">unseren Regeln</a
-				> entspricht.
+					target="_blank"
+				>
+					unseren Regeln
+				</a> entspricht.
 			</p>
 
 			{#if storyPath}
@@ -177,8 +179,7 @@
 				{...submitPost.fields.content.as('text')}
 				bind:this={contentTextarea}
 				id="content"
-				class="sr-only"
-			></textarea>
+				class="sr-only"></textarea>
 			{#each submitPost.fields.content.issues() as issue}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}

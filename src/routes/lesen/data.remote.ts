@@ -1,11 +1,11 @@
 import { query, form, getRequestEvent } from '$app/server';
 import { z } from 'zod';
-import { supabase } from '$lib/server/supabase';
+import { supabase } from '#lib/server/supabase.ts';
 import { error, isHttpError } from '@sveltejs/kit';
-import type { PublicPost } from '$lib/server/db/schema';
-import { generateEditToken, hashToken, verifyToken } from '$lib/server/utils/token';
-import { sanitizeStoryHtml, textLength } from '$lib/server/utils/sanitize';
-import { checkRateLimit, getClientIP } from '$lib/server/utils/rateLimit';
+import type { PublicPost } from '#lib/server/db/schema.ts';
+import { generateEditToken, hashToken, verifyToken } from '#lib/server/utils/token.ts';
+import { sanitizeStoryHtml, textLength } from '#lib/server/utils/sanitize.ts';
+import { checkRateLimit, getClientIP } from '#lib/server/utils/rateLimit.ts';
 
 // Only columns that are safe to expose. Query results are serialized to the
 // browser, so author_email and edit_token_hash must never be selected here.
@@ -54,6 +54,16 @@ const storyTitle = z
 	.trim()
 	.min(3, 'Dein Titel muss mindestens 3 Zeichen haben.')
 	.max(200, 'Dein Titel darf höchstens 200 Zeichen haben');
+
+// Unchecked checkboxes send no value, so SvelteKit requires booleans in form
+// schemas to be optional. The refine still makes checking the box mandatory.
+// Use default(false), not optional(): zod skips refinements on missing optional
+// keys, which would let a crafted request without the field skip consent.
+const requiredCheckbox = (message: string) =>
+	z
+		.boolean()
+		.default(false)
+		.refine((checked) => checked === true, message);
 
 // Generate slug from title
 function generateSlug(title: string): string {
@@ -164,12 +174,10 @@ export const submitPost = form(
 			.max(100, 'Der Name darf höchstens 100 Zeichen haben.'),
 		authorEmail: z.union([z.string().length(0), z.email()]).optional(),
 		// Checked server-side too, so consent can't be skipped with a crafted request
-		licenseAccepted: z.literal(true, {
-			error: 'Bitte bestätige die Lizenz, um deine Geschichte einzureichen.'
-		}),
-		rulesAccepted: z.literal(true, {
-			error: 'Bitte bestätige, dass du die Regeln gelesen hast.'
-		}),
+		licenseAccepted: requiredCheckbox(
+			'Bitte bestätige die Lizenz, um deine Geschichte einzureichen.'
+		),
+		rulesAccepted: requiredCheckbox('Bitte bestätige, dass du die Regeln gelesen hast.'),
 		// Honeypot: hidden from humans, bots tend to fill every field
 		website: z.string().optional()
 	}),

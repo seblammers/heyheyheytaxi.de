@@ -30,8 +30,7 @@
 		class="p-sm bg-destructive/10 text-destructive rounded-card text-sm"
 	>
 		<span class="font-bold">Da fehlt noch etwas.</span>
-		Bitte prüfe {count === 1 ? 'den rot markierten Hinweis' : 'die rot markierten Hinweise'} oben
-		im Formular.
+		Bitte prüfe {count === 1 ? 'den rot markierten Hinweis' : 'die rot markierten Hinweise'} oben im Formular.
 		<button type="button" onclick={jumpToFirstIssue} class="font-bold underline hover:no-underline">
 			Zum {count === 1 ? 'Hinweis' : 'ersten Hinweis'} springen ↑
 		</button>

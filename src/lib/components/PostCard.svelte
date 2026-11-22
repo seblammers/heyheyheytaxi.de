@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PublicPost } from '$lib/server/db/schema';
+	import type { PublicPost } from '#lib/server/db/schema.ts';
 
 	let {
 		post,

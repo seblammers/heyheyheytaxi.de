@@ -3,7 +3,7 @@
 	import SimpleEditor from './SimpleEditor.svelte';
 	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { updatePost } from '../../routes/lesen/data.remote';
-	import type { PublicPost } from '$lib/server/db/schema';
+	import type { PublicPost } from '#lib/server/db/schema.ts';
 
 	let {
 		post,
@@ -74,8 +74,7 @@
 			{...updatePost.fields.content.as('text')}
 			bind:this={contentTextarea}
 			id="content"
-			class="sr-only"
-		></textarea>
+			class="sr-only"></textarea>
 		{#each updatePost.fields.content.issues() as issue}
 			<p class="text-destructive text-sm">{issue.message}</p>
 		{/each}

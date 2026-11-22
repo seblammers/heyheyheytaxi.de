@@ -8,4 +8,3 @@ Eine Internetseite für all eure Taxi-Geschichten.
 npm install
 npm run dev
 ```
-

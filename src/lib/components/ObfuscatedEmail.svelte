@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { contactEmail } from '$lib/config';
+	import { contactEmail } from '#lib/config.ts';
 
 	let { class: className = '' }: { class?: string } = $props();
 
@@ -17,7 +17,7 @@
 {#if address}
 	<a href="mailto:{address}" class={className}>{address}</a>
 {:else}
-	<span class={className}
-		>{contactEmail.user} (at) {contactEmail.domain.replace('.', ' (punkt) ')}</span
-	>
+	<span class={className}>
+		{contactEmail.user} (at) {contactEmail.domain.replace('.', ' (punkt) ')}
+	</span>
 {/if}
