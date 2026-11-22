@@ -75,12 +75,17 @@
 	{#if submitPost.result?.success && !showAnotherForm}
 		<div class="p-md bg-accent text-accent-foreground rounded-card">
 			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
-			<p class="text-sm mb-md">Sie wird bald veröffentlicht.</p>
+			<p class="text-sm mb-md">
+				Sie wird bald veröffentlicht. Wir prüfen, ob deine Geschichte <a
+					href="/regeln"
+					target="_blank">unseren Regeln</a
+				> entspricht.
+			</p>
 
 			{#if storyPath}
 				{@const storyUrl = `${page.url.origin}${storyPath}`}
 				<div class="p-sm bg-background rounded-card border border-border">
-					<p class="font-bold mb-xs text-sm">🔗 Link zu deiner Geschichte:</p>
+					<p class="font-bold mb-xs text-sm">Link zu deiner Geschichte:</p>
 					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
 						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
 							{storyUrl}
@@ -109,7 +114,7 @@
 			{#if editToken && submitPost.result?.slug}
 				<div class="mt-md p-sm bg-background rounded-card border border-border">
 					<p class="flex justify-between gap-xs mb-xs text-sm">
-						<span class="font-bold">🔑 Dein Geheimcode:</span>
+						<span class="font-bold">Dein Geheimcode:</span>
 						<a href="/so-gehts#geheimcode" target="_blank"> Was ist das? </a>
 					</p>
 					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
@@ -235,6 +240,20 @@
 		</div>
 
 		<div class="flex flex-col gap-xs pt-sm">
+			<label class="flex gap-xs items-start cursor-pointer nk-inset text-sm text-foreground-alt">
+				<MorphCheckbox {...submitPost.fields.rulesAccepted.as('checkbox')} required />
+				<span>
+					Ich habe die
+					<a href="/regeln" target="_blank" class="text-taxi-blue hover:underline font-medium">
+						Regeln
+					</a>
+					gelesen und halte mich daran.
+				</span>
+			</label>
+			{#each submitPost.fields.rulesAccepted.issues() as issue}
+				<p class="text-destructive text-sm">{issue.message}</p>
+			{/each}
+
 			<label class="flex gap-xs items-start cursor-pointer nk-inset text-sm text-foreground-alt">
 				<MorphCheckbox {...submitPost.fields.licenseAccepted.as('checkbox')} required />
 				<span>

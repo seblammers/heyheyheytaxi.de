@@ -165,7 +165,7 @@
 						Richtlinien entspricht, kannst du sie trotzdem einreichen. Wir prüfen jede Geschichte
 						individuell.
 
-						<a href="/kontakt">Schreib uns, wenn du nicht weiter weißt</a>.
+						<a href="/kontakt">Schreib uns einfach eine E-Mail</a>.
 					</p>
 				</div>
 			</div>

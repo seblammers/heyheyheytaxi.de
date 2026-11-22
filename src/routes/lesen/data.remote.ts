@@ -167,11 +167,14 @@ export const submitPost = form(
 		licenseAccepted: z.literal(true, {
 			error: 'Bitte bestätige die Lizenz, um deine Geschichte einzureichen.'
 		}),
+		rulesAccepted: z.literal(true, {
+			error: 'Bitte bestätige, dass du die Regeln gelesen hast.'
+		}),
 		// Honeypot: hidden from humans, bots tend to fill every field
 		website: z.string().optional()
 	}),
 	async ({ title, content, authorName, authorEmail, website }) => {
-		// licenseAccepted is enforced by the schema; a story can only exist with consent
+		// licenseAccepted and rulesAccepted are enforced by the schema; a story can only exist with consent
 		if (website) throw error(400, 'Ungültige Anfrage.');
 
 		// Spam protection: IP is only held in memory (see Datenschutz), never stored
