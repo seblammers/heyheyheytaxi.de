@@ -99,12 +99,13 @@
 				<div id="ablehnung" class="flex flex-col gap-3xs pt-md border-t border-border-card">
 					<h3 class="text-xl font-bold">Was passiert bei Ablehnung?</h3>
 					<p class="text-foreground-alt">
-						Falls du uns bei der Einreichung deine Email mitgeteilt hast, bekommst du eine kurze
+						Geschichten, die gegen unsere Regeln verstoßen werden nicht veröffentlicht. Falls du uns
+						bei der Einreichung deine E-Mail-Adresse mitgeteilt hast, bekommst du eine kurze
 						Erklärung und kannst die Geschichte überarbeiten und erneut einreichen.
 					</p>
 				</div>
 
-				<div id="lizenz" class="flex flex-col gap-3xs pt-md border-t border-border-card">
+				<div id="lizenz" class="flex flex-col gap-md pt-md border-t border-border-card">
 					<h2 class="text-2xl font-bold">Lizenz & Urheberrecht</h2>
 
 					<div class="nk-inset">
