@@ -84,6 +84,19 @@
 					</p>
 				</div>
 
+				<div id="ki" class="flex flex-col gap-3xs">
+					<h3 class="text-xl font-bold">7. Keine reinen KI-Geschichten</h3>
+					<p class="text-foreground-alt">
+						Im Zentrum dieses Projekts steht die Phantasie der Menschen. Die zwei Bücher laden zum
+						Weitererzählen und Neuerfinden ein – und dabei kommt jeder Mensch auf ganz eigene Ideen.
+						Genau an diesen Ideen sind wir interessiert, nicht an KI-generierten.
+					</p>
+					<p class="text-foreground-alt">
+						Deshalb veröffentlichen wir keine Geschichten, die ausschließlich mit KI erstellt
+						wurden.
+					</p>
+				</div>
+
 				<div id="ablehnung" class="flex flex-col gap-3xs pt-md border-t border-border-card">
 					<h3 class="text-xl font-bold">Was passiert bei Ablehnung?</h3>
 					<p class="text-foreground-alt">
@@ -95,7 +108,7 @@
 				<div id="lizenz" class="flex flex-col gap-3xs pt-md border-t border-border-card">
 					<h2 class="text-2xl font-bold">Lizenz & Urheberrecht</h2>
 
-					<div class="p-md bg-accent/10 rounded-card border border-accent/20">
+					<div class="nk-inset">
 						<p class="font-bold mb-xs">
 							Alle Geschichten stehen unter der Creative Commons Attribution-ShareAlike 4.0
 							International Lizenz (CC BY-SA 4.0)
@@ -161,11 +174,10 @@
 				<div class="flex flex-col gap-3xs pt-md border-t border-border-card">
 					<h2 class="text-xl font-bold">Fragen?</h2>
 					<p class="text-foreground-alt">
-						Falls du Fragen zu den Regeln hast oder unsicher bist, ob deine Geschichte den
-						Richtlinien entspricht, kannst du sie trotzdem einreichen. Wir prüfen jede Geschichte
-						individuell.
+						Falls du unsicher bist, ob deine Geschichte den Richtlinien entspricht, kannst du sie
+						gern trotzdem einreichen. Wir prüfen jede Geschichte individuell.
 
-						<a href="/kontakt">Schreib uns einfach eine E-Mail</a>.
+						<a href="/kontakt">Schreib uns einfach eine E-Mail, falls du weitere Fragen hast</a>.
 					</p>
 				</div>
 			</div>
