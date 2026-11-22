@@ -22,7 +22,7 @@
 					{...props}
 					class="p-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 cursor-pointer"
 				>
-					<MorphIcon icon={open ? X : Menu} spring="snappy" size={24} />
+					<MorphIcon icon={open ? X : Menu} spring="snappy" size={48} />
 					<span class="sr-only">Menü öffnen/schließen</span>
 				</Button.Root>
 			{/snippet}
@@ -66,7 +66,7 @@
 									href={item.href}
 									data-active={item.href === page.url.pathname}
 									onclick={() => (open = false)}
-									class="text-foreground/95 px-3 py-1.5 text-[22px] font-normal data-[active=true]:font-semibold hover:bg-muted transition-colors"
+									class="text-foreground/95 px-3 py-1 sm:py-0 text-[22px] font-normal data-[active=true]:font-semibold hover:bg-muted transition-colors"
 								>
 									{item.label}
 								</a>

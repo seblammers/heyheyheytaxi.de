@@ -11,7 +11,7 @@
 	// How long the wink stays visible after a tap (touch has no hover-out)
 	const TAP_WINK_MS = 700;
 
-	let { size = 32 }: { size?: number } = $props();
+	let { size = 48 }: { size?: number } = $props();
 
 	let winking = $state(false);
 	let tapTimer: ReturnType<typeof setTimeout> | undefined;

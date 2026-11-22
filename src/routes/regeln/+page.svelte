@@ -27,8 +27,7 @@
 				<div class="flex flex-col gap-md pt-md border-t border-border-card">
 					<h2>Ausführliche Guidelines</h2>
 					<p class="text-foreground-alt">
-						Willkommen! Hier können fantasievolle Geschichten für Kinder geteilt werden. Damit sich
-						alle wohlfühlen, gibt es ein paar wichtige Regeln:
+						Damit sich alle wohlfühlen, gibt es ein paar wichtige Regeln:
 					</p>
 				</div>
 

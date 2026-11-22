@@ -39,8 +39,9 @@
 					Familien, Kitas und Klassenzimmern wohl genauso ist.
 				</p>
 				<p>
-					Deshalb gibt es diese Seite: einen freien, offenen Ort, an dem all diese Geschichten ein
-					Zuhause finden und von allen gelesen und weitererzählt werden dürfen.
+					Deshalb gibt es diese Seite: einen <a href="/regeln">freien, offenen Ort</a>, an dem all
+					diese Geschichten ein Zuhause finden und von allen gelesen und weitererzählt werden
+					dürfen.
 				</p>
 				<p class="text-foreground-alt">– Sebastian</p>
 			</div>
