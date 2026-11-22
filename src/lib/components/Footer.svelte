@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TaxiLogo from './TaxiLogo.svelte';
-	import { navGroups, legalItems } from '$lib/config';
+	import { navGroups, legalItems } from '#lib/config.ts';
 	import { page } from '$app/state';
 </script>
 

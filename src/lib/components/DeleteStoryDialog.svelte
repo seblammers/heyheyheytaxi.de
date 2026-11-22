@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Dialog, Button } from 'bits-ui';
 	import { deletePost } from '../../routes/lesen/data.remote';
-	import { removeToken } from '$lib/utils/tokenStorage';
+	import { removeToken } from '#lib/utils/tokenStorage.ts';
 	import { goto } from '$app/navigation';
 
 	let {

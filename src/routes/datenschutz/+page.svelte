@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ObfuscatedEmail from '$lib/components/ObfuscatedEmail.svelte';
+	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
 
 <svelte:head>

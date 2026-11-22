@@ -1,12 +1,12 @@
 <script lang="ts">
-	import PostEditForm from '$lib/components/PostEditForm.svelte';
-	import DeleteStoryDialog from '$lib/components/DeleteStoryDialog.svelte';
+	import PostEditForm from '#lib/components/PostEditForm.svelte';
+	import DeleteStoryDialog from '#lib/components/DeleteStoryDialog.svelte';
 	import { page } from '$app/state';
 	import { getPost, validateEditToken } from '../../data.remote';
-	import { getToken, saveToken, removeToken } from '$lib/utils/tokenStorage';
+	import { getToken, saveToken, removeToken } from '#lib/utils/tokenStorage.ts';
 	import { goto } from '$app/navigation';
 	import { Button } from 'bits-ui';
-	import type { PublicPost } from '$lib/server/db/schema';
+	import type { PublicPost } from '#lib/server/db/schema.ts';
 
 	const slug = $derived(page.params.slug);
 	// Token comes from localStorage only – never from the URL (history, logs)
@@ -89,7 +89,7 @@
 			saveToken(slug, enteredToken);
 
 			// Reload the page to pick up the token
-			await goto(`/lesen/${slug}/bearbeiten`, { invalidateAll: true });
+			await goto(`/lesen/${slug}/bearbeiten`, { refreshAll: true });
 		} catch (error) {
 			console.error('[EditPage] Token validation error:', error);
 			tokenError = 'Der Geheimcode konnte nicht geprüft werden';

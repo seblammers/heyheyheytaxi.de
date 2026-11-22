@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { contactEmail } from '$lib/config';
+	import { contactEmail } from '#lib/config.ts';
 
 	let { class: className = '' }: { class?: string } = $props();
 

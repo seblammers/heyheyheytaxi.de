@@ -3,7 +3,7 @@
 	import SimpleEditor from './SimpleEditor.svelte';
 	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { updatePost } from '../../routes/lesen/data.remote';
-	import type { PublicPost } from '$lib/server/db/schema';
+	import type { PublicPost } from '#lib/server/db/schema.ts';
 
 	let {
 		post,

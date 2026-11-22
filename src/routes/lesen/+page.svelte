@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PostCard from '$lib/components/PostCard.svelte';
+	import PostCard from '#lib/components/PostCard.svelte';
 	import { getApprovedPosts } from './data.remote';
 	import { page } from '$app/state';
 

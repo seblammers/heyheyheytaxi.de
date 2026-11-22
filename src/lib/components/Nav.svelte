@@ -2,7 +2,7 @@
 	import TaxiLogo from './TaxiLogo.svelte';
 	import { Menu, X } from 'lucide';
 	import { MorphIcon } from 'morphicons/svelte';
-	import { navGroups } from '$lib/config';
+	import { navGroups } from '#lib/config.ts';
 	import { Popover, Button } from 'bits-ui';
 	import { page } from '$app/state';
 

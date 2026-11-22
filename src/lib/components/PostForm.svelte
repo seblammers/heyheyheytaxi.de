@@ -4,7 +4,7 @@
 	import MorphCheckbox from './MorphCheckbox.svelte';
 	import FormIssuesHint from './FormIssuesHint.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
-	import { saveToken } from '$lib/utils/tokenStorage';
+	import { saveToken } from '#lib/utils/tokenStorage.ts';
 	import { page } from '$app/state';
 
 	let editorContent = $state('');
