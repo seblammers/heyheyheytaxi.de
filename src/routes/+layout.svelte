@@ -6,7 +6,6 @@
 
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.png';
-	import ogImage from '#lib/assets/og-image.png';
 	import Nav from '#lib/components/Nav.svelte';
 	import Footer from '#lib/components/Footer.svelte';
 
@@ -15,12 +14,6 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta property="og:image" content={ogImage} />
-	<title>Hey, hey, hey, Taxi!</title>
-	<meta
-		name="description"
-		content="Hey, hey, hey, Taxi! ist eine Internetseite für all eure Taxi-Geschichten."
-	/>
 </svelte:head>
 
 <Nav />

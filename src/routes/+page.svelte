@@ -1,3 +1,9 @@
+<script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
+</script>
+
+<Meta />
+
 <section
 	class="flex flex-col items-center justify-center mx-auto w-full h-screen max-w-prose px-sm"
 >

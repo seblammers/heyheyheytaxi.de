@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import { page } from '$app/state';
 
 	type ErrorCopy = { title: string; text: string };
@@ -48,9 +49,7 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{copy.title} | Hey, hey, hey, Taxi!</title>
-</svelte:head>
+<Meta title={copy.title} />
 
 <section
 	class="flex flex-col items-center justify-center mx-auto w-full h-screen max-w-prose px-sm"

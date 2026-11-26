@@ -1,11 +1,9 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
 
-<svelte:head>
-	<title>Kontakt | Hey, hey, hey, Taxi!</title>
-	<meta name="description" content="So erreichst du das Team hinter Hey, hey, hey, Taxi!" />
-</svelte:head>
+<Meta title="Kontakt" description="So erreichst du das Team hinter Hey, hey, hey, Taxi!" />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

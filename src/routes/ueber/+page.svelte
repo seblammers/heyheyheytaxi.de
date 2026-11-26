@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	const books = [
 		{
 			title: 'Hey, hey, hey, Taxi!',
@@ -13,13 +14,10 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Über das Projekt | Hey, hey, hey, Taxi!</title>
-	<meta
-		name="description"
-		content="Wie diese Seite entstanden ist – und die beiden Bücher, die uns dazu inspiriert haben."
-	/>
-</svelte:head>
+<Meta
+	title="Über das Projekt"
+	description="Wie diese Seite entstanden ist – und die beiden Bücher, die uns dazu inspiriert haben."
+/>
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import PostEditForm from '#lib/components/PostEditForm.svelte';
 	import DeleteStoryDialog from '#lib/components/DeleteStoryDialog.svelte';
 	import { page } from '$app/state';
@@ -97,6 +98,8 @@
 		}
 	}
 </script>
+
+<Meta title="Geschichte bearbeiten" noindex />
 
 <svelte:boundary>
 	{#snippet pending()}

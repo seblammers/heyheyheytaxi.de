@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import PostCard from '#lib/components/PostCard.svelte';
 	import { getApprovedPosts } from './data.remote';
 	import { page } from '$app/state';
@@ -6,10 +7,7 @@
 	const deleted = $derived(page.url.searchParams.get('deleted') === 'true');
 </script>
 
-<svelte:head>
-	<title>Alle Geschichten | Hey, hey, hey, Taxi!</title>
-	<meta name="description" content="Alle Taxi-Geschichten unserer Community." />
-</svelte:head>
+<Meta title="Alle Geschichten" description="Alle Taxi-Geschichten unserer Community." />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

@@ -1,10 +1,11 @@
-<svelte:head>
-	<title>So funktioniert's | Hey, hey, hey, Taxi!</title>
-	<meta
-		name="description"
-		content="Was ist der Geheimcode, wie bewahrst du ihn auf – und wofür wir deine E-Mail benutzen (und wofür nie)."
-	/>
-</svelte:head>
+<script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
+</script>
+
+<Meta
+	title="So funktioniert's"
+	description="Was ist der Geheimcode, wie bewahrst du ihn auf – und wofür wir deine E-Mail benutzen (und wofür nie)."
+/>
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

@@ -1,11 +1,9 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
 
-<svelte:head>
-	<title>Datenschutz | Hey, hey, hey, Taxi!</title>
-	<meta name="robots" content="noindex" />
-</svelte:head>
+<Meta title="Datenschutz" noindex />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

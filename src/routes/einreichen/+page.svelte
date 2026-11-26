@@ -1,14 +1,12 @@
 <script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
 	import PostForm from '#lib/components/PostForm.svelte';
 </script>
 
-<svelte:head>
-	<title>Geschichte einreichen | Hey, hey, hey, Taxi!</title>
-	<meta
-		name="description"
-		content="Teile deine Taxi-Geschichte mit der Community. Egal ob lustig, skurril oder bewegend – wir freuen uns auf deine Geschichte!"
-	/>
-</svelte:head>
+<Meta
+	title="Geschichte einreichen"
+	description="Teile deine Taxi-Geschichte mit der Community. Egal ob lustig, skurril oder bewegend – wir freuen uns auf deine Geschichte!"
+/>
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

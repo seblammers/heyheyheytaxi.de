@@ -1,10 +1,11 @@
-<svelte:head>
-	<title>Regeln | Hey, hey, hey, Taxi!</title>
-	<meta
-		name="description"
-		content="Regeln und Richtlinien für das Einreichen von Taxi-Geschichten auf Hey, hey, hey, Taxi!"
-	/>
-</svelte:head>
+<script lang="ts">
+	import Meta from '#lib/components/Meta.svelte';
+</script>
+
+<Meta
+	title="Regeln"
+	description="Regeln und Richtlinien für das Einreichen von Taxi-Geschichten auf Hey, hey, hey, Taxi!"
+/>
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">
