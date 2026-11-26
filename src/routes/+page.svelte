@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 </script>
 
-<Meta />
+<Meta {...pageSeo('home')} />
 
 <section
 	class="flex flex-col items-center justify-center mx-auto w-full h-screen max-w-prose px-sm"

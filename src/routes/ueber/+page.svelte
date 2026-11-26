@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 	const books = [
 		{
 			title: 'Hey, hey, hey, Taxi!',
@@ -14,10 +15,7 @@
 	];
 </script>
 
-<Meta
-	title="Über das Projekt"
-	description="Wie diese Seite entstanden ist – und die beiden Bücher, die uns dazu inspiriert haben."
-/>
+<Meta {...pageSeo('ueber')} />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

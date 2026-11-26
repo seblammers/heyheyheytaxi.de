@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@eslint/compat": "^2.1.1",
 		"@eslint/js": "^10.0.1",
+		"@ethercorps/sveltekit-og": "^4.4.0",
 		"@fontsource/zilla-slab": "^5.2.8",
 		"@supabase/supabase-js": "^2.87.1",
 		"@tailwindcss/vite": "^4.3.5",

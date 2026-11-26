@@ -1,11 +1,9 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 </script>
 
-<Meta
-	title="So funktioniert's"
-	description="Was ist der Geheimcode, wie bewahrst du ihn auf – und wofür wir deine E-Mail benutzen (und wofür nie)."
-/>
+<Meta {...pageSeo('so-gehts')} />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

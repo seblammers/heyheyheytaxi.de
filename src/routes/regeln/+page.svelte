@@ -1,11 +1,9 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 </script>
 
-<Meta
-	title="Regeln"
-	description="Regeln und Richtlinien für das Einreichen von Taxi-Geschichten auf Hey, hey, hey, Taxi!"
-/>
+<Meta {...pageSeo('regeln')} />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

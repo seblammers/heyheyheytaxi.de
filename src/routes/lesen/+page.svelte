@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 	import PostCard from '#lib/components/PostCard.svelte';
 	import { getApprovedPosts } from './data.remote';
 	import { page } from '$app/state';
@@ -7,7 +8,7 @@
 	const deleted = $derived(page.url.searchParams.get('deleted') === 'true');
 </script>
 
-<Meta title="Alle Geschichten" description="Alle Taxi-Geschichten unserer Community." />
+<Meta {...pageSeo('lesen')} />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">

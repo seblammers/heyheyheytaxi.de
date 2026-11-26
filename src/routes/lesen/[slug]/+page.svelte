@@ -1,12 +1,11 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { storyDescription } from '#lib/seo.ts';
 	import PostCard from '#lib/components/PostCard.svelte';
 	import { page } from '$app/state';
 	import { getPost } from '../data.remote';
 
 	const slug = $derived(page.params.slug);
-	const storyDescription =
-		'Eine Geschichte aus der freien, offenen Sammlung von Taxi-Geschichten auf heyheyheytaxi.de.';
 </script>
 
 <svelte:head>
@@ -38,7 +37,12 @@
 
 	<!-- Inside the boundary so the title comes from the awaited post (also during SSR).
 	     Pending or rejected stories must not end up in search results. -->
-	<Meta title={post.title} description={storyDescription} noindex={post.status !== 'approved'} />
+	<Meta
+		title={post.title}
+		description={storyDescription}
+		image={post.status === 'approved' ? `/og/lesen/${post.slug}.png` : undefined}
+		noindex={post.status !== 'approved'}
+	/>
 
 	<section class="nk-section">
 		<div class="nk-container max-w-prose">

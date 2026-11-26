@@ -1,12 +1,10 @@
 <script lang="ts">
 	import Meta from '#lib/components/Meta.svelte';
+	import { pageSeo } from '#lib/seo.ts';
 	import PostForm from '#lib/components/PostForm.svelte';
 </script>
 
-<Meta
-	title="Geschichte einreichen"
-	description="Teile deine Taxi-Geschichte mit der Community. Egal ob lustig, skurril oder bewegend – wir freuen uns auf deine Geschichte!"
-/>
+<Meta {...pageSeo('einreichen')} />
 
 <section class="nk-section">
 	<div class="nk-container max-w-prose">
