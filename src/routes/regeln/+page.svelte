@@ -186,10 +186,7 @@
 		</div>
 
 		<div class="mt-lg flex flex-col gap-3xs text-center">
-			<a
-				href={resolve('/einreichen')}
-				class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
-			>
+			<a href={resolve('/einreichen')} class="nk-button nk-button-primary">
 				Geschichte einreichen
 			</a>
 			<a href={resolve('/lesen')} class="text-taxi-blue hover:underline text-sm">

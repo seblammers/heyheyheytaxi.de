@@ -56,10 +56,7 @@
 		</svelte:boundary>
 
 		<div class="mt-xl text-center">
-			<a
-				href={resolve('/einreichen')}
-				class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
-			>
+			<a href={resolve('/einreichen')} class="nk-button nk-button-primary">
 				Deine Geschichte einreichen
 			</a>
 		</div>

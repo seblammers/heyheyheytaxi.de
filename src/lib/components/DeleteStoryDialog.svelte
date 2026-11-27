@@ -57,7 +57,7 @@
 					<Button.Root
 						type="submit"
 						disabled={!!deletePost.pending}
-						class="w-full px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+						class="nk-button nk-button-destructive w-full"
 					>
 						{#if deletePost.pending}
 							Wird gelöscht...
@@ -70,7 +70,7 @@
 						type="button"
 						onclick={() => (open = false)}
 						disabled={!!deletePost.pending}
-						class="w-full px-md py-sm bg-background border border-border-input font-medium rounded-button hover:bg-background-alt transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						class="nk-button nk-button-secondary w-full"
 					>
 						Abbrechen
 					</Button.Root>

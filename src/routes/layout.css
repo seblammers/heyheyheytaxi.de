@@ -438,6 +438,46 @@ button {
 	@apply cursor-pointer;
 }
 
+/* Central button variants: every button-like element uses .nk-button plus exactly one of
+   primary / secondary / destructive. In the components layer so call-site utilities
+   (w-full, mt-md, block, ...) still win. All variants share border-2, so paired buttons
+   always have the same height. */
+@layer components {
+	.nk-button {
+		@apply inline-block rounded-button border-2 px-lg py-sm text-center font-bold transition;
+	}
+
+	.nk-button:disabled {
+		@apply cursor-not-allowed opacity-50;
+	}
+
+	/* Smaller size for compact actions next to inline content (e.g. copy buttons) */
+	.nk-button-sm {
+		@apply px-sm py-xs text-sm;
+	}
+
+	.nk-button-primary {
+		@apply border-taxi-blue bg-taxi-blue text-taxi-yellow;
+	}
+
+	.nk-button-secondary {
+		@apply border-taxi-blue bg-background text-taxi-blue;
+	}
+
+	.nk-button-destructive {
+		@apply border-destructive bg-destructive text-destructive-foreground;
+	}
+
+	.nk-button-primary:hover:not(:disabled),
+	.nk-button-destructive:hover:not(:disabled) {
+		@apply opacity-90;
+	}
+
+	.nk-button-secondary:hover:not(:disabled) {
+		@apply bg-taxi-blue text-taxi-yellow;
+	}
+}
+
 /* Post content styling - renders Tiptap HTML */
 .post-content {
 	@apply text-base leading-relaxed;

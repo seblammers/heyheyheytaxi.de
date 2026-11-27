@@ -26,11 +26,7 @@
 		<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
 			{storyUrl}
 		</code>
-		<button
-			type="button"
-			onclick={handleCopyLink}
-			class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
-		>
+		<button type="button" onclick={handleCopyLink} class="nk-button nk-button-sm nk-button-primary">
 			{linkCopied ? '✓ Kopiert' : 'Kopieren'}
 		</button>
 	</div>
@@ -40,7 +36,7 @@
 	</p>
 	<a
 		href={resolve('/lesen/[slug]', { slug })}
-		class="block w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium text-center hover:opacity-90 transition-opacity"
+		class="nk-button nk-button-sm nk-button-primary w-full"
 	>
 		Zur Geschichte
 	</a>

@@ -44,7 +44,7 @@
 		<button
 			type="button"
 			onclick={handleCopyToken}
-			class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+			class="nk-button nk-button-sm nk-button-primary"
 		>
 			{tokenCopied ? '✓ Kopiert' : 'Kopieren'}
 		</button>
@@ -62,7 +62,7 @@
 		<button
 			type="button"
 			onclick={handleSaveToken}
-			class="w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
+			class="nk-button nk-button-sm nk-button-primary w-full"
 		>
 			In Browser speichern
 		</button>

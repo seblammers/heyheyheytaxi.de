@@ -186,7 +186,7 @@
 								<Button.Root
 									type="submit"
 									disabled={isSubmittingToken}
-									class="w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+									class="nk-button nk-button-primary w-full"
 								>
 									{#if isSubmittingToken}
 										Wird überprüft...
@@ -223,7 +223,7 @@
 					</p>
 					<a
 						href={resolve('/lesen/[slug]/bearbeiten', { slug })}
-						class="inline-block px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
+						class="nk-button nk-button-primary"
 					>
 						Geheimcode erneut eingeben
 					</a>
@@ -257,7 +257,7 @@
 					<div class="mt-md flex flex-col gap-xs">
 						<Button.Root
 							onclick={() => (deleteDialogOpen = true)}
-							class="w-full px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
+							class="nk-button nk-button-destructive w-full"
 						>
 							Geschichte löschen
 						</Button.Root>

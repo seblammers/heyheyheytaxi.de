@@ -121,7 +121,7 @@
 			<Button.Root
 				type="submit"
 				disabled={!!updatePost.pending}
-				class="w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+				class="nk-button nk-button-primary w-full"
 			>
 				{#if updatePost.pending}
 					Wird gespeichert...

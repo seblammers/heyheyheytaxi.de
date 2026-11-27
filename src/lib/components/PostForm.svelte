@@ -69,7 +69,7 @@
 			<button
 				type="button"
 				onclick={handleSubmitAnother}
-				class="w-full mt-md px-md py-sm bg-background text-foreground border border-border rounded-button font-bold hover:bg-background-alt transition-colors"
+				class="nk-button nk-button-secondary w-full mt-md"
 			>
 				Noch eine Geschichte einreichen
 			</button>
@@ -204,7 +204,7 @@
 			<Button.Root
 				type="submit"
 				disabled={!!submitPost.pending}
-				class="w-full px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+				class="nk-button nk-button-primary w-full"
 			>
 				{#if submitPost.pending}
 					Wird eingereicht...
