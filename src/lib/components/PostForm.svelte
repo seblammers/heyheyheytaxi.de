@@ -83,7 +83,7 @@
 				placeholder="Gib deiner Geschichte einen Titel..."
 				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
 			/>
-			{#each submitPost.fields.title.issues() as issue}
+			{#each submitPost.fields.title.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
@@ -101,7 +101,7 @@
 				bind:this={contentTextarea}
 				id="content"
 				class="sr-only"></textarea>
-			{#each submitPost.fields.content.issues() as issue}
+			{#each submitPost.fields.content.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
@@ -119,7 +119,7 @@
 				Unter diesem Namen wird deine Geschichte veröffentlicht. Ein Pseudonym oder Spitzname ist
 				völlig in Ordnung.
 			</p>
-			{#each submitPost.fields.authorName.issues() as issue}
+			{#each submitPost.fields.authorName.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
@@ -145,7 +145,7 @@
 				falls du den Code verlierst. Wir schicken dir nie Werbung.
 				<a href={resolve('/so-gehts#email')} target="_blank"> Wie das genau funktioniert → </a>
 			</p>
-			{#each submitPost.fields.authorEmail.issues() as issue}
+			{#each submitPost.fields.authorEmail.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
@@ -176,7 +176,7 @@
 					gelesen und halte mich daran.
 				</span>
 			</label>
-			{#each submitPost.fields.rulesAccepted.issues() as issue}
+			{#each submitPost.fields.rulesAccepted.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 
@@ -195,7 +195,7 @@
 					das Recht ein, die Geschichte auch auf Social Media zu teilen.
 				</span>
 			</label>
-			{#each submitPost.fields.licenseAccepted.issues() as issue}
+			{#each submitPost.fields.licenseAccepted.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 
