@@ -2,15 +2,19 @@
 	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
+	import coverBook01 from '#lib/assets/cover_book-01.webp';
+	import coverBook02 from '#lib/assets/cover_book-02.webp';
 	const books = [
 		{
 			title: 'Hey, hey, hey, Taxi!',
 			authors: 'Saša Stanišić & Katja Spitzer',
+			cover: coverBook01,
 			href: 'https://www.mairisch.de/programm/sasa-stanisic-katja-spitzer-hey-hey-hey-taxi/'
 		},
 		{
 			title: 'Hey, hey, hey, Taxi! 2',
 			authors: 'Saša Stanišić, Nikolai Stanišić & Katja Spitzer',
+			cover: coverBook02,
 			href: 'https://www.mairisch.de/programm/sasa-stanisic-nikolai-stanisic-katja-spitzer-hey-hey-hey-taxi-2/'
 		}
 	];
@@ -55,11 +59,21 @@
 								href={book.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="flex flex-col gap-3xs group"
+								class="flex items-center gap-md group"
 							>
-								<span class="font-bold text-taxi-blue group-hover:underline">{book.title}</span>
-								<span class="text-sm text-foreground-alt">{book.authors}</span>
-								<span class="text-sm text-taxi-blue">Beim mairisch Verlag ansehen →</span>
+								<img
+									src={book.cover}
+									alt="Buchcover: {book.title}"
+									width="780"
+									height="1000"
+									loading="lazy"
+									class="w-24 h-auto shrink-0 rounded-sm shadow-md"
+								/>
+								<span class="flex flex-col gap-3xs">
+									<span class="font-bold text-taxi-blue group-hover:underline">{book.title}</span>
+									<span class="text-sm text-foreground-alt">{book.authors}</span>
+									<span class="text-sm text-taxi-blue">Beim mairisch Verlag ansehen →</span>
+								</span>
 							</a>
 						</li>
 					{/each}
