@@ -83,7 +83,7 @@
 					<div class="mt-sm p-sm bg-destructive/10 text-destructive rounded-card text-sm">
 						<p class="font-bold mb-xs">Fehler:</p>
 						<ul class="nk-ul">
-							{#each allIssues as issue}
+							{#each allIssues as issue, i (i)}
 								<li>{issue.message}</li>
 							{/each}
 						</ul>

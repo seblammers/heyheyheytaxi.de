@@ -92,7 +92,7 @@
 				placeholder="Gib deiner Geschichte einen Titel..."
 				class="w-full px-sm py-xs bg-background border border-border-input rounded-input focus:border-taxi-blue focus:outline-none transition-colors"
 			/>
-			{#each updatePost.fields.title.issues() as issue}
+			{#each updatePost.fields.title.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
@@ -110,7 +110,7 @@
 				bind:this={contentTextarea}
 				id="content"
 				class="sr-only"></textarea>
-			{#each updatePost.fields.content.issues() as issue}
+			{#each updatePost.fields.content.issues() as issue (issue.message)}
 				<p class="text-destructive text-sm">{issue.message}</p>
 			{/each}
 		</div>
