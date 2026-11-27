@@ -48,6 +48,8 @@
 
 	{#if showFullContent}
 		<div class="post-content">
+			<!-- Safe: content is sanitized server-side via sanitizeStoryHtml (see data.remote.ts) -->
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html post.content}
 		</div>
 	{:else}
