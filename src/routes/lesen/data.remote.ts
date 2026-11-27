@@ -118,6 +118,38 @@ export const getPost = query(z.string(), async (slug) => {
 	return post.status === 'approved' ? post : { ...post, content: '' };
 });
 
+// Get the slug of the story that follows the given one in the overview.
+// Mirrors the overview's order (newest first), so "next" means the next older
+// approved story. Returns null for the last story.
+export const getNextPostSlug = query(z.string(), async (slug) => {
+	const { data: current, error: currentError } = await supabase
+		.from('posts')
+		.select('created_at')
+		.eq('slug', slug)
+		.single();
+
+	if (currentError || !current) {
+		console.error('[getNextPostSlug] Post not found:', currentError);
+		return null;
+	}
+
+	const { data: next, error: nextError } = await supabase
+		.from('posts')
+		.select('slug')
+		.eq('status', 'approved')
+		.lt('created_at', current.created_at)
+		.order('created_at', { ascending: false })
+		.limit(1)
+		.maybeSingle();
+
+	if (nextError) {
+		console.error('[getNextPostSlug] Error:', nextError);
+		return null;
+	}
+
+	return next?.slug ?? null;
+});
+
 // Validate edit token for a specific post
 // On success, also returns the full post (incl. content of non-approved posts)
 // so the author can edit it – getPost withholds that content from everyone else.

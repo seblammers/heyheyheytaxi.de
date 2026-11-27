@@ -4,7 +4,7 @@
 	import { storyDescription } from '#lib/seo.ts';
 	import PostCard from '#lib/components/PostCard.svelte';
 	import { page } from '$app/state';
-	import { getPost } from '../data.remote';
+	import { getPost, getNextPostSlug } from '../data.remote';
 
 	const slug = $derived(page.params.slug);
 </script>
@@ -35,6 +35,8 @@
 	{/snippet}
 
 	{@const post = await getPost(slug || '')}
+	<!-- Only approved stories are part of the overview, so only they get a "next" link -->
+	{@const nextSlug = post.status === 'approved' ? await getNextPostSlug(post.slug) : null}
 
 	<!-- Inside the boundary so the title comes from the awaited post (also during SSR).
 	     Pending or rejected stories must not end up in search results. -->
@@ -81,13 +83,19 @@
 				</div>
 			{/if}
 
-			<div class="mt-xl text-center">
-				<a
-					href={resolve('/einreichen')}
-					class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
-				>
+			<div class="mt-xl flex flex-col sm:flex-row justify-center gap-sm text-center">
+				<a href={resolve('/einreichen')} class="nk-button nk-button-primary">
 					Deine eigene Geschichte einreichen
 				</a>
+
+				{#if nextSlug}
+					<a
+						href={resolve('/lesen/[slug]', { slug: nextSlug })}
+						class="nk-button nk-button-secondary"
+					>
+						Nächste Geschichte →
+					</a>
+				{/if}
 			</div>
 		</div>
 	</section>
