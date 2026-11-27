@@ -3,18 +3,14 @@
 	import SimpleEditor from './SimpleEditor.svelte';
 	import MorphCheckbox from './MorphCheckbox.svelte';
 	import FormIssuesHint from './FormIssuesHint.svelte';
+	import StoryLinkBox from './StoryLinkBox.svelte';
+	import EditTokenBox from './EditTokenBox.svelte';
 	import { submitPost } from '../../routes/lesen/data.remote';
-	import { saveToken } from '#lib/utils/tokenStorage.ts';
-	import { page } from '$app/state';
 
 	let editorContent = $state('');
 	let contentTextarea = $state<HTMLTextAreaElement>();
 	let editToken = $state<string | null>(null);
-	let tokenCopied = $state(false);
-	let linkCopied = $state(false);
 
-	// The story page shows the review status, so this link replaces a separate status page
-	const storyPath = $derived(submitPost.result?.slug ? `/lesen/${submitPost.result.slug}` : null);
 	let showAnotherForm = $state(false);
 
 	function handleEditorUpdate(html: string) {
@@ -40,31 +36,6 @@
 		}
 	});
 
-	function handleSaveToken(slug: string, token: string) {
-		saveToken(slug, token);
-		alert(
-			'Dein Geheimcode ist jetzt in diesem Browser gespeichert! Du kannst deine Geschichte jederzeit bearbeiten.'
-		);
-	}
-
-	function handleCopyToken(token: string) {
-		navigator.clipboard.writeText(token).then(() => {
-			tokenCopied = true;
-			setTimeout(() => {
-				tokenCopied = false;
-			}, 2000);
-		});
-	}
-
-	function handleCopyLink(url: string) {
-		navigator.clipboard.writeText(url).then(() => {
-			linkCopied = true;
-			setTimeout(() => {
-				linkCopied = false;
-			}, 2000);
-		});
-	}
-
 	function handleSubmitAnother() {
 		// Reset form state by reloading the page
 		window.location.reload();
@@ -84,64 +55,13 @@
 				</a> entspricht.
 			</p>
 
-			{#if storyPath}
-				{@const storyUrl = `${page.url.origin}${storyPath}`}
-				<div class="p-sm bg-background rounded-card border border-border">
-					<p class="font-bold mb-xs text-sm">Link zu deiner Geschichte:</p>
-					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
-						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
-							{storyUrl}
-						</code>
-						<button
-							type="button"
-							onclick={() => handleCopyLink(storyUrl)}
-							class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
-						>
-							{linkCopied ? '✓ Kopiert' : 'Kopieren'}
-						</button>
-					</div>
-					<p class="text-xs text-foreground-alt mb-sm">
-						Unter diesem Link siehst du jederzeit, ob deine Geschichte schon freigegeben wurde.
-						Speichere ihn dir am besten zusammen mit deinem Geheimcode.
-					</p>
-					<a
-						href={storyPath}
-						class="block w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium text-center hover:opacity-90 transition-opacity"
-					>
-						Zur Geschichte
-					</a>
-				</div>
+			{#if submitPost.result?.slug}
+				<StoryLinkBox slug={submitPost.result.slug} />
 			{/if}
 
 			{#if editToken && submitPost.result?.slug}
-				<div class="mt-md p-sm bg-background rounded-card border border-border">
-					<p class="flex justify-between gap-xs mb-xs text-sm">
-						<span class="font-bold">Dein Geheimcode:</span>
-						<a href="/so-gehts#geheimcode" target="_blank"> Was ist das? </a>
-					</p>
-					<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
-						<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">
-							{editToken}
-						</code>
-						<button
-							type="button"
-							onclick={() => handleCopyToken(editToken!)}
-							class="px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
-						>
-							{tokenCopied ? '✓ Kopiert' : 'Kopieren'}
-						</button>
-					</div>
-					<p class="text-xs text-foreground-alt mb-sm">
-						⚠️ WICHTIG: Bewahre diesen Code gut auf! Du siehst ihn nur jetzt. Mit ihm kannst du
-						deine Geschichte später ändern oder löschen.
-					</p>
-					<button
-						type="button"
-						onclick={() => handleSaveToken(submitPost.result!.slug, editToken!)}
-						class="w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium hover:opacity-90 transition-opacity"
-					>
-						In Browser speichern
-					</button>
+				<div class="mt-md">
+					<EditTokenBox slug={submitPost.result.slug} token={editToken} />
 				</div>
 			{/if}
 

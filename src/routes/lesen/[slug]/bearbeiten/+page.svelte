@@ -23,6 +23,7 @@
 	} | null>(null);
 	let isValidatingToken = $state(false);
 	let deleteDialogOpen = $state(false);
+	let saved = $state(false);
 
 	// Validate token when page loads with a token
 	$effect(() => {
@@ -231,23 +232,27 @@
 					</a>
 				</nav>
 
-				<header class="flex flex-col gap-sm mb-xl">
-					<h1>Geschichte bearbeiten</h1>
-					<p class="text-foreground-alt">Bearbeite Titel und Inhalt deiner Geschichte.</p>
-				</header>
+				{#if !saved}
+					<header class="flex flex-col gap-sm mb-xl">
+						<h1>Geschichte bearbeiten</h1>
+						<p class="text-foreground-alt">Bearbeite Titel und Inhalt deiner Geschichte.</p>
+					</header>
+				{/if}
 
 				<div class="nk-card">
-					<PostEditForm post={tokenValidationResult.post} {token} />
+					<PostEditForm post={tokenValidationResult.post} {token} bind:saved />
 				</div>
 
-				<div class="mt-md flex flex-col gap-xs">
-					<Button.Root
-						onclick={() => (deleteDialogOpen = true)}
-						class="w-full px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
-					>
-						Geschichte löschen
-					</Button.Root>
-				</div>
+				{#if !saved}
+					<div class="mt-md flex flex-col gap-xs">
+						<Button.Root
+							onclick={() => (deleteDialogOpen = true)}
+							class="w-full px-md py-sm bg-destructive text-destructive-foreground font-bold rounded-button hover:opacity-90 transition-opacity"
+						>
+							Geschichte löschen
+						</Button.Root>
+					</div>
+				{/if}
 			</div>
 		</section>
 
