@@ -120,7 +120,7 @@
 				<div class="nk-card text-center">
 					<h1 class="mb-sm">Fehler</h1>
 					<p class="text-foreground-alt mb-md">
-						Die Geschichte konnte nicht geladen werden:{' '}
+						Die Geschichte konnte nicht geladen werden:
 						{error instanceof Error ? error.message : String(error) || 'Unbekannter Fehler'}
 					</p>
 					<a href={resolve('/lesen')} class="text-taxi-blue hover:underline font-medium">

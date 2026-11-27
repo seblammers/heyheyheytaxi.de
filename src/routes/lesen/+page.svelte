@@ -32,7 +32,7 @@
 				</div>
 			{/snippet}
 
-			{#snippet failed(error)}
+			{#snippet failed()}
 				<div class="nk-card bg-destructive/10 text-destructive">
 					<p>Fehler beim Laden der Geschichten. Bitte versuche es später erneut.</p>
 				</div>

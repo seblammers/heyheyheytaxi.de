@@ -17,7 +17,7 @@
 <svelte:boundary>
 	<!-- No pending snippet on purpose: with one, SSR only renders the pending state,
 	     so the story (and its title/meta) would be missing from the server HTML. -->
-	{#snippet failed(error)}
+	{#snippet failed()}
 		<Meta title="Geschichte nicht gefunden" noindex />
 		<section class="nk-section">
 			<div class="nk-container">
