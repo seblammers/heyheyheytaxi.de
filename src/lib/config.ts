@@ -1,4 +1,8 @@
-type NavItem = { label: string; href: string };
+import { resolve } from '$app/paths';
+import type { ResolvedPathname } from '$app/types';
+
+// Paths are resolved once here so links respect the base path and match page.url.pathname
+type NavItem = { label: string; href: ResolvedPathname };
 type NavGroup = { label: string; items: NavItem[] };
 
 // Content pages grouped by visitor intent; shown in both main menu and footer.
@@ -7,17 +11,17 @@ export const navGroups: NavGroup[] = [
 	{
 		label: 'Mitmachen',
 		items: [
-			{ label: 'Geschichten lesen', href: '/lesen' },
-			{ label: 'Geschichte einreichen', href: '/einreichen' }
+			{ label: 'Geschichten lesen', href: resolve('/lesen') },
+			{ label: 'Geschichte einreichen', href: resolve('/einreichen') }
 		]
 	},
 	{
 		label: 'Gut zu wissen',
 		items: [
-			{ label: 'Über das Projekt', href: '/ueber' },
-			{ label: "So funktioniert's", href: '/so-gehts' },
-			{ label: 'Regeln', href: '/regeln' },
-			{ label: 'Kontakt', href: '/kontakt' }
+			{ label: 'Über das Projekt', href: resolve('/ueber') },
+			{ label: "So funktioniert's", href: resolve('/so-gehts') },
+			{ label: 'Regeln', href: resolve('/regeln') },
+			{ label: 'Kontakt', href: resolve('/kontakt') }
 		]
 	}
 ];
@@ -26,11 +30,11 @@ export const navGroups: NavGroup[] = [
 export const legalItems: NavItem[] = [
 	{
 		label: 'Impressum',
-		href: '/impressum'
+		href: resolve('/impressum')
 	},
 	{
 		label: 'Datenschutz',
-		href: '/datenschutz'
+		href: resolve('/datenschutz')
 	}
 ];
 

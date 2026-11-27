@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { untrack } from 'svelte';
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
@@ -64,7 +65,7 @@
 		<p class="font-bold mb-sm">Änderungen gespeichert!</p>
 		<p class="text-sm mb-md">
 			Deine Geschichte wurde aktualisiert. Wir prüfen sie noch einmal, ob sie <a
-				href="/regeln"
+				href={resolve('/regeln')}
 				target="_blank"
 			>
 				unseren Regeln

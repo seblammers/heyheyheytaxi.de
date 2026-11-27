@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
@@ -25,7 +26,7 @@
 					12051 Berlin <br />
 					E-Mail: <ObfuscatedEmail /><br />
 					Weitere Angaben findest du im
-					<a href="/impressum">Impressum</a>.
+					<a href={resolve('/impressum')}>Impressum</a>.
 				</p>
 			</div>
 
@@ -63,7 +64,7 @@
 						nicht weitergegeben und nie für Werbung oder Newsletter genutzt. Wir verwenden sie nur,
 						um dir Rückmeldung zu deiner eingereichten Geschichte zu geben oder um zu bestätigen,
 						dass du die Geschichte geschrieben hast, wenn du deinen Geheimcode verloren hast (<a
-							href="/so-gehts#versprechen"
+							href={resolve('/so-gehts#versprechen')}
 						>
 							Unser Versprechen
 						</a>)

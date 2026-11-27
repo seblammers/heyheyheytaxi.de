@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 
 	let { slug }: { slug: string } = $props();
@@ -38,7 +39,7 @@
 		ihn dir am besten zusammen mit deinem Geheimcode.
 	</p>
 	<a
-		href={storyPath}
+		href={resolve('/lesen/[slug]', { slug })}
 		class="block w-full px-sm py-xs bg-taxi-blue text-taxi-yellow rounded-button text-sm font-medium text-center hover:opacity-90 transition-opacity"
 	>
 		Zur Geschichte

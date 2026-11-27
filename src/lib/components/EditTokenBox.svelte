@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { saveToken } from '#lib/utils/tokenStorage.ts';
 
 	let {
@@ -34,7 +35,7 @@
 <div class="p-sm bg-background rounded-card border border-border">
 	<p class="flex justify-between gap-xs mb-xs text-sm">
 		<span class="font-bold">Dein Geheimcode:</span>
-		<a href="/so-gehts#geheimcode" target="_blank"> Was ist das? </a>
+		<a href={resolve('/so-gehts#geheimcode')} target="_blank"> Was ist das? </a>
 	</p>
 	<div class="flex flex-col sm:flex-row sm:items-center gap-xs mb-sm">
 		<code class="flex-1 px-sm py-xs bg-background-alt rounded text-sm font-mono break-all">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Dialog, Button } from 'bits-ui';
 	import { deletePost } from '../../routes/lesen/data.remote';
 	import { removeToken } from '#lib/utils/tokenStorage.ts';
@@ -30,7 +31,7 @@
 			// Close dialog
 			open = false;
 			// Redirect to story list with success message
-			goto('/lesen?deleted=true');
+			goto(resolve('/lesen?deleted=true'));
 		}
 	});
 </script>

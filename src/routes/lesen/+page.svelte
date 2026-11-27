@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 	import PostCard from '#lib/components/PostCard.svelte';
@@ -41,7 +42,7 @@
 			{#if posts.length === 0}
 				<div class="nk-card text-center">
 					<p class="text-foreground-alt">Noch keine Geschichten vorhanden.</p>
-					<a href="/einreichen" class="text-taxi-blue hover:underline font-medium">
+					<a href={resolve('/einreichen')} class="text-taxi-blue hover:underline font-medium">
 						Sei der Erste und teile deine Geschichte!
 					</a>
 				</div>
@@ -56,7 +57,7 @@
 
 		<div class="mt-xl text-center">
 			<a
-				href="/einreichen"
+				href={resolve('/einreichen')}
 				class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 			>
 				Deine Geschichte einreichen

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import TaxiLogo from './TaxiLogo.svelte';
 	import { navGroups, legalItems } from '#lib/config.ts';
 	import { page } from '$app/state';
@@ -13,7 +14,7 @@
 			class="col-span-2 grid grid-cols-subgrid items-start"
 			aria-label="Hauptnavigation (Fußzeile)"
 		>
-			<a href="/" class="flex items-center">
+			<a href={resolve('/')} class="flex items-center">
 				<TaxiLogo />
 				<span class="sr-only">Startseite</span>
 			</a>

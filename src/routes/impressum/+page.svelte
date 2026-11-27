@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import ObfuscatedEmail from '#lib/components/ObfuscatedEmail.svelte';
 </script>
@@ -38,7 +39,7 @@
 					Hey, hey, hey, Taxi! ist ein privates, nicht-kommerzielles Projekt. Die Geschichten auf
 					dieser Seite stammen von den jeweils genannten Autorinnen und Autoren und werden vor der
 					Veröffentlichung geprüft. Mehr dazu erfährst du auf der Seite
-					<a href="/ueber">Über das Projekt</a>.
+					<a href={resolve('/ueber')}>Über das Projekt</a>.
 				</p>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { storyDescription } from '#lib/seo.ts';
 	import PostCard from '#lib/components/PostCard.svelte';
@@ -25,7 +26,7 @@
 					<p class="text-foreground-alt mb-md">
 						Diese Geschichte existiert nicht oder wurde noch nicht freigegeben.
 					</p>
-					<a href="/lesen" class="text-taxi-blue hover:underline font-medium">
+					<a href={resolve('/lesen')} class="text-taxi-blue hover:underline font-medium">
 						← Zurück zu allen Geschichten
 					</a>
 				</div>
@@ -47,7 +48,9 @@
 	<section class="nk-section">
 		<div class="nk-container max-w-prose">
 			<nav class="mb-md">
-				<a href="/lesen" class="text-taxi-blue hover:underline text-sm"> ← Alle Geschichten </a>
+				<a href={resolve('/lesen')} class="text-taxi-blue hover:underline text-sm">
+					← Alle Geschichten
+				</a>
 			</nav>
 
 			{#if post.status === 'approved'}
@@ -69,7 +72,7 @@
 					<h1 class="mb-sm">Geschichte wurde abgelehnt</h1>
 					<p class="text-foreground-alt mb-md">
 						Deine Geschichte wurde leider nicht veröffentlicht. Dies kann verschiedene Gründe haben,
-						bitte informiere dich über unsere Regeln: <a href="/regeln">hier</a>.
+						bitte informiere dich über unsere Regeln: <a href={resolve('/regeln')}>hier</a>.
 					</p>
 					<div class="flex flex-col gap-sm">
 						<p class="text-sm font-bold">Titel:</p>
@@ -80,7 +83,7 @@
 
 			<div class="mt-xl text-center">
 				<a
-					href="/einreichen"
+					href={resolve('/einreichen')}
 					class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 				>
 					Deine eigene Geschichte einreichen

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import TaxiLogo from './TaxiLogo.svelte';
 	import { Menu, X } from 'lucide';
 	import { MorphIcon } from 'morphicons/svelte';
@@ -10,7 +11,7 @@
 </script>
 
 <nav class="flex items-center justify-between nk-container py-sm! w-full relative z-50">
-	<a href="/" class="flex items-center">
+	<a href={resolve('/')} class="flex items-center">
 		<TaxiLogo />
 		<span class="sr-only">Startseite</span>
 	</a>

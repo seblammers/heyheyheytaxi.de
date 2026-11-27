@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 	import TaxiHeyIntro from '#lib/components/TaxiHeyIntro.svelte';
@@ -18,17 +19,17 @@
 		</p>
 		<p class="text-foreground-alt">
 			Du weißt nicht, worum es geht?
-			<a href="/ueber">Hier erklären wir dir, was los ist.</a>
+			<a href={resolve('/ueber')}>Hier erklären wir dir, was los ist.</a>
 		</p>
 		<div class="flex flex-col sm:flex-row gap-sm mt-md">
 			<a
-				href="/lesen"
+				href={resolve('/lesen')}
 				class="px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button text-center hover:opacity-90 transition-opacity"
 			>
 				Geschichten lesen
 			</a>
 			<a
-				href="/einreichen"
+				href={resolve('/einreichen')}
 				class="px-lg py-sm bg-background text-taxi-blue font-bold rounded-button text-center border-2 border-taxi-blue hover:bg-taxi-blue hover:text-taxi-yellow transition-colors"
 			>
 				Geschichte einreichen

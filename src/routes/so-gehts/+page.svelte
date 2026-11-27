@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 </script>
@@ -88,7 +89,7 @@
 					<li>Deine E-Mail wird nie veröffentlicht und nie an andere weitergegeben.</li>
 					<li>
 						Du kannst sie jederzeit löschen lassen. Mehr dazu steht in der
-						<a href="/datenschutz">Datenschutzerklärung</a>.
+						<a href={resolve('/datenschutz')}>Datenschutzerklärung</a>.
 					</li>
 				</ul>
 			</div>
@@ -96,19 +97,19 @@
 			<div class="nk-inset text-sm text-foreground-alt">
 				<p>
 					Code verloren oder noch Fragen?
-					<a href="/kontakt">Schreib uns</a>.
+					<a href={resolve('/kontakt')}>Schreib uns</a>.
 				</p>
 			</div>
 		</div>
 
 		<div class="mt-lg flex flex-col gap-3xs text-center">
 			<a
-				href="/einreichen"
+				href={resolve('/einreichen')}
 				class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 			>
 				Geschichte einreichen
 			</a>
-			<a href="/lesen" class="text-taxi-blue hover:underline text-sm">
+			<a href={resolve('/lesen')} class="text-taxi-blue hover:underline text-sm">
 				← Andere Geschichten lesen
 			</a>
 		</div>

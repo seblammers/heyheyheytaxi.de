@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 </script>
@@ -165,7 +166,7 @@
 						<p>
 							<strong>Mit dem Einreichen stimmst du dieser Lizenzierung zu.</strong> Falls du Fragen
 							dazu hast,
-							<a href="/kontakt">kontaktiere uns</a> bitte vor dem Einreichen.
+							<a href={resolve('/kontakt')}>kontaktiere uns</a> bitte vor dem Einreichen.
 						</p>
 					</div>
 				</div>
@@ -176,7 +177,9 @@
 						Falls du unsicher bist, ob deine Geschichte den Richtlinien entspricht, kannst du sie
 						gern trotzdem einreichen. Wir prüfen jede Geschichte individuell.
 
-						<a href="/kontakt">Schreib uns einfach eine E-Mail, falls du weitere Fragen hast</a>.
+						<a href={resolve('/kontakt')}>
+							Schreib uns einfach eine E-Mail, falls du weitere Fragen hast
+						</a>.
 					</p>
 				</div>
 			</div>
@@ -184,12 +187,12 @@
 
 		<div class="mt-lg flex flex-col gap-3xs text-center">
 			<a
-				href="/einreichen"
+				href={resolve('/einreichen')}
 				class="inline-block px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 			>
 				Geschichte einreichen
 			</a>
-			<a href="/lesen" class="text-taxi-blue hover:underline text-sm">
+			<a href={resolve('/lesen')} class="text-taxi-blue hover:underline text-sm">
 				← Zurück zu allen Geschichten
 			</a>
 		</div>

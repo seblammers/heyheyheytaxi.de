@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 	const books = [
@@ -35,9 +36,9 @@
 					Familien, Kitas und Klassenzimmern wohl genauso ist.
 				</p>
 				<p>
-					Deshalb gibt es diese Seite: einen <a href="/regeln">freien, offenen Ort</a>, an dem all
-					diese Geschichten ein Zuhause finden und von allen gelesen und weitererzählt werden
-					dürfen.
+					Deshalb gibt es diese Seite: einen <a href={resolve('/regeln')}>freien, offenen Ort</a>,
+					an dem all diese Geschichten ein Zuhause finden und von allen gelesen und weitererzählt
+					werden dürfen.
 				</p>
 				<p class="text-foreground-alt">– Sebastian</p>
 			</div>
@@ -73,13 +74,13 @@
 
 		<div class="mt-lg flex flex-col sm:flex-row gap-sm justify-center">
 			<a
-				href="/lesen"
+				href={resolve('/lesen')}
 				class="px-lg py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button text-center hover:opacity-90 transition-opacity"
 			>
 				Geschichten lesen
 			</a>
 			<a
-				href="/einreichen"
+				href={resolve('/einreichen')}
 				class="px-lg py-sm bg-background text-taxi-blue font-bold rounded-button text-center border-2 border-taxi-blue hover:bg-taxi-blue hover:text-taxi-yellow transition-colors"
 			>
 				Geschichte einreichen

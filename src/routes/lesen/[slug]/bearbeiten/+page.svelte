@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import PostEditForm from '#lib/components/PostEditForm.svelte';
 	import DeleteStoryDialog from '#lib/components/DeleteStoryDialog.svelte';
@@ -9,7 +10,7 @@
 	import { Button } from 'bits-ui';
 	import type { PublicPost } from '#lib/server/db/schema.ts';
 
-	const slug = $derived(page.params.slug);
+	const slug = $derived(page.params.slug ?? '');
 	// Token comes from localStorage only – never from the URL (history, logs)
 	const token = $derived(slug ? getToken(slug) : null);
 
@@ -91,7 +92,7 @@
 			saveToken(slug, enteredToken);
 
 			// Reload the page to pick up the token
-			await goto(`/lesen/${slug}/bearbeiten`, { refreshAll: true });
+			await goto(resolve('/lesen/[slug]/bearbeiten', { slug }), { refreshAll: true });
 		} catch (error) {
 			console.error('[EditPage] Token validation error:', error);
 			tokenError = 'Der Geheimcode konnte nicht geprüft werden';
@@ -122,7 +123,7 @@
 						Die Geschichte konnte nicht geladen werden:{' '}
 						{error instanceof Error ? error.message : String(error) || 'Unbekannter Fehler'}
 					</p>
-					<a href="/lesen" class="text-taxi-blue hover:underline font-medium">
+					<a href={resolve('/lesen')} class="text-taxi-blue hover:underline font-medium">
 						← Zurück zu allen Geschichten
 					</a>
 				</div>
@@ -138,7 +139,10 @@
 		<section class="nk-section">
 			<div class="nk-container max-w-prose">
 				<nav class="mb-md">
-					<a href="/lesen/{slug}" class="text-taxi-blue hover:underline text-sm">
+					<a
+						href={resolve('/lesen/[slug]', { slug })}
+						class="text-taxi-blue hover:underline text-sm"
+					>
 						← Zurück zur Geschichte
 					</a>
 				</nav>
@@ -154,7 +158,7 @@
 							<p class="text-foreground-alt">
 								Um diese Geschichte zu bearbeiten, brauchst du den Geheimcode, den du beim
 								Einreichen bekommen hast.
-								<a href="/so-gehts#geheimcode">Was ist das?</a>
+								<a href={resolve('/so-gehts#geheimcode')}>Was ist das?</a>
 							</p>
 						</header>
 
@@ -174,7 +178,7 @@
 								{/if}
 								<p class="text-xs text-foreground-alt">
 									Der Geheimcode wurde dir direkt nach dem Einreichen angezeigt. Verloren?
-									<a href="/so-gehts#email">So helfen wir dir</a>.
+									<a href={resolve('/so-gehts#email')}>So helfen wir dir</a>.
 								</p>
 							</div>
 
@@ -200,7 +204,10 @@
 		<section class="nk-section">
 			<div class="nk-container max-w-prose">
 				<nav class="mb-md">
-					<a href="/lesen/{slug}" class="text-taxi-blue hover:underline text-sm">
+					<a
+						href={resolve('/lesen/[slug]', { slug })}
+						class="text-taxi-blue hover:underline text-sm"
+					>
 						← Zurück zur Geschichte
 					</a>
 				</nav>
@@ -215,7 +222,7 @@
 						Geschichte ein.
 					</p>
 					<a
-						href="/lesen/{slug}/bearbeiten"
+						href={resolve('/lesen/[slug]/bearbeiten', { slug })}
 						class="inline-block px-md py-sm bg-taxi-blue text-taxi-yellow font-bold rounded-button hover:opacity-90 transition-opacity"
 					>
 						Geheimcode erneut eingeben
@@ -227,7 +234,10 @@
 		<section class="nk-section">
 			<div class="nk-container max-w-prose">
 				<nav class="mb-md">
-					<a href="/lesen/{slug}" class="text-taxi-blue hover:underline text-sm">
+					<a
+						href={resolve('/lesen/[slug]', { slug })}
+						class="text-taxi-blue hover:underline text-sm"
+					>
 						← Zurück zur Geschichte
 					</a>
 				</nav>

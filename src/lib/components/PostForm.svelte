@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Button } from 'bits-ui';
 	import SimpleEditor from './SimpleEditor.svelte';
 	import MorphCheckbox from './MorphCheckbox.svelte';
@@ -48,7 +49,7 @@
 			<p class="font-bold mb-sm">Danke für deine Geschichte!</p>
 			<p class="text-sm mb-md">
 				Sie wird bald veröffentlicht. Wir prüfen, ob deine Geschichte <a
-					href="/regeln"
+					href={resolve('/regeln')}
 					target="_blank"
 				>
 					unseren Regeln
@@ -135,14 +136,14 @@
 			/>
 			<p id="authorEmail-hint" class="text-xs text-foreground-alt">
 				Freiwillig. Nach dem Einreichen zeigt dir diese Internetseite einen <a
-					href="/so-gehts#geheimcode"
+					href={resolve('/so-gehts#geheimcode')}
 					target="_blank"
 				>
 					Geheimcode
 				</a>
 				an, mit dem du deine Geschichte später ändern kannst. Mit deiner E-Mail können wir dir helfen,
 				falls du den Code verlierst. Wir schicken dir nie Werbung.
-				<a href="/so-gehts#email" target="_blank"> Wie das genau funktioniert → </a>
+				<a href={resolve('/so-gehts#email')} target="_blank"> Wie das genau funktioniert → </a>
 			</p>
 			{#each submitPost.fields.authorEmail.issues() as issue}
 				<p class="text-destructive text-sm">{issue.message}</p>
@@ -165,7 +166,11 @@
 				<MorphCheckbox {...submitPost.fields.rulesAccepted.as('checkbox')} required />
 				<span>
 					Ich habe die
-					<a href="/regeln" target="_blank" class="text-taxi-blue hover:underline font-medium">
+					<a
+						href={resolve('/regeln')}
+						target="_blank"
+						class="text-taxi-blue hover:underline font-medium"
+					>
 						Regeln
 					</a>
 					gelesen und halte mich daran.
@@ -180,7 +185,7 @@
 				<span>
 					Ich bestätige, dass ich das Urheberrecht an dieser Geschichte besitze und sie unter der
 					<a
-						href="/regeln#lizenz"
+						href={resolve('/regeln#lizenz')}
 						target="_blank"
 						class="text-taxi-blue hover:underline font-medium"
 					>

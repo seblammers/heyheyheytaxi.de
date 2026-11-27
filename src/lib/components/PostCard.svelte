@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import type { PublicPost } from '#lib/server/db/schema.ts';
 
 	let {
@@ -33,7 +34,9 @@
 			{#if showFullContent}
 				{post.title}
 			{:else}
-				<a href="/lesen/{post.slug}" class="hover:underline">{post.title}</a>
+				<a href={resolve('/lesen/[slug]', { slug: post.slug })} class="hover:underline">
+					{post.title}
+				</a>
 			{/if}
 		</h2>
 		<div class="flex items-center gap-xs text-sm text-foreground-alt">
@@ -67,11 +70,17 @@
 		</a>
 
 		{#if showFullContent}
-			<a href="/lesen/{post.slug}/bearbeiten" class="text-taxi-blue hover:underline font-medium">
+			<a
+				href={resolve('/lesen/[slug]/bearbeiten', { slug: post.slug })}
+				class="text-taxi-blue hover:underline font-medium"
+			>
 				Bearbeiten →
 			</a>
 		{:else}
-			<a href="/lesen/{post.slug}" class="text-taxi-blue hover:underline font-medium">
+			<a
+				href={resolve('/lesen/[slug]', { slug: post.slug })}
+				class="text-taxi-blue hover:underline font-medium"
+			>
 				Weiterlesen →
 			</a>
 		{/if}

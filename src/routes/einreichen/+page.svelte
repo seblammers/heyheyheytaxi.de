@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Meta from '#lib/components/Meta.svelte';
 	import { pageSeo } from '#lib/seo.ts';
 	import PostForm from '#lib/components/PostForm.svelte';
@@ -21,7 +22,7 @@
 		</div>
 
 		<div class="mt-lg text-center">
-			<a href="/lesen" class="text-taxi-blue hover:underline text-sm">
+			<a href={resolve('/lesen')} class="text-taxi-blue hover:underline text-sm">
 				← Andere Geschichten lesen
 			</a>
 		</div>
