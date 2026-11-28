@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ogImageFallback from '#lib/assets/og-image.png';
-	import { siteName, defaultDescription } from '#lib/seo.ts';
+	import { site } from '#lib/site.ts';
 
 	// Single source of truth for SEO tags. Render exactly once per page, because
 	// <svelte:head> only appends tags and never replaces existing ones.
 	let {
 		title,
-		description = defaultDescription,
+		description = site.description,
 		image,
 		noindex = false
 	}: {
@@ -19,7 +19,7 @@
 	} = $props();
 
 	// Subpages get the site name appended; the home page uses it alone
-	const fullTitle = $derived(title ? `${title} | ${siteName}` : siteName);
+	const fullTitle = $derived(title ? `${title} | ${site.title}` : site.title);
 
 	// Generated images are cached as immutable, so the URL must change with the text.
 	// A short string hash is enough to bust caches; it doesn't need to be secure.
@@ -40,7 +40,7 @@
 <svelte:head>
 	<title>{fullTitle}</title>
 	<meta name="description" content={description} />
-	<meta property="og:title" content={title ?? siteName} />
+	<meta property="og:title" content={title ?? site.title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={`${page.url.origin}${page.url.pathname}`} />
 	<meta property="og:image" content={imageUrl} />

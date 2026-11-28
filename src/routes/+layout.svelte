@@ -7,9 +7,14 @@
 	import './layout.css';
 	import Nav from '#lib/components/Nav.svelte';
 	import Footer from '#lib/components/Footer.svelte';
+	import { site } from '#lib/site.ts';
 
 	let { children } = $props();
 </script>
+
+<svelte:head>
+	<link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
+</svelte:head>
 
 <Nav />
 <main>

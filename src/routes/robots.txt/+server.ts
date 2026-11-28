@@ -1,3 +1,4 @@
+import { site } from '#lib/site.ts';
 import type { RequestHandler } from './$types';
 
 // Only the production domain may be indexed. dev.heyheyheytaxi.de, previews and
@@ -7,7 +8,14 @@ const PRODUCTION_HOST = 'heyheyheytaxi.de';
 export const GET: RequestHandler = ({ url }) => {
 	const body =
 		url.hostname === PRODUCTION_HOST
-			? ['User-agent: *', 'Disallow: /lesen/*/bearbeiten', ''].join('\n')
+			? [
+					'User-agent: *',
+					'Allow: /',
+					'Disallow: /lesen/*/bearbeiten',
+					'',
+					`Sitemap: ${site.url}/sitemap.xml`,
+					''
+				].join('\n')
 			: [
 					'# Not the production site – disallow all crawling',
 					'User-agent: *',

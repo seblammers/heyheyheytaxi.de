@@ -1,7 +1,4 @@
-export const siteName = 'Hey, hey, hey, Taxi!';
-
-export const defaultDescription =
-	'Hey, hey, hey, Taxi! ist eine Internetseite für all eure Taxi-Geschichten.';
+// Site name and default description come from the environment, see #lib/site.ts
 
 export const storyDescription =
 	'Eine Geschichte aus der freien, offenen Sammlung von Taxi-Geschichten auf heyheyheytaxi.de.';
